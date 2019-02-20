@@ -1,0 +1,226 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+<div class="col-md-4">
+    
+    <div class="box box-solid box-primary">
+        <div class="box-header with-border">
+            <h1 class="box-title">GENERATE - JOB ORDER</h1>
+            <div class="box-tools pull-right">
+                <span><i class="glyphicon glyphicon-stats"></i></span>
+            </div>
+            <!-- /.box-tools -->
+        </div>
+        <!-- /.box-header -->
+        <div class="box-body">
+            <form class="form-group">
+                @using (Html.BeginForm("CreateJoSummary", "Payroll", FormMethod.Post))
+                {
+                    <div class="table-responsive">
+                        <table class="table">
+                            <tr>
+                                <td class="col-sm-3"><strong>Date Range</strong></td>
+                                <td class="col-sm-1">: </td>
+                                <td class="col-sm-8">
+                                    <input type="text" name="filter_date" id="filter_date" placeholder="Date Range" class="inline form-control" style="border-radius:0px;background:#fff" readonly required />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="col-sm-3"><strong>Document</strong></td>
+                                <td class="col-sm-1"> :</td>
+                                <td class="col-sm-8">
+                                    <select name="selection" id="selection" class="form-control pull-left" style="border-radius:0px;" required>
+                                        <option value="1">ALL</option>
+                                        <option value="2">Pag-Ibig</option>
+                                        <option value="3">Coop</option>
+                                        <option value="4">PHIC</option>
+                                        <option value="5">GSIS</option>
+                                        <option value="6">EXCESS</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="col-sm-3"><strong>Payment Type</strong></td>
+                                <td class="col-sm-1"> :</td>
+                                <td class="col-sm-8">
+                                    <select name="disbursment" id="disbursment" class="form-control pull-left" style="border-radius:0px;" required>
+                                        <option value="ATM">ATM</option>
+                                        <option value="CASH_CARD">Cashcard</option>
+                                        <option value="NO_CARD">W/O LBP Cards</option>
+                                        <option value="UNDER_VTF">Under VTF</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="col-sm-3"><strong>Salary Charge</strong></td>
+                                <td class="col-sm-1"> :</td>
+                                <td class="col-sm-8">
+
+                                    <select name="section" id="section" class="form-control pull-left" style="border-radius:0px;" required>
+                                        <option value="ALL">ALL</option>
+                                        <option value="HEALTH PROMOTION">HEALTH PROMOTION</option>
+                                        <option value="HEALTH EMERGENCY PREPAREDNESS AND RESPONSE (HEPR)">HEALTH EMERGENCY PREPAREDNESS AND RESPONSE (HEPR)</option>
+                                        <option value="REGULATION OF REGIONAL HEALTH FACILITIES AND SERVICES">REGULATION OF REGIONAL HEALTH FACILITIES AND SERVICES</option>
+                                        <option value="SAA 2018-01-0014">SAA 2018-01-0014</option>
+                                        <option value="SAA 2018-02-0059">SAA 2018-02-0059</option>
+                                        <option value="SUPPORT TO OPERATIONS (STO)">SUPPORT TO OPERATIONS (STO)</option>
+                                        <option value="PUBLIC HEALTH MANAGEMENT (PHM)">PUBLIC HEALTH MANAGEMENT (PHM)</option>
+                                        <option value="SAA 2018-02-0203">SAA 2018-02-0203</option>
+                                        <option value="SAA 2018-04-0699">SAA 2018-04-0699</option>
+                                        <option value="SAA 2018-02-0081">SAA 2018-02-0081</option>
+
+                                    </select>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                            <button type="submit" name="submit" class="btn-lg btn-default center-block col-sm-12 btn_payroll_print" value="Search">
+                                <span class="glyphicon glyphicon-print" aria-hidden="true"></span> Print
+                            </button>
+                }
+            </form>
+        </div>
+    </div>
+
+    <div class="box box-solid box-primary">
+        <div class="box-header with-border">
+            <h1 class="box-title">GENERATE - REGULAR(SALARY CHARGE)</h1>
+            <div class="box-tools pull-right">
+                <span><i class="glyphicon glyphicon-stats"></i></span>
+            </div>
+            <!-- /.box-tools -->
+        </div>
+        <!-- /.box-header -->
+        <div class="box-body">
+           
+                @using (Html.BeginForm("CreateRegularSummary", "Payroll", FormMethod.Post))
+                {
+                    <div class="table-responsive">
+                        <table class="table">
+                            <tr>
+                                <td class="col-sm-3"><strong>Date</strong></td>
+                                <td class="col-sm-1">: </td>
+                                <td class="col-sm-8">
+                                    <input type="text" name="filter_date" id="regular_search" placeholder="Choose Date" class="inline form-control" style="border-radius:0px;background:#fff" value="@ViewBag.Search" readonly />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="col-sm-3"><strong>Salary Charge</strong></td>
+                                <td class="col-sm-1"> :</td>
+                                <td class="col-sm-8">
+
+                                    <select name="section" id="section" class="form-control pull-left" style="border-radius:0px;" required>
+                                        <option value="ALL">ALL</option>
+                                        <option value="RD_ARD">RD/ARD</option>
+                                        <option value="MSD">MSD</option>
+                                        <option value="LHSD">LHSD</option>
+                                        <option value="RLED">RLED</option>
+                                        <option value="PDO-CEBU">PDO-CEBU</option>
+                                        <option value="PDO-NEGROS">PDO-NEGROS</option>
+                                        <option value="PDO-SIQUIJOR">PDO-SIQUIJOR</option>
+                                    </select>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <button type="submit" name="submit" class="btn-lg btn-default center-block col-sm-12 btn_payroll_print" value="Search">
+                    <span class="glyphicon glyphicon-print" aria-hidden="true"></span> Print
+                    </button>
+                }
+        
+        </div>
+    </div>
+
+    <div class="box box-solid box-primary">
+        <div class="box-header with-border">
+            <h1 class="box-title">GENERATE - REGULAR (DIVISION)</h1>
+            <div class="box-tools pull-right">
+                <span><i class="glyphicon glyphicon-stats"></i></span>
+            </div>
+            <!-- /.box-tools -->
+        </div>
+        <!-- /.box-header -->
+        <div class="box-body">
+
+            @using (Html.BeginForm("CreateRegularSummary", "Payroll", FormMethod.Post))
+            {
+                <div class="table-responsive">
+                    <table class="table">
+                        <tr>
+                            <td class="col-sm-3"><strong>Date</strong></td>
+                            <td class="col-sm-1">: </td>
+                            <td class="col-sm-8">
+                                <input type="text" name="filter_date" id="regular_search" placeholder="Choose Date" class="inline form-control" style="border-radius:0px;background:#fff" value="@ViewBag.Search" readonly />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="col-sm-3"><strong>Division</strong></td>
+                            <td class="col-sm-1"> :</td>
+                            <td class="col-sm-8">
+
+                                <select name="section" id="section" class="form-control pull-left" style="border-radius:0px;" required>
+                                    <option value="3">Office of the RD / ARD</option>
+                                    <option value="4">LHSD - Local Health Support Division</option>
+                                    <option value="5">RLED - Regulatory and Licensing Enforcement Division</option>
+                                    <option value="6">MSD - Management Support Division</option>
+                                </select>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                    <button type="submit" name="submit" class="btn-lg btn-default center-block col-sm-12 btn_payroll_print" value="Search">
+                        <span class="glyphicon glyphicon-print" aria-hidden="true"></span> Print
+                    </button>
+            }
+
+        </div>
+    </div>
+
+
+
+</div>
+<div class="col-md-8">
+    <div class="box box-solid box-primary">
+        <div class="box-header with-border">
+            <h1 class="box-title">REPORT LIST</h1>
+            <div class="box-tools pull-right">
+                <!-- Buttons, labels, and many other things can be placed here! -->
+                <!-- Here is a label for example -->
+                <span><i class="glyphicon glyphicon-file"></i></span>
+            </div>
+            <!-- /.box-tools -->
+        </div>
+        <!-- /.box-header -->
+        <div class="box-body">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Documents</th>
+                        <th>Disbursement</th>
+                        <th>Salary Charge</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (int i = 0; i < 20; i++)
+                    {
+                        <tr>
+                            <td>Title 1</td>
+                            <td>ALL</td>
+                            <td>CASH CARD</td>
+                            <td>SA-2017-123456</td>
+
+                            <td>
+                                <button type="button" class="btn btn-xs btn-primary"><i class="glyphicon glyphicon-book"></i></button>
+                                <button type="button" class="btn btn-xs btn-success"><i class="glyphicon glyphicon-transfer"></i></button>
+                                <button type="button" class="btn btn-xs btn-danger"><i class="glyphicon glyphicon-trash"></i></button>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

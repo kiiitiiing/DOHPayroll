@@ -1,0 +1,165 @@
+﻿@model PagedList.IPagedList<PayrollSystem.Models.Employee>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+@{
+
+    ViewBag.Title = ViewBag.Action;
+}
+<style>
+    .box {
+        border-radius:0px;
+    
+    }
+</style>
+
+<div class="box box box-default">
+    <div class="box-header with-border">
+        <h1 class="box-title"><b>Job Order - @ViewBag.Action</b></h1>
+        <div class="box-tools pull-right">
+            <!-- Buttons, labels, and many other things can be placed here! -->
+            <!-- Here is a label for example -->
+            <span><i class="glyphicon glyphicon-user"></i></span>
+        </div>
+        <!-- /.box-tools -->
+    </div>
+    <!-- /.box-header -->
+    <div class="box-body">
+        <table class="table table-striped">
+            <tr>
+                <th>ID NO</th>
+                <th>FIRST NAME</th>
+                <th>MIDDLE NAME</th>
+                <th>LASTNAME</th>
+                <th></th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ID)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Firstname)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Middlename)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Lastname)
+                    </td>
+                    <td>
+                       <button class="btn btn-xs btn-success create_jo_payroll"><i class="glyphicon glyphicon-plus-sign"></i></button>
+                        <button class="btn btn-xs btn-success view_payroll_list"><i class="glyphicon glyphicon-info-sign"></i></button>
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+    <!-- /.box-body -->
+    <div class="box-footer">
+        Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+        @Html.PagedListPager(Model, page => Url.Action("JobOrder",
+ new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+
+        <div class="box box box-default hide" id="box_create_payroll">
+            <div class="box-header with-border">
+                <h1 class="box-title"><b>Create Payroll</b></h1>
+                <div class="box-tools pull-right">
+                    <!-- Buttons, labels, and many other things can be placed here! -->
+                    <!-- Here is a label for example -->
+                    <button class="btn btn-xs btn-danger create_jo_payroll"><i class="glyphicon glyphicon-remove"></i></button>
+                </div>
+            </div>
+            <div class="box-body">
+                @RenderPage(Url.Content("~/Views/PartialView/JobOrderCreateForm.cshtml"))
+            </div>
+        </div>
+     
+    </div>
+    <div class="col-md-6">
+        <div class="box box box-default hide" id="box_jo_payroll_list">
+            <div class="box-header with-border">
+                <h1 class="box-title"><b>Payroll List</b></h1>
+                <div class="box-tools pull-right">
+                    <!-- Buttons, labels, and many other things can be placed here! -->
+                    <!-- Here is a label for example -->
+                    <button class="btn btn-xs btn-danger create_jo_payroll"><i class="glyphicon glyphicon-remove"></i></button>
+                </div>
+                <!-- /.box-tools -->
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+               <div class="parent-payroll-list">
+                 
+               </div>
+            </div>
+            <!-- /.box-body -->
+        </div>
+    </div>
+</div> 
+
+@section scripts{
+<script>
+
+    function payrollListPagination(page) {
+       var url = "@Url.Action("PayrollList", "PartialView")";
+       $.ajax({
+              url: url,
+              type: "POST",
+              data: { page: page },
+              success: function (html) {
+                  $(".parent-payroll-list").html(html);
+                  console.log(html);
+              }
+            });
+     }
+        $(document).ready(function () {
+            //create payroll by default is hidden
+
+            $(".parent-payroll-list > .remove-details-container").click(function (e) {
+                alert("Theres no fall");
+            });
+
+            $("body").on("click", ".parent-payroll-list > .remove-detaisl-container", function () {
+                alert("Theres no fall");
+            });
+
+            $(".box-footer-payroll-list").click(function (e) {
+                alert('Pressed');
+                e.preventDefault();
+            });
+    
+            $('.create_jo_payroll').click(function () {
+
+                if ($('#box_create_payroll').hasClass("hide"))
+                    $('#box_create_payroll').removeClass("hide");
+                else
+                    $('#box_create_payroll').addClass("hide");
+               
+            });
+
+            $('.view_payroll_list').click(function () {
+
+
+                if ($('#box_jo_payroll_list').hasClass("hide"))
+                {
+                    $('#box_jo_payroll_list').removeClass("hide");
+                    $(".parent-payroll-list").html("Loading......");
+                    payrollListPagination(1);
+
+                } 
+                else
+                    $('#box_jo_payroll_list').addClass("hide");
+
+            });
+
+    });
+    </script>
+}
