@@ -1,0 +1,555 @@
+﻿<style>
+    td {
+        margin: 0px;
+    }
+
+    input {
+        padding: 10px;
+        width: 250px;
+    }
+
+    .loading {
+        background-color: #ffffff;
+        background-image: url("http://loadinggif.com/images/image-selection/3.gif");
+        background-size: 25px 25px;
+        background-position: right center;
+        background-repeat: no-repeat;
+    }
+</style>
+
+<input type="text" class="hidden" id="regular_month_hidden" value="@Session["Month"]" />
+<input type="text" class="hidden" id="regular_year_hidden" value="@Session["Year"]" />
+@using (Html.BeginForm("InsertRegular", "Payroll", FormMethod.Post, new { id = "createPayrollRegular" }))
+{
+    <input type="text" class="hidden" id="id" name="id" value="@Session["empID"]" />
+    <input type="text" class="hidden" id="work_sched" name="work_sched" value="@Session["work_sched"]" />
+    <input type="text" class="hidden" id="regular_id" name="regular_id" readonly />
+    <div class="row">
+        <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
+            <div class="form-group">
+                <label>Month</label>
+                <select name="regular_month" id="regular_month" class="form-control" required>
+                    <option value="0">Select Month</option>
+                    <option value="1">January</option>
+                    <option value="2">Februrary</option>
+                    <option value="3">March</option>
+                    <option value="4">April</option>
+                    <option value="5">May</option>
+                    <option value="6">June</option>
+                    <option value="7">July</option>
+                    <option value="8">August</option>
+                    <option value="9">September</option>
+                    <option value="10">October</option>
+                    <option value="11">November</option>
+                    <option value="12">December</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
+            <div class="form-group">
+                <label>Year</label>
+                <select name="regular_year" id="regular_year" class="form-control" required>
+                    <option value="0">Select Year</option>
+                    @for (int i = 2018; i <= DateTime.Now.Year; i++)
+                    {
+                        <option value="@i">@i</option>
+                    }
+
+                </select>
+            </div>
+        </div>
+    </div>
+                    <!--HIDDEN-->
+                    <div>
+                        <div class="row">
+                            <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
+                                <div class="form-group">
+                                    <label>Monthly Rate</label>
+                                    <input type="text" name="regular_salary" id="regular_salary" class="form-control input-data" value="@Session["Salary"]" required readonly />
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
+                                <div class="form-group">
+                                    <label>PERA</label>
+                                    <input type="text" class="form-control input-data" id="regular_pera" name="regular_pera" value="0.00" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
+                                <div class="form-group">
+                                    <label>Working Days</label>
+                                    <input type="text" class="form-control input-data" id="regular_working_days" name="regular_working_days" value="0" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
+                                <div class="form-group">
+                                    <label>Minutes (Late/Undertime)</label>
+                                    <input type="text" id="regular_minutes_late" name="regular_minutes_late" class="form-control input-data" value="0" required />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
+                                <div class="form-group">
+                                    <label>Absent Days</label>
+                                    <input type="text" class="form-control" id="regular_absent_date" name="regular_absent_date" placeholder="Choose Date" readonly />
+                                    <input type="text" class="form-control hidden" id="regular_absent_date_list" name="regular_absent_date_list" />
+                                </div>
+                                <div class="form-group">
+                                    <table id="regular_date_list" name="regular_date_list" class="table table-hover"></table>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
+                                <div class="form-group">
+                                    <label>Deduction(Late/Undertime/Absent)</label>
+                                    <input type="text" class="form-control" id="regular_deduction" name="regular_deduction" value="0.00" readonly />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row loader_ajax hidden">
+                            <div class="cold-md-12">
+                                <center><img src="@Url.Content("~/public/img/spin.gif")" width="150" style="padding:20px;"></center>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
+                                <div class="form-group">
+                                    <label>Net Amount</label>
+                                    <input type="text" class="form-control" id="regular_net_amount" name="regular_net_amount" value="0.00" readonly />
+                                </div>
+                            </div>
+                        </div>
+                        <hr />
+
+                        <div class="row">
+                            <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
+                                <div class="form-group">
+                                    <label>Tax</label>
+                                    <input type="tel" class="form-control hidden" id="regular_tax_original" name="regular_tax_original" value="@Session["Tax_Amount"]" required />
+                                    <input type="tel" class="form-control" id="regular_tax" name="regular_tax" value="@Session["Tax_Amount"]" required />
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
+                                <table>
+                                    <tr>
+                                        <td style="width:200px;">
+                                            <div class="form-group">
+                                                <label>CFI</label>
+                                                <input type="tel" class="form-control hidden" id="regular_cfi_original" name="regular_cfi_original" value="@Session["Cfi_Amount"]" required />
+                                                <input type="text" class="form-control" id="regular_cfi" name="regular_cfi" value="@Session["Cfi_Amount"]" required />
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="form-group">
+                                                <label>No. Payment</label>
+                                                <input type="text" class="form-control" id="cfi_payment" value="@Session["Cfi_Max"]" readonly />
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="form-group">
+                                                <label>No. Paid</label>
+                                                <input type="text" class="form-control" value="@Session["Cfi_Count"]" readonly />
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </table>
+
+                            </div>
+                        </div>
+                        <hr />
+                        <div class="row">
+                            <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
+                                <div class="form-group">
+                                    <label>GSIS - Premium</label>
+                                    <input type="text" class="form-control input-data" id="regular_gsis_premium" name="regular_gsis_premium" value="0.00" required readonly />
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
+                                <table>
+                                    <tr>
+                                        <td style="width:200px;">
+                                            <div class="form-group">
+                                                <label>GSIS - Consoloan</label>
+                                                <input type="tel" class="form-control hidden" id="regular_gsis_consoloan_original" name="regular_gsis_consoloan_original" value="@Session["Gsis_Consoloan_Amount"]" required />
+                                                <input type="text" class="form-control input-data" id="regular_gsis_consoloan" name="regular_gsis_consoloan" value="@Session["Gsis_Consoloan_Amount"]" required />
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="form-group">
+                                                <label>No. Payment</label>
+                                                <input type="text" class="form-control" value="@Session["Gsis_Consoloan_Max"]" readonly />
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="form-group">
+                                                <label>No. Paid</label>
+                                                <input type="text" class="form-control" value="@Session["Gsis_Consoloan_Count"]" readonly />
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </table>
+
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
+                                <table>
+                                    <tr>
+                                        <td style="width:200px;">
+                                            <div class="form-group">
+                                                <label>GSIS - Policy Loan</label>
+                                                <input type="text" class="form-control hidden" id="regular_gsis_policy_original" name="regular_gsis_policy_original" value="@Session["Gsis_Policyloan_Amount"]" required />
+                                                <input type="text" class="form-control input-data" id="regular_gsis_policy" name="regular_gsis_policy" value="@Session["Gsis_Policyloan_Amount"]" required />
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="form-group">
+                                                <label>No. Payment</label>
+                                                <input type="text" class="form-control" value="@Session["Gsis_Policyloan_Max"]" readonly />
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="form-group">
+                                                <label>No. Paid</label>
+                                                <input type="text" class="form-control" value="@Session["Gsis_Policyloan_Count"]" readonly />
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </table>
+
+                            </div>
+                            <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
+                                <table>
+                                    <tr>
+                                        <td style="width:200px;">
+                                            <div class="form-group">
+                                                <label>GSIS - EML</label>
+                                                <input type="text" class="form-control hidden" id="regular_gsis_eml_original" name="regular_gsis_eml_original" value="@Session["Gsis_Eml_Amount"]" required />
+                                                <input type="text" class="form-control input-data" id="regular_gsis_eml" name="regular_gsis_eml" value="@Session["Gsis_Eml_Amount"]" required />
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="form-group">
+                                                <label>No. Payment</label>
+                                                <input type="text" class="form-control" value="@Session["Gsis_Eml_Max"]" readonly />
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="form-group">
+                                                <label>No. Paid</label>
+                                                <input type="text" class="form-control" value="@Session["Gsis_Eml_Count"]" readonly />
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </table>
+
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
+                                <table>
+                                    <tr>
+                                        <td style="width:200px;">
+                                            <div class="form-group">
+                                                <label>GSIS - UOLI</label>
+                                                <input type="text" class="form-control hidden" id="regular_gsis_uoli_original" name="regular_gsis_uoli_original" value="@Session["Gsis_Uoli_Amount"]" required />
+                                                <input type="text" class="form-control input-data" id="regular_gsis_uoli" name="regular_gsis_uoli" value="@Session["Gsis_Uoli_Amount"]" required />
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="form-group">
+                                                <label>No. Payment</label>
+                                                <input type="text" class="form-control" value="@Session["Gsis_Uoli_Max"]" readonly />
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="form-group">
+                                                <label>No. Paid</label>
+                                                <input type="text" class="form-control" value="@Session["Gsis_Uoli_Count"]" readonly />
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </table>
+
+                            </div>
+                            <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
+                                <table>
+                                    <tr>
+                                        <td style="width:200px;">
+                                            <div class="form-group">
+                                                <label>GSIS - EDU ASST</label>
+                                                <input type="text" class="form-control hidden" id="regular_gsis_edu_original" name="regular_gsis_edu_original" value="@Session["Gsis_Edu_Amount"]" required />
+                                                <input type="text" class="form-control input-data" id="regular_gsis_edu" name="regular_gsis_edu" value="@Session["Gsis_Edu_Amount"]" required />
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="form-group">
+                                                <label>No. Payment</label>
+                                                <input type="text" class="form-control" value="@Session["Gsis_Edu_Max"]" readonly />
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="form-group">
+                                                <label>No. Paid</label>
+                                                <input type="text" class="form-control" value="@Session["Gsis_Edu_Max"]" readonly />
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </table>
+
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
+                                <table>
+                                    <tr>
+                                        <td style="width:200px;">
+                                            <div class="form-group">
+                                                <label>GSIS - HELP</label>
+                                                <input type="text" class="form-control hidden" id="regular_gsis_help_original" name="regular_gsis_help_original" value="@Session["Gsis_Help_Amount"]" required />
+                                                <input type="text" class="form-control input-data" id="regular_gsis_help" name="regular_gsis_help" value="@Session["Gsis_Help_Amount"]" required />
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="form-group">
+                                                <label>No. Payment</label>
+                                                <input type="text" class="form-control" value="@Session["Gsis_Help_Max"]" readonly />
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="form-group">
+                                                <label>No. Paid</label>
+                                                <input type="text" class="form-control" value="@Session["Gsis_Help_Count"]" readonly />
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </table>
+
+                            </div>
+                            <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
+                                <table>
+                                    <tr>
+                                        <td style="width:200px;">
+                                            <div class="form-group">
+                                                <label>REL</label>
+                                                <input type="text" class="form-control hidden" id="regular_gsis_rel_original" name="regular_gsis_rel_original" value="@Session["Rel_Amount"]" required />
+                                                <input type="text" class="form-control input-data" id="regular_gsis_rel" name="regular_gsis_rel" value="@Session["Rel_Amount"]" required />
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="form-group">
+                                                <label>No. Payment</label>
+                                                <input type="text" class="form-control" value="@Session["Rel_Max"]" readonly />
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="form-group">
+                                                <label>No. Paid</label>
+                                                <input type="text" class="form-control" value="@Session["Rel_Count"]" readonly />
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </table>
+
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
+                                <div class="form-group">
+                                    <label>Pagibig - Premium</label>
+                                    <input type="text" class="form-control input-data" id="regular_pagibig_premium" name="regular_pagibig_premium" value="0.00" required />
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
+                                <table>
+                                    <tr>
+                                        <td style="width:200px;">
+                                            <div class="form-group">
+                                                <label>Pagibig - Loan</label>
+                                                <input type="text" class="form-control hidden" id="regular_pagibig_loan_original" name="regular_pagibig_loan_original" value="@Session["Pagibig_Loan_Amount"]" required />
+                                                <input type="text" class="form-control input-data" id="regular_pagibig_loan" name="regular_pagibig_loan" value="@Session["Pagibig_Loan_Amount"]" required />
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="form-group">
+                                                <label>No. Payment</label>
+                                                <input type="text" class="form-control" value="@Session["Pagibig_Loan_Max"]" readonly />
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="form-group">
+                                                <label>No. Paid</label>
+                                                <input type="text" class="form-control" value="@Session["Pagibig_Loan_Count"]" readonly />
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </table>
+
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
+                                <table>
+                                    <tr>
+                                        <td style="width:200px;">
+                                            <div class="form-group">
+                                                <label>Pagibig - MP2</label>
+                                                <input type="text" class="form-control input-data hidden" id="regular_pagibig_mp2_original" name="regular_pagibig_mp2_original" value="@Session["Pagibig_MP2_Amount"]" required />
+                                                <input type="text" class="form-control input-data" id="regular_pagibig_mp2" name="regular_pagibig_mp2" value="@Session["Pagibig_MP2_Amount"]" required />
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="form-group">
+                                                <label>No. Payment</label>
+                                                <input type="text" class="form-control" value="@Session["Pagibig_MP2_Max"]" readonly />
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="form-group">
+                                                <label>No. Paid</label>
+                                                <input type="text" class="form-control" value="@Session["Pagibig_MP2_Count"]" readonly />
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </table>
+
+                            </div>
+                            <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
+                                <div class="form-group">
+                                    <label>Philhealth</label>
+                                    <input type="text" class="form-control input-data" id="regular_philhealth" name="regular_philhealth" value="0.00" required />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
+                                <table>
+                                    <tr>
+                                        <td style="width:200px;">
+                                            <div class="form-group">
+                                                <label>SIMC</label>
+                                                <input type="text" class="form-control input-data hidden" id="regular_simc_original" name="regular_simc_original" value="@Session["Simc_Amount"]" required />
+                                                <input type="text" class="form-control input-data" id="regular_simc" name="regular_simc" value="@Session["Simc_Amount"]" required />
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="form-group">
+                                                <label>No. Payment</label>
+                                                <input type="text" class="form-control" value="@Session["Simc_Max"]" readonly />
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="form-group">
+                                                <label>No. Paid</label>
+                                                <input type="text" class="form-control" value="@Session["Simc_Count"]" readonly />
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
+                                <table>
+                                    <tr>
+                                        <td style="width:200px;">
+                                            <div class="form-group">
+                                                <label>HWMPC</label>
+                                                <input type="text" class="form-control input-data hidden" id="regular_hwmpc_original" name="regular_hwmpc_original" value="@Session["Coop_Amount"]" required />
+                                                <input type="text" class="form-control input-data" id="regular_hwmpc" name="regular_hwmpc" value="@Session["Coop_Amount"]" required />
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="form-group">
+                                                <label>No. Payment</label>
+                                                <input type="text" class="form-control" value="@Session["Coop_Max"]" readonly />
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="form-group">
+                                                <label>No. Paid</label>
+                                                <input type="text" class="form-control" value="@Session["Coop_Count"]" readonly />
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </table>
+
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
+                                <table>
+                                    <tr>
+                                        <td style="width:200px;">
+                                            <div class="form-group">
+                                                <label>DBP</label>
+                                                <input type="text" class="form-control input-data hidden" id="regular_dbp_original" name="regular_dbp_original" value="@Session["Dbp_Amount"]" required />
+                                                <input type="text" class="form-control input-data" id="regular_dbp" name="regular_dbp" value="@Session["Dbp_Amount"]" required />
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="form-group">
+                                                <label>No. Payment</label>
+                                                <input type="text" class="form-control" value="@Session["Dbp_Max"]" readonly />
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="form-group">
+                                                <label>No. Paid</label>
+                                                <input type="text" class="form-control" value="@Session["Dbp_Count"]" readonly />
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </table>
+
+                            </div>
+                            <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
+                                <table>
+                                    <tr>
+                                        <td style="width:200px;">
+                                            <div class="form-group">
+                                                <label>Disallowances</label>
+                                                <input type="text" class="form-control input-data hidden" id="regular_disallowance_original" name="regular_disallowance_original" value="@Session["Disallowance_Amount"]" required />
+                                                <input type="text" class="form-control input-data" id="regular_disallowance" name="regular_disallowance" value="@Session["Disallowance_Amount"]" required />
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="form-group">
+                                                <label>No. Payment</label>
+                                                <input type="text" class="form-control" value="@Session["Disallowance_Max"]" readonly />
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="form-group">
+                                                <label>No. Paid</label>
+                                                <input type="text" class="form-control" value="@Session["Disallowance_Count"]" readonly />
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </table>
+
+                            </div>
+                        </div>
+                    </div>
+                        <div class="row">
+                            <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
+                                <div class="form-group">
+                                    <label>Total Deductions</label>
+                                    <input type="text" class="form-control input-data" id="regular_total_deductions" name="regular_total_deductions" value="0.00" required readonly />
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
+                                <div class="form-group">
+                                    <label>Net Pay</label>
+                                    <input type="text" class="form-control input-data" id="regular_total_amount" name="regular_total_amount" value="0.00" required readonly />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4 col-md-offset-4 col-sm-4 col-sm-offset-4 col-xs-4 col-xs-offset-4">
+                                <button type="submit" class="btn btn-primary form-control margin-top btn_save" value="Save">Save</button>
+                            </div>
+                        </div>
+
+}

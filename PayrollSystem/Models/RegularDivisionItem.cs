@@ -21,30 +21,32 @@ namespace PayrollSystem.Models
         }
 
 
-        public static List<RegularDivisionItem> Seeder(double tax, double gsis_policy_loan, double phic, double pagibig_loan, double pagibig_premium,
-            double pagibig_mp2, double gsis_help, double gsis_eml, double dbp, double gsis_consol, double simc, double hwmpc, double cfi, double disallowances, double edu)
+        public static List<RegularDivisionItem> Seeder(decimal basic_rate, decimal pera, decimal subsistence, decimal ra, decimal ta, decimal hazard, decimal half_net, decimal tax,
+            decimal gsis_policy_loan, decimal phic, decimal pagibig_loan, decimal pagibig_premium, decimal pagibig_mp2, decimal gsis_help, decimal gsis_eml, decimal dbp, decimal gsis_consol,
+            decimal simc, decimal hwmpc, decimal cfi, decimal disallowances, decimal edu)
         {
+            decimal gross = basic_rate + pera + subsistence + ra + ta + hazard;
 
             List<RegularDivisionItem> seeder = new List<RegularDivisionItem>();
             //BODY
             seeder.Add(new RegularDivisionItem("BLANK", "BLANK", "BLANK", "BLANK"));
-            seeder.Add(new RegularDivisionItem("Basic Rate :", "0.00", "BLANK", "BLANK"));
+            seeder.Add(new RegularDivisionItem("Basic Rate :", basic_rate.ToString("#,##0.00"), "BLANK", "BLANK"));
             seeder.Add(new RegularDivisionItem("Basic Increment :", "0.00", "BLANK", "BLANK"));
             seeder.Add(new RegularDivisionItem("Basic Adjustment :", "0.00", "BLANK", "BLANK"));
-            seeder.Add(new RegularDivisionItem("Pera :", "0.00", "BLANK", "BLANK"));
+            seeder.Add(new RegularDivisionItem("Pera :", pera.ToString("#,##0.00"), "BLANK", "BLANK"));
             seeder.Add(new RegularDivisionItem("Add'tl Comp. Allowances :", "0.00", "BLANK", "BLANK"));
-            seeder.Add(new RegularDivisionItem("Laundry Allowances :", "0.00", "NET PAY FOR:", "HALF 1 : 0.00"));
-            seeder.Add(new RegularDivisionItem("Subsistence :", "0.00", "", "HALF 2 : 0.00"));
-            seeder.Add(new RegularDivisionItem("Hazard Pay :", "0.00", "BLANK", "BLANK"));
+            seeder.Add(new RegularDivisionItem("Laundry Allowances :", "0.00", "NET PAY FOR:", "HALF 1 : "+ half_net.ToString("#,##0.00")));
+            seeder.Add(new RegularDivisionItem("Subsistence :", subsistence.ToString("#,##0.00"), "", "HALF 2 : "+ half_net.ToString("#,##0.00")));
+            seeder.Add(new RegularDivisionItem("Hazard Pay :", hazard.ToString("#,##0.00"), "BLANK", "BLANK"));
             seeder.Add(new RegularDivisionItem("Compensation 3(Ca) :", "0.00", "BLANK", "BLANK"));
             seeder.Add(new RegularDivisionItem("Compensation 4(Cb) :", "0.00", "BLANK", "BLANK"));
             seeder.Add(new RegularDivisionItem("Compensation 5(Cc) :", "0.00", "BLANK", "BLANK"));
-            seeder.Add(new RegularDivisionItem("Comp. 6(Cd) RA :", "0.00", "BLANK", "BLANK"));
-            seeder.Add(new RegularDivisionItem("Compensation 7(Ce) TA :", "0.00", "BLANK", "BLANK"));
+            seeder.Add(new RegularDivisionItem("Comp. 6(Cd) RA :", ra.ToString("#,##0.00"), "BLANK", "BLANK"));
+            seeder.Add(new RegularDivisionItem("Compensation 7(Ce) TA :", ta.ToString("#,##0.00"), "BLANK", "BLANK"));
             seeder.Add(new RegularDivisionItem("Comp. 8(Cf) Extra-Ord :", "0.00", "BLANK", "BLANK"));
             seeder.Add(new RegularDivisionItem("Comp. 9(Cg) :", "0.00", "BLANK", "BLANK"));
             seeder.Add(new RegularDivisionItem("Comp. 10(Ch) CellCard :", "0.00", "BLANK", "BLANK"));
-            seeder.Add(new RegularDivisionItem("GROSS :", "0.00", "BLANK", "BLANK"));
+            seeder.Add(new RegularDivisionItem("GROSS :", gross.ToString("#,##0.00"), "BLANK", "BLANK"));
             seeder.Add(new RegularDivisionItem("BLANK", "BLANK", "BLANK", "BLANK"));
             seeder.Add(new RegularDivisionItem("(--)DEDUCTIONS:", "BLANK", "BLANK", "BLANK"));
             seeder.Add(new RegularDivisionItem("BLANK", "BLANK", "BLANK", "BLANK"));
@@ -59,10 +61,10 @@ namespace PayrollSystem.Models
             seeder.Add(new RegularDivisionItem("GSIS Life_Retr. Insurance :", "0.00", "GSIS EML :", gsis_eml.ToString("#,##0.00")));
             seeder.Add(new RegularDivisionItem("GSIS Unlimited Opt. Ins. 1 :", "0.00", "GSIS UMID :", "0.00"));
             seeder.Add(new RegularDivisionItem("GSIS Unlimited Opt. Ins. 2 :", "0.00", "GSIS Unlimited Opt. Loan :", "0.00"));
-            seeder.Add(new RegularDivisionItem("GSIS Optional Insurance 1 :", "0.00", "DBP Loan :", "0.00"));
+            seeder.Add(new RegularDivisionItem("GSIS Optional Insurance 1 :", "0.00", "DBP Loan :", dbp.ToString("#,##0.00")));
             seeder.Add(new RegularDivisionItem("GSIS Optional Insurance 2 :", "0.00", "GENESIS PLUS :", "0.00"));
             seeder.Add(new RegularDivisionItem("GSIS Optional Insurance 3 :", "0.00", "GENESIS :", "0.00"));
-            seeder.Add(new RegularDivisionItem("GSIS Optional Insurance 4 :", "0.00", "GSIS CONSOL :", "0.00"));
+            seeder.Add(new RegularDivisionItem("GSIS Optional Insurance 4 :", "0.00", "GSIS CONSOL :", gsis_consol.ToString("#,##0.00")));
             seeder.Add(new RegularDivisionItem("GSIS Optional Insurance 5 :", "0.00", "COOP ENROL. LOAN :", "0.00"));
             seeder.Add(new RegularDivisionItem("GSIS Educational Ins. 1 :", "0.00", "LBP LOAN :", "0.00"));
             seeder.Add(new RegularDivisionItem("GSIS Educational Ins. 2 :", "0.00", "COOP ROSE PHARM :", "0.00"));
