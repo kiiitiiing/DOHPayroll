@@ -1116,7 +1116,7 @@ namespace PayrollSystem.Models
         public static bool JoSummaryBody(string file_path, string date_from, string date_to, string document, string disbursement, string salary_charge,string imageURL)
         {
 
-            List<JobOrder> list = PayrollDatabase.Instance.GenerateJoSummary(date_from, date_to, document, disbursement, salary_charge);
+            List<JobOrderPayrollModel> list = PayrollDatabase.Instance.GenerateJoSummary(date_from, date_to, document, disbursement, salary_charge);
 
             if(list.Count > 0)
             {

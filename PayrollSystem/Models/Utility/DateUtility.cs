@@ -11,5 +11,9 @@ namespace PayrollSystem.Models
         {
             return new DateTime(year, month, 1).ToString("MMM");
         }
+        public static int GetMaximumDayOfMonth(int month, int year)
+        {
+            return DateTime.DaysInMonth(year,month);
+        }
     }
 }

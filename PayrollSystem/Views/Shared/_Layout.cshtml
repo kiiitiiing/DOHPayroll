@@ -16,6 +16,7 @@
         .remove-padding-top
         {
           padding-top:0px;
+          padding-bottom:0px;
         }
          .box
         {
@@ -23,8 +24,8 @@
         }
          .selected
         {
-          background:rgb(26,34,38);
-          color:white;
+          background:rgb(215, 215, 215);
+          color:black;
         }
         .parent 
         {
@@ -37,7 +38,6 @@
           left: 50%;
           transform: translate(-50%, -50%);
         }
-
     </style>
    
 </head>
@@ -82,7 +82,7 @@
                                 <i class="fa fa-angle-left pull-right"></i>
                             </span>
                         </a>
-                        <ul class="treeview-menu">
+                        <ul class="treeview-menu menu-jo">
                             <li class="active"><a href="@Url.Action("JobOrder","Home",new { id = 0})">ATM CARD</a></li>
                             <li class="active"><a href="@Url.Action("JobOrder","Home",new { id = 1})">CASH CARD</a></li>
                             <li class="active"><a href="@Url.Action("JobOrder","Home",new { id = 2})">W/O LBP CARD</a></li>
@@ -130,7 +130,89 @@
     @Scripts.Render("~/bundles/admin-lte/js")
     @RenderSection("scripts", required: false)
     <script>
-     $(".textarea").wysihtml5();
+        $(document).ready(function () {
+            $(".textarea").wysihtml5();
+
+            $('.input-data').keypress(function (event) {
+                return isNumber(event, this)
+            });
+
+            $(".menu-jo li").click(function(e){
+                e.preventDefault();
+                var title = $(this).text();
+                $(".jo_title").text("Job Order - " + title);
+              
+                switch (title) {
+                    case "ATM CARD":
+                        loadJoEmployee(0, 1, "");
+                        break;
+                    case "CASH CARD":
+                        loadJoEmployee(1, 1, "");
+                        break;
+                    case "W/O LBP CARD":
+                        loadJoEmployee(2, 1, "");
+                        break;
+                    case "UNDER VTF":
+                        loadJoEmployee(3, 1, "");
+                        break;
+                }
+            });
+        });
+
+        function loadJoEmployee(id,page,search) {
+            
+            var url = "@Url.Action("JobOrderList", "PartialView")";
+            $(".jo-employee-list").html("Loading employee ....");
+            $.ajax({
+                url: url,
+                type: "POST",
+                data: {
+                    id: id,
+                    page: page,
+                    search: search
+                },
+                success: function (html) {
+                    $(".jo-employee-list").empty().html(html);
+                }
+            });
+        }
+
+        function removeItem(name, array_date) {
+
+            return array_date;
+        }
+
+        function removeComma(number) {
+            number = number.toString().replace(",", "");
+            return number;
+        }
+
+        function formatComma(number) {
+            number = number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+            return number;
+        }
+
+        function daysInMonth(month, year) {
+            return new Date(year, month, 0).getDate();
+        }
+
+        function roundOff(number) {
+            number = (Math.round((parseFloat(number) + 0.00001) * 100) / 100)
+            return parseFloat(number).toFixed(2);
+        }
+        function isNumber(evt, element) {
+
+            var charCode = (evt.which) ? evt.which : event.keyCode
+
+            if (
+                (charCode != 45 || $(element).val().indexOf('-') != -1) &&      // “-” CHECK MINUS, AND ONLY ONE.
+                (charCode != 46 || $(element).val().indexOf('.') != -1) &&      // “.” CHECK DOT, AND ONLY ONE.
+                (charCode < 48 || charCode > 57))
+                return false;
+
+            return true;
+        }
+
     </script>
 
 </body>

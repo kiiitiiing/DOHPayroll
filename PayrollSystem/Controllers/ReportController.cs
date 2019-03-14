@@ -146,7 +146,7 @@ namespace PayrollSystem.Controllers
             return RedirectToAction("Index", "Report");
         }
 
-        public ActionResult CreateJoPayslip(string id, string fullname, string date_from, string date_to, string designation)
+        public ActionResult CreateJoPayslip(string id, string fullnames, string date_from, string date_to, string designation)
         {
 
             int month = int.Parse(date_from.Split('/')[0]);
@@ -159,23 +159,30 @@ namespace PayrollSystem.Controllers
             string physical_file_path = Server.MapPath(Url.Content("~/Pdf/" + file_name));
 
 
-            JoPayslipPDFView.JoPayslipContainer( physical_file_path,  title,  id,  fullname,  designation,  date_from,  date_to);
+            JoPayslipPDFView.JoPayslipContainer( physical_file_path,  title,  id, fullnames,  designation,  date_from,  date_to);
 
-           /* Document doc = new Document();
-            doc.SetMargins(5f, 5f, 45f, 5f);
-            doc.SetPageSize(PageSize.A4);
+             return File(physical_file_path, "application/pdf");
+        }
 
-            PdfWriter writer = PdfWriter.GetInstance(doc, new FileStream(physical_file_path, FileMode.Create));
-            doc.Open();
-            doc.Add(JoPayslipPDFView.JoPayslipTitle(title));
-            doc.Add(JoPayslipPDFView.JoPayslipHeader(id, fullname, designation));
-            doc.Add(JoPayslipPDFView.JoPaySlipBody(id,date_from,date_to)); //implement query JoPayslipModel
-            doc.Add(JoPayslipPDFView.JoPayslipFooter());
-            doc.Close();
-            */
+        public ActionResult CreateRegularPayslip(string id, string fullname, int month, int year , string designation)
+        {
+
+          //  int month = int.Parse(date_from.Split('/')[0]);
+         //   int year = int.Parse(date_from.Split('/')[2]);
+
+            string file_name = "regular_payslip.pdf";
+
+            string title = DateUtility.GetMonthName(month, year) + "1-31, " + year;
+
+            string physical_file_path = Server.MapPath(Url.Content("~/Pdf/" + file_name));
+
+
+            RegularPayslipPDFView.RegularPayslipContainer(id, fullname, designation, month, year,physical_file_path);
 
             return File(physical_file_path, "application/pdf");
         }
+
+
 
         public ActionResult ViewPDF(string pdf)
         {

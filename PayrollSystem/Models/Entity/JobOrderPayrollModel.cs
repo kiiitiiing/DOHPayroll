@@ -5,7 +5,7 @@ using System.Web;
 
 namespace PayrollSystem.Models
 {
-    public class JobOrder
+    public class JobOrderPayrollModel
     {
         public string Id { get; set; }
         public Employee Employee { get; set; }
@@ -28,7 +28,9 @@ namespace PayrollSystem.Models
 
         public string Flag { get; set; }
 
-        public JobOrder(string UserID,string StartDate, string EndDate, string Adjustment, string WorkDays, string DaysAbsent, string Salary, string MinutesLate, string Coop,
+        public JobOrderPayrollModel() { }
+
+        public JobOrderPayrollModel(string UserID,string StartDate, string EndDate, string Adjustment, string WorkDays, string DaysAbsent, string Salary, string MinutesLate, string Coop,
             string Phic, string Disallowance, string Gsis, string Pagibig, string ExcessMobile, string Remarks, string Tax, string OtherAdjustment)
         {
             this.Employee = new Employee();
@@ -51,8 +53,8 @@ namespace PayrollSystem.Models
             this.OtherAdjustment = OtherAdjustment;
         }
 
-        public JobOrder() { }
-        public JobOrder(string Id, Employee Employee, string StartDate, string EndDate, string Adjustment, string WorkDays, string DaysAbsent, string Salary, string MinutesLate, string Coop,
+      
+        public JobOrderPayrollModel(string Id, Employee Employee, string StartDate, string EndDate, string Adjustment, string WorkDays, string DaysAbsent, string Salary, string MinutesLate, string Coop,
             string Phic, string Disallowance, string Gsis, string Pagibig, string ExcessMobile, string Remarks, string Flag, string Tax, string OtherAdjustment)
         {
             this.Id = Id;

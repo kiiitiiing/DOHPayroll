@@ -275,7 +275,7 @@
                                 }
                                 @using (Html.BeginForm("ViewPDF", "Report", FormMethod.Post))
                                 {
-                                    <button type="submit" name="pdf" value="@item.FilePath" class="btn btn-xs btn-primary td-button"><i class="glyphicon glyphicon-book"></i></button>
+                                    <button type="submit" name="pdf" formtarget="_blank" value="@item.FilePath" class="btn btn-xs btn-primary td-button"><i class="glyphicon glyphicon-book"></i></button>
                                 }
                                 
                                 <!-- <button type="button" class="btn btn-xs btn-success"><i class="glyphicon glyphicon-transfer"></i></button> -->

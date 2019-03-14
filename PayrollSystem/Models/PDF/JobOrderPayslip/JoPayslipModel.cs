@@ -40,15 +40,15 @@ namespace PayrollSystem.Models
         {
             return GetNetAmount() - GetTotalDeduction();
         }
-
+        
         public decimal GetTotalDeduction()
         {
-            return (EWT + ProfTax + Hwmpc + Pagibig + Phic + Gsis + Digitel);
+            return (EWT + ProfTax + Hwmpc + Pagibig + Phic + Gsis + Digitel) - OtherAdjustment;
         }
 
         public decimal GetNetAmount()
         {
-            return (BasicSalary + Adjustment);
+            return (BasicSalary + Adjustment) - Tardiness;
         }
     }
 }

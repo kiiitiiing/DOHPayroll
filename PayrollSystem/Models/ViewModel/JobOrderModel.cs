@@ -5,20 +5,8 @@ using System.Web;
 
 namespace PayrollSystem.Models
 {
-    public class Employee
+    public class JobOrderModel : Employee
     {
-        public string ID { get; set; }
-        public string Firstname { get; set; }
-        public string Lastname { get; set; }
-        public string Middlename { get; set; }
-        public string Designation { get; set; }
-        public string Salary { get; set; }
-        public string SalaryCharge { get; set; }
-        public string Division { get; set; }
-        public string DisbursementType { get; set; }
-        public string Tin { get; set; }
-        public string WorkSchedule { get; set; }
-
         public Remittance Coop { get; set; }
         public Remittance Pagibig { get; set; }
         public Remittance Gsis { get; set; }
@@ -26,37 +14,17 @@ namespace PayrollSystem.Models
         public Remittance Excess { get; set; }
 
 
-        public Employee() { }
-
-
-        public Employee(string ID, string Firstname, string Lastname , string Middlename , string Designation , string Salary, string SalaryCharge, string Division,  string DisbursementType)
+        public JobOrderModel(Employee employee)
         {
-            this.ID = ID;
-            this.Firstname = Firstname;
-            this.Lastname = Lastname;
-            this.Middlename = Middlename;
-            this.Designation = Designation;
-            this.Salary = Salary;
-            this.SalaryCharge = SalaryCharge;
-            this.Division = Division;
-            this.DisbursementType = DisbursementType;
-        }
-        public void SetTin(string Tin)
-        {
-            this.Tin = Tin;
-        }
-        public string GetTin()
-        {
-            return Tin;
-        }
-
-        public void SetWorkSchedle(string WorkSchedule)
-        {
-            this.WorkSchedule = WorkSchedule;
-        }
-        public string GetWorkSchedle()
-        {
-            return WorkSchedule;
+            this.ID = employee.ID;
+            this.Firstname = employee.Firstname;
+            this.Lastname = employee.Lastname;
+            this.Middlename = employee.Middlename;
+            this.Designation = employee.Designation;
+            this.Salary = employee.Salary;
+            this.SalaryCharge = employee.SalaryCharge;
+            this.Division = employee.Division;
+            this.DisbursementType = employee.DisbursementType;
         }
 
         public void SetCoop(Remittance Coop)
@@ -107,6 +75,9 @@ namespace PayrollSystem.Models
             return Excess;
         }
 
+
+        //VIEW MODEL
+
         public string CoopFormat()
         {
             return Coop.Amount + "/" + Coop.MaxCount + "/" + Coop.Count;
@@ -129,6 +100,5 @@ namespace PayrollSystem.Models
         {
             return Excess.Amount + "/" + Excess.MaxCount + "/" + Excess.Count;
         }
-
     }
 }

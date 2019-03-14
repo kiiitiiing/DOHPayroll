@@ -51,6 +51,9 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="admin-lte/css/font-awesome.min.css">
       <publishTime>02/18/2019 14:23:13</publishTime>
     </File>
+    <File Include="admin-lte/css/jquery.toast.css">
+      <publishTime>03/04/2019 11:04:26</publishTime>
+    </File>
     <File Include="admin-lte/css/skins/skin-black-light.css">
       <publishTime>02/28/2019 17:03:17</publishTime>
     </File>
@@ -269,6 +272,9 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     </File>
     <File Include="admin-lte/js/jquery.slimscroll.min.js">
       <publishTime>02/18/2019 14:23:28</publishTime>
+    </File>
+    <File Include="admin-lte/js/jquery.toast.js">
+      <publishTime>03/04/2019 11:04:17</publishTime>
     </File>
     <File Include="admin-lte/js/pages/dashboard.js">
       <publishTime>02/28/2019 17:03:17</publishTime>
@@ -856,7 +862,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>09/30/2013 18:15:20</publishTime>
     </File>
     <File Include="bin/PayrollSystem.dll">
-      <publishTime>03/01/2019 09:56:32</publishTime>
+      <publishTime>03/14/2019 16:27:12</publishTime>
     </File>
     <File Include="bin/roslyn/csc.exe">
       <publishTime>06/18/2015 20:19:46</publishTime>
@@ -1123,7 +1129,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>02/28/2019 17:03:15</publishTime>
     </File>
     <File Include="Scripts/_references.js">
-      <publishTime>03/01/2019 09:14:00</publishTime>
+      <publishTime>03/04/2019 11:04:17</publishTime>
     </File>
     <File Include="Views/Account/ConfirmEmail.cshtml">
       <publishTime>02/13/2019 08:48:27</publishTime>
@@ -1168,10 +1174,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>02/13/2019 08:48:08</publishTime>
     </File>
     <File Include="Views/Home/JobOrder.cshtml">
-      <publishTime>03/01/2019 08:29:39</publishTime>
+      <publishTime>03/14/2019 16:24:48</publishTime>
     </File>
     <File Include="Views/Home/Regular.cshtml">
-      <publishTime>02/20/2019 11:54:22</publishTime>
+      <publishTime>03/14/2019 11:25:15</publishTime>
     </File>
     <File Include="Views/Login/Index.cshtml">
       <publishTime>02/19/2019 14:13:21</publishTime>
@@ -1194,17 +1200,26 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="Views/Manage/VerifyPhoneNumber.cshtml">
       <publishTime>02/13/2019 08:48:28</publishTime>
     </File>
+    <File Include="Views/PartialView/JobOrderList.cshtml">
+      <publishTime>03/14/2019 16:14:04</publishTime>
+    </File>
     <File Include="Views/PartialView/JobOrderPayrollForm.cshtml">
-      <publishTime>02/26/2019 08:26:28</publishTime>
+      <publishTime>03/11/2019 09:31:40</publishTime>
+    </File>
+    <File Include="Views/PartialView/JobOrderPayrollList.cshtml">
+      <publishTime>03/14/2019 15:33:47</publishTime>
     </File>
     <File Include="Views/PartialView/PayrollList.cshtml">
-      <publishTime>02/26/2019 15:25:39</publishTime>
+      <publishTime>03/04/2019 15:03:30</publishTime>
     </File>
     <File Include="Views/PartialView/RegularPayrollForm.cshtml">
-      <publishTime>02/20/2019 09:39:31</publishTime>
+      <publishTime>03/11/2019 09:59:13</publishTime>
+    </File>
+    <File Include="Views/PartialView/RegularPayrollList.cshtml">
+      <publishTime>03/14/2019 10:33:06</publishTime>
     </File>
     <File Include="Views/Report/Index.cshtml">
-      <publishTime>03/01/2019 09:22:27</publishTime>
+      <publishTime>03/11/2019 16:30:09</publishTime>
     </File>
     <File Include="Views/Shared/Error.cshtml">
       <publishTime>02/13/2019 08:48:27</publishTime>
@@ -1213,7 +1228,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>02/13/2019 08:48:28</publishTime>
     </File>
     <File Include="Views/Shared/_Layout.cshtml">
-      <publishTime>03/01/2019 09:02:14</publishTime>
+      <publishTime>03/14/2019 16:22:51</publishTime>
     </File>
     <File Include="Views/Shared/_LoginPartial.cshtml">
       <publishTime>02/13/2019 08:48:28</publishTime>

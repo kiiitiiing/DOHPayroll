@@ -23,6 +23,7 @@ namespace PayrollSystem
                        "~/Content/site.css",
                        "~/admin-lte/css/AdminLTE.css",
                        "~/admin-lte/css/bootstrap-datepicker.min.css",
+                       "~/admin-lte/css/jquery.toast.css",
                        "~/admin-lte/css/font-awesome.min.css",
                        "~/admin-lte/css/skins/skin-blue.css",
                        "~/admin-lte/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css"
@@ -33,6 +34,7 @@ namespace PayrollSystem
             "~/admin-lte/js/jquery.min.js",
             "~/admin-lte/js/jquery-ui.min.js",
             "~/admin-lte/js/bootstrap-datepicker.min.js",
+            "~/admin-lte/js/jquery.toast.js",
             "~/admin-lte/js/jquery.slimscroll.min.js",
             "~/admin-lte/js/adminlte.min.js",
             "~/admin-lte/plugins/fastclick/fastclick.js",

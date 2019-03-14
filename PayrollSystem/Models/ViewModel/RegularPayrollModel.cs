@@ -5,7 +5,7 @@ using System.Web;
 
 namespace PayrollSystem.Models
 {
-    public class Regular
+    public class RegularPayrollModel
     {
         public string Id { get; set; }
         public Employee Employee { get; set; }
@@ -39,11 +39,11 @@ namespace PayrollSystem.Models
         public HazardViewModel hazard { get; set; }
         public RataViewModel rata { get; set; }
 
-        public Regular() { }
+        //public RegularPayrollModel() { }
 
-        public Regular(String Id, Employee Employee, int Month, int Year, String DaysAbsent, String WorkDays, String Salary, String Pera, int MinutesLate,
-            String Tax, String CFI, String GSIS_Premium, String GSIS_Consoloan, String GSIS_PolicyLoan, String GSIS_EML, String GSIS_UOLI, String GSIS_EDU, String GSIS_Help, String GSIS_REL,
-            String Pagibig_Premium, String Pagibig_Loan, String Disallowances, String PhilHealth, String SIMC, String HWMPC, String DBP, String MP2)
+        public RegularPayrollModel(string Id, Employee Employee, int Month, int Year, string DaysAbsent, string WorkDays, string Salary, string Pera, int MinutesLate,
+            string Tax, string CFI, string GSIS_Premium, string GSIS_Consoloan, string GSIS_PolicyLoan, string GSIS_EML, string GSIS_UOLI, string GSIS_EDU, string GSIS_Help, string GSIS_REL,
+            string Pagibig_Premium, string Pagibig_Loan, string Disallowances, string PhilHealth, string SIMC, string HWMPC, string DBP, string MP2)
         {
             this.Id = Id;
             this.Employee = Employee;
@@ -72,6 +72,11 @@ namespace PayrollSystem.Models
             this.HWMPC = HWMPC;
             this.DBP = DBP;
             this.MP2 = MP2;
+        }
+
+        public string MonthFormat()
+        {
+            return DateUtility.GetMonthName(Month, Year);
         }
 
         public void SetHazard(HazardViewModel hazard)

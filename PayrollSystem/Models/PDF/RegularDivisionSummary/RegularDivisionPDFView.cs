@@ -57,7 +57,7 @@ namespace PayrollSystem.Models
 
         public static bool RegularDivisionSummary(string physical_file_path,int month, int year, string division)
         {
-            List<Regular> list = PayrollDatabase.Instance.GenerateSummaryRegularByDivision(month, year, division);
+            List<RegularPayrollModel> list = PayrollDatabase.Instance.GenerateSummaryRegularByDivision(month, year, division);
             if (list.Count > 0)
             {
                 Document doc = new Document();
@@ -79,7 +79,7 @@ namespace PayrollSystem.Models
            
         }
 
-        public static PdfPTable RegularDivisionSummaryBody(List<Regular> list)
+        public static PdfPTable RegularDivisionSummaryBody(List<RegularPayrollModel> list)
         {
             float[] widths = { 1, 3, 2, 2, 2, 1 };
 
@@ -118,7 +118,7 @@ namespace PayrollSystem.Models
             decimal gross = 0;
             decimal total_deductions = 0;
 
-            foreach (Regular data in list)
+            foreach (RegularPayrollModel data in list)
             {
                
               //  string id = data.Employee.ID;

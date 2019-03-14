@@ -92,3 +92,4 @@ C:\Users\apangcatan\documents\visual studio 2015\Projects\DOHPayroll\PayrollSyst
 C:\Users\apangcatan\documents\visual studio 2015\Projects\DOHPayroll\PayrollSystem\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
 C:\Users\apangcatan\documents\visual studio 2015\Projects\DOHPayroll\PayrollSystem\obj\Debug\PayrollSystem.dll
 C:\Users\apangcatan\documents\visual studio 2015\Projects\DOHPayroll\PayrollSystem\obj\Debug\PayrollSystem.pdb
+C:\Users\apangcatan\documents\visual studio 2015\Projects\DOHPayroll\PayrollSystem\obj\Debug\PayrollSystem.csprojResolveAssemblyReference.cache

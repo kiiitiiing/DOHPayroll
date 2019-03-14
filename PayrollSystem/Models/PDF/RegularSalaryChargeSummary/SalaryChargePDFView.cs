@@ -1324,7 +1324,7 @@ namespace PayrollSystem.Models
 
           
 
-            List<Regular> list =  PayrollDatabase.Instance.GenerateSummaryRegularBySalaryCharge(month,year,salary_charge);
+            List<RegularPayrollModel> list =  PayrollDatabase.Instance.GenerateSummaryRegularBySalaryCharge(month,year,salary_charge);
 
             if (list.Count > 0)
             {

@@ -245,21 +245,27 @@
     <Compile Include="Models\Hazard.cs" />
     <Compile Include="Models\HazardViewModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
-    <Compile Include="Models\JobOrder.cs" />
+    <Compile Include="Models\JobOrderPayrollModel.cs" />
+    <Compile Include="Models\JobOrderModel.cs" />
     <Compile Include="Models\JoPayslipModel.cs" />
     <Compile Include="Models\JoSummaryPDFView.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\PayrollRegularDummy.cs" />
     <Compile Include="Models\RataViewModel.cs" />
-    <Compile Include="Models\Regular.cs" />
+    <Compile Include="Models\RegularFirstHalf.cs" />
+    <Compile Include="Models\RegularPayrollModel.cs" />
     <Compile Include="Models\RegularDivisionItem.cs" />
     <Compile Include="Models\JoPayslipItem.cs" />
+    <Compile Include="Models\RegularModel.cs" />
     <Compile Include="Models\RegularPayslipItem.cs" />
     <Compile Include="Models\JoPayslipPDFView.cs" />
+    <Compile Include="Models\RegularPayslipModel.cs" />
     <Compile Include="Models\RegularPayslipPDFView.cs" />
+    <Compile Include="Models\RegularSecondHalf.cs" />
     <Compile Include="Models\Remittance.cs" />
     <Compile Include="Models\ReportPDF.cs" />
     <Compile Include="Models\SalaryChargePDFView.cs" />
+    <Compile Include="Models\ValueFormatterUtility.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -276,6 +282,7 @@
     <Content Include="admin-lte\css\alt\AdminLTE-without-plugins.min.css" />
     <Content Include="admin-lte\css\bootstrap-datepicker.min.css" />
     <Content Include="admin-lte\css\font-awesome.min.css" />
+    <Content Include="admin-lte\css\jquery.toast.css" />
     <Content Include="admin-lte\css\skins\skin-black-light.css" />
     <Content Include="admin-lte\css\skins\skin-black-light.min.css" />
     <Content Include="admin-lte\css\skins\skin-black.css" />
@@ -339,6 +346,7 @@
     <Content Include="admin-lte\js\jquery-ui.min.js" />
     <Content Include="admin-lte\js\jquery.min.js" />
     <Content Include="admin-lte\js\jquery.slimscroll.min.js" />
+    <Content Include="admin-lte\js\jquery.toast.js" />
     <Content Include="admin-lte\js\pages\dashboard.js" />
     <Content Include="admin-lte\js\pages\dashboard2.js" />
     <Content Include="admin-lte\plugins\bootstrap-slider\bootstrap-slider.js" />
@@ -602,12 +610,14 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\PartialView\PayrollList.cshtml" />
+    <Content Include="Views\PartialView\JobOrderPayrollList.cshtml" />
     <Content Include="Views\PartialView\JobOrderPayrollForm.cshtml" />
     <Content Include="Views\Login\Index.cshtml" />
     <Content Include="Views\Report\Index.cshtml" />
     <Content Include="Views\Home\Regular.cshtml" />
     <Content Include="Views\PartialView\RegularPayrollForm.cshtml" />
+    <Content Include="Views\PartialView\JobOrderList.cshtml" />
+    <Content Include="Views\PartialView\RegularPayrollList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
