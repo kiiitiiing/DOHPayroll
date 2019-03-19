@@ -1,0 +1,224 @@
+﻿@model PagedList.IPagedList<PayrollSystem.Models.RegularModel>
+@using PagedList.Mvc;
+
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
+<!-- /.box-header -->
+
+    <table class="table table-striped">
+    <tr>
+        <th>ID NO</th>
+        <th>FIRST NAME</th>
+        <th>MIDDLE NAME</th>
+        <th>LASTNAME</th>
+        <th>DESIGNATION</th>
+        <th>SALARY</th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+            {
+        <tr>
+            <td class="@item.ID">
+                @Html.DisplayFor(modelItem => item.ID)
+            </td>
+            <td class="@item.ID">
+                @Html.DisplayFor(modelItem => item.Firstname)
+            </td>
+            <td class="@item.ID">
+                @Html.DisplayFor(modelItem => item.Middlename)
+            </td>
+            <td class="@item.ID">
+                @Html.DisplayFor(modelItem => item.Lastname)
+            </td>
+            <td class="@item.ID">
+                @Html.DisplayFor(modelItem => item.Designation)
+            </td>
+            <td class="@item.ID">
+                @Html.DisplayFor(modelItem => item.Salary)
+            </td>
+            <td class="hidden">
+                @item.CfiFormat()
+            </td>
+            <td class="hidden">
+                @item.GsisConsoLoanFormat()
+            </td>
+            <td class="hidden">
+                @item.GsisPolicyLoanFormat()
+            </td>
+            <td class="hidden">
+                @item.GsisEmlLoanFormat()
+            </td>
+            <td class="hidden">
+                @item.GsisUoliLoanFormat()
+            </td>
+            <td class="hidden">
+                @item.GsisEduLoanFormat()
+            </td>
+            <td class="hidden">
+                @item.GsisHelpLoanFormat()
+            </td>
+            <td class="hidden">
+                @item.RelFormat()
+            </td>
+            <td class="hidden">
+                @item.PagibigLoanFormat()
+            </td>
+            <td class="hidden">
+                @item.PagibigMp2Format()
+            </td>
+            <td class="hidden">
+                @item.SimcFormat()
+            </td>
+            <td class="hidden">
+                @item.HwmpcFormat()
+            </td>
+            <td class="hidden">
+                @item.DbpFormat()
+            </td>
+            <td class="hidden">
+                @item.DisallowancesFormat()
+            </td>
+            <td class="hidden">
+                @item.GetTax()
+            </td>
+            <td>
+                <button class="btn btn-xs btn-success create_regular_payroll"><i class="glyphicon glyphicon-plus-sign"></i></button>
+            </td>
+        </tr>
+    }
+</table>
+
+<!-- /.box-body -->
+<div class="box-footer-regular-employee-list" style="margin-top:15px;">
+    Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+    @Html.PagedListPager(Model, page => Url.Action("JobOrder",
+ new { page, search = ViewBag.Search }))
+</div>
+
+    <script>
+        $(document).ready(function () {
+            $(".pagination li").click(function(e){
+                e.preventDefault();
+
+                var page = $(this).text();
+                var search_value = $("#regular_search").val();
+
+                if (page === "»") {
+                    if(@Model.PageNumber + 10 >= @Model.PageCount)
+                        page = @Model.PageCount;
+                    else
+                        page = @Model.PageNumber + 10;
+                }
+                if (page === "«"){
+                    if(@Model.PageNumber - 10 >= 1)
+                        page = @Model.PageNumber - 10;
+
+                    else
+                        page = 1;
+                }
+
+                if (page === "»»") page = @Model.PageCount;
+                if (page === "««") page = 1;
+
+                loadRegularEmployee(page, search_value);
+            });
+
+            $('.create_regular_payroll').click(function () {
+
+                var id = $(this).closest('tr').find('td:eq(0)').text().trim();
+                var firstname = $(this).closest('tr').find('td:eq(1)').text().trim();
+                var middlename = $(this).closest('tr').find('td:eq(2)').text().trim();
+                var lastname = $(this).closest('tr').find('td:eq(3)').text().trim();
+                var fullname = firstname + " " + middlename + " " + lastname;
+                var salary = $(this).closest('tr').find('td:eq(5)').text().trim();
+                var tax = $(this).closest('tr').find('td:eq(20)').text().trim();
+
+                var cfi = $(this).closest('tr').find('td:eq(6)').text().trim();
+                var gsis_consoloan = $(this).closest('tr').find('td:eq(7)').text().trim();
+                var gsis_policyloan = $(this).closest('tr').find('td:eq(8)').text().trim();
+                var gsis_eml = $(this).closest('tr').find('td:eq(9)').text().trim();
+                var gsis_uoli = $(this).closest('tr').find('td:eq(10)').text().trim();
+                var gsis_edu = $(this).closest('tr').find('td:eq(11)').text().trim();
+                var gsis_help = $(this).closest('tr').find('td:eq(12)').text().trim();
+                var rel = $(this).closest('tr').find('td:eq(13)').text().trim();
+                var pagibig_loan = $(this).closest('tr').find('td:eq(14)').text().trim();
+                var pagibig_mp2 = $(this).closest('tr').find('td:eq(15)').text().trim();
+                var simc = $(this).closest('tr').find('td:eq(16)').text().trim();
+                var hwmpc = $(this).closest('tr').find('td:eq(17)').text().trim();
+                var dbp = $(this).closest('tr').find('td:eq(18)').text().trim();
+                var disallowance = $(this).closest('tr').find('td:eq(19)').text().trim();
+              
+                $(".selected").removeClass("selected");
+                $("." + id).addClass("selected");
+
+                $('#box_create_payroll').removeClass("hide");
+                $('#box_regular_payroll_list').removeClass("hide");
+                $(".parent-payroll-list").html("Loading......");
+                loadRegularPayrollList(id, firstname, lastname, middlename);
+
+                $("#regular_id").val(id);
+                $("#regular_name").val(fullname);
+                $("#regular_salary").val(formatComma(salary));
+                $("#regular_tax").val(formatComma(tax));
+                $("#regular_cfi").val(formatComma(cfi.split('/')[0]));
+                $("#regular_cfi_payment").val(cfi.split('/')[1]);
+                $("#regular_cfi_paid").val(cfi.split('/')[2]);
+                $("#regular_gsis_consoloan").val(formatComma(gsis_consoloan.split('/')[0]));
+                $("#regular_gsis_consoloan_payment").val(gsis_consoloan.split('/')[1]);
+                $("#regular_gsis_consoloan_paid").val(gsis_consoloan.split('/')[2]);
+                $("#regular_gsis_policyloan").val(formatComma(gsis_policyloan.split('/')[0]));
+                $("#regular_gsis_policyloan_payment").val(gsis_policyloan.split('/')[1]);
+                $("#regular_gsis_policyloan_paid").val(gsis_policyloan.split('/')[2]);
+                $("#regular_gsis_eml").val(formatComma(gsis_eml.split('/')[0]));
+                $("#regular_gsis_eml_payment").val(gsis_eml.split('/')[1]);
+                $("#regular_gsis_eml_paid").val(gsis_eml.split('/')[2]);
+                $("#regular_gsis_uoli").val(formatComma(gsis_uoli.split('/')[0]));
+                $("#regular_gsis_uoli_payment").val(gsis_uoli.split('/')[1]);
+                $("#regular_gsis_uoli_paid").val(gsis_uoli.split('/')[2]);
+                $("#regular_gsis_edu").val(formatComma(gsis_edu.split('/')[0]));
+                $("#regular_gsis_edu_payment").val(gsis_edu.split('/')[1]);
+                $("#regular_gsis_edu_paid").val(gsis_edu.split('/')[2]);
+                $("#regular_gsis_help").val(formatComma(gsis_help.split('/')[0]));
+                $("#regular_gsis_help_payment").val(gsis_help.split('/')[1]);
+                $("#regular_gsis_help_paid").val(gsis_help.split('/')[2]);
+                $("#regular_gsis_rel").val(formatComma(rel.split('/')[0]));
+                $("#regular_gsis_rel_payment").val(rel.split('/')[1]);
+                $("#regular_gsis_rel_paid").val(rel.split('/')[2]);
+                $("#regular_pagibig_loan").val(formatComma(pagibig_loan.split('/')[0]));
+                $("#regular_pagibig_loan_payment").val(pagibig_loan.split('/')[1]);
+                $("#regular_pagibig_loan_paid").val(pagibig_loan.split('/')[2]);
+                $("#regular_pagibig_mp2").val(formatComma(pagibig_mp2.split('/')[0]));
+                $("#regular_pagibig_mp2_payment").val(pagibig_mp2.split('/')[1]);
+                $("#regular_pagibig_mp2_paid").val(pagibig_mp2.split('/')[2]);
+                $("#regular_simc").val(formatComma(simc.split('/')[0]));
+                $("#regular_simc_payment").val(simc.split('/')[1]);
+                $("#regular_simc_paid").val(simc.split('/')[2]);
+                $("#regular_coop").val(formatComma(hwmpc.split('/')[0]));
+                $("#regular_coop_payment").val(hwmpc.split('/')[1]);
+                $("#regular_coop_paid").val(hwmpc.split('/')[2]);
+                $("#regular_dbp").val(formatComma(dbp.split('/')[0]));
+                $("#regular_dbp_payment").val(dbp.split('/')[1]);
+                $("#regular_dbp_paid").val(dbp.split('/')[2]);
+                $("#regular_disallowance").val(formatComma(disallowance.split('/')[0]));
+                $("#regular_disallowance_payment").val(disallowance.split('/')[1]);
+                $("#regular_disallowance_paid").val(disallowance.split('/')[2]);
+
+                var choosen_month = $("#regular_month").val();
+                var choosen_year = $("#regular_year").val();
+                if (choosen_month <= 9) choosen_month = "0" + choosen_month;
+
+                if (choosen_month != "00" && choosen_year != "0") {
+                    var id = $("#regular_id").val();
+                    var from = choosen_year + "-" + choosen_month + "-01";
+                    var to = choosen_year + "-" + choosen_month + "-" + daysInMonth(parseInt(choosen_month), choosen_year);
+
+                    $("#regular_date_range").val(choosen_month + "/01/" + choosen_year + "-" + choosen_month + "/" + daysInMonth(parseInt(choosen_month), choosen_year) + "/" + choosen_year);
+                    getLateAndAbsences(id, from, to);
+                }
+           
+            });
+        });
+
+</script>

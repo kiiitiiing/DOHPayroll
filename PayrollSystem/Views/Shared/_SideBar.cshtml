@@ -1,0 +1,74 @@
+﻿<header class="main-header">
+
+     <a href="index2.html" class="logo">
+
+          <span class="logo-mini"><b>PS</b></span>
+
+          <span class="logo-lg"><b>Payroll System</b></span>
+     </a>
+
+     <nav class="navbar navbar-static-top">
+
+          <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
+               <span class="sr-only">Toggle navigation</span>
+          </a>
+     </nav>
+</header>
+
+<aside class="main-sidebar">
+
+     <section class="sidebar">
+
+          <div class="user-panel">
+               <div class="pull-left image">
+                    <img src="@Url.Content("~/Images/doh.png")" class="img-circle" alt="User Image">
+               </div>
+               <div class="pull-left info">
+                    <p style="margin:auto">Alexander Pierce</p>
+               </div>
+          </div>
+
+          <ul class="sidebar-menu" data-widget="tree">
+               <li class="header">MAIN NAVIGATION</li>
+               <li class="treeview">
+                    <a href="#">
+                         <i class="fa fa-user"></i> <span>JOB ORDER</span>
+                         <span class="pull-right-container">
+                              <i class="fa fa-angle-left pull-right"></i>
+                         </span>
+                    </a>
+                    <ul class="treeview-menu menu-jo">
+                         <li class="active"><a href="@Url.Action("JobOrder","Home",new { id = 0})">ATM CARD</a></li>
+                         <li class="active"><a href="@Url.Action("JobOrder","Home",new { id = 1})">CASH CARD</a></li>
+                         <li class="active"><a href="@Url.Action("JobOrder","Home",new { id = 2})">W/O LBP CARD</a></li>
+                         <li class="active"><a href="@Url.Action("JobOrder","Home",new { id = 3})">UNDER VTF</a></li>
+                    </ul>
+               </li>
+               <li class="menu-regular">
+                    <a href="@Url.Action("Regular","Home")">
+                         <i class="fa fa-user"></i>
+                         <span>REGULAR</span>
+                    </a>
+               </li>
+               <li class="menu-report">
+                    <a href="@Url.Action("Index","Report")">
+                         <i class="glyphicon glyphicon-file"></i>
+                         <span>GENERATE REPORT</span>
+                    </a>
+               </li>
+               <li>
+                    <a href="#">
+                         <i class="glyphicon glyphicon-credit-card"></i>
+                         <span>CASHIER</span>
+                    </a>
+               </li>
+               <li>
+                    <a href="#">
+                         <i class="glyphicon glyphicon-off"></i>
+                         <span>SIGNOUT</span>
+                    </a>
+               </li>
+          </ul>
+     </section>
+
+</aside>

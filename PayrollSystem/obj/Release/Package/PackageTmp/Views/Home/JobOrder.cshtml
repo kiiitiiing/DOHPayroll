@@ -2,10 +2,9 @@
 @using PagedList.Mvc;
 <link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 @{
-
     ViewBag.Title = ViewBag.Action;
 }
-<h3 class="text-default jo_title">Job Order - ATM</h3>
+<h3 class="text-default jo_title">@ViewBag.Action</h3>
 <div class="box-tools pull-right">
     <!-- Buttons, labels, and many other things can be placed here! -->
     <!-- Here is a label for example -->
@@ -398,12 +397,11 @@
         </div>
     </div>
 </div> 
-@section scripts{
 <script>
 
     $(document).ready(function () {
 
-        loadJoEmployee(0, 1, "");
+        loadJoEmployee(getPageId(), 1, "");
 
         $(".jo_search").click(function () {
             var search_value = $("#search_value").val();
@@ -592,8 +590,6 @@
                     var id = $("#jo_id").val();
                     switch (choosen_options) {
                         case "1":
-
-
                             var from = choosen_year + "-" + choosen_month + "-01";
                             var to = choosen_year + "-" + choosen_month + "-15";
 
@@ -616,10 +612,6 @@
             $(".remove_create_jo_payroll").click(function () {
                 $('#box_create_payroll').addClass("hide");
             });
-
-
-
-
 
             $('.remove_payroll_list').click(function () {
                 if (!$('#box_jo_payroll_list').hasClass("hide")){
@@ -651,9 +643,9 @@
         ComputeTotalNetPay();
     });
 
-
-
     });
+
+
 
    function loadJoPayrollList(page,empID,firstname,lastname) {
 
@@ -834,4 +826,3 @@
         ComputeTotalNetPay();
     }
     </script>
-}

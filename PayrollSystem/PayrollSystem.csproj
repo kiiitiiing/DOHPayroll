@@ -219,7 +219,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
-    <Compile Include="Models\BundleOrderer.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
@@ -239,33 +238,32 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\DateUtility.cs" />
-    <Compile Include="Models\DivisionPDFView.cs" />
-    <Compile Include="Models\Employee.cs" />
-    <Compile Include="Models\Hazard.cs" />
-    <Compile Include="Models\HazardViewModel.cs" />
+    <Compile Include="Models\Utility\DateUtility.cs" />
+    <Compile Include="Models\PDF\RegularDivisionSummary\RegularDivisionPDFView.cs" />
+    <Compile Include="Models\ViewModel\Employee.cs" />
+    <Compile Include="Models\Entity\Hazard.cs" />
+    <Compile Include="Models\ViewModel\HazardViewModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
-    <Compile Include="Models\JobOrderPayrollModel.cs" />
-    <Compile Include="Models\JobOrderModel.cs" />
-    <Compile Include="Models\JoPayslipModel.cs" />
-    <Compile Include="Models\JoSummaryPDFView.cs" />
+    <Compile Include="Models\Entity\JobOrderPayrollModel.cs" />
+    <Compile Include="Models\ViewModel\JobOrderModel.cs" />
+    <Compile Include="Models\PDF\JobOrderPayslip\JoPayslipModel.cs" />
+    <Compile Include="Models\PDF\JobOrderSummary\JoSummaryPDFView.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
-    <Compile Include="Models\PayrollRegularDummy.cs" />
-    <Compile Include="Models\RataViewModel.cs" />
-    <Compile Include="Models\RegularFirstHalf.cs" />
-    <Compile Include="Models\RegularPayrollModel.cs" />
-    <Compile Include="Models\RegularDivisionItem.cs" />
-    <Compile Include="Models\JoPayslipItem.cs" />
-    <Compile Include="Models\RegularModel.cs" />
-    <Compile Include="Models\RegularPayslipItem.cs" />
-    <Compile Include="Models\JoPayslipPDFView.cs" />
-    <Compile Include="Models\RegularPayslipModel.cs" />
-    <Compile Include="Models\RegularPayslipPDFView.cs" />
-    <Compile Include="Models\RegularSecondHalf.cs" />
-    <Compile Include="Models\Remittance.cs" />
-    <Compile Include="Models\ReportPDF.cs" />
-    <Compile Include="Models\SalaryChargePDFView.cs" />
-    <Compile Include="Models\ValueFormatterUtility.cs" />
+    <Compile Include="Models\ViewModel\RataViewModel.cs" />
+    <Compile Include="Models\PDF\RegularPayslip\RegularFirstHalf.cs" />
+    <Compile Include="Models\ViewModel\RegularPayrollModel.cs" />
+    <Compile Include="Models\PDF\RegularDivisionSummary\RegularDivisionItem.cs" />
+    <Compile Include="Models\PDF\JobOrderPayslip\JoPayslipItem.cs" />
+    <Compile Include="Models\ViewModel\RegularModel.cs" />
+    <Compile Include="Models\PDF\RegularPayslip\RegularPayslipItem.cs" />
+    <Compile Include="Models\PDF\JobOrderPayslip\JoPayslipPDFView.cs" />
+    <Compile Include="Models\PDF\RegularPayslip\RegularPayslipModel.cs" />
+    <Compile Include="Models\PDF\RegularPayslip\RegularPayslipPDFView.cs" />
+    <Compile Include="Models\PDF\RegularPayslip\RegularSecondHalf.cs" />
+    <Compile Include="Models\Entity\Remittance.cs" />
+    <Compile Include="Models\Entity\ReportPDF.cs" />
+    <Compile Include="Models\PDF\RegularSalaryChargeSummary\SalaryChargePDFView.cs" />
+    <Compile Include="Models\Utility\ValueFormatterUtility.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -558,6 +556,7 @@
     <Content Include="Scripts\bootstrap-datepicker.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\job-order\employee-list.js" />
     <Content Include="Scripts\jquery-3.1.1.js" />
     <Content Include="Scripts\jquery-3.1.1.min.js" />
     <Content Include="Scripts\jquery-3.1.1.slim.js" />
@@ -615,9 +614,22 @@
     <Content Include="Views\Login\Index.cshtml" />
     <Content Include="Views\Report\Index.cshtml" />
     <Content Include="Views\Home\Regular.cshtml" />
-    <Content Include="Views\PartialView\RegularPayrollForm.cshtml" />
     <Content Include="Views\PartialView\JobOrderList.cshtml" />
     <Content Include="Views\PartialView\RegularPayrollList.cshtml" />
+    <Content Include="Views\PartialView\RegularList.cshtml" />
+    <Content Include="Views\Shared\_SideBar.cshtml" />
+    <Content Include="Views\Home\Partial\_JoFormPartial.cshtml" />
+    <Content Include="Views\Home\Partial\_RegularFormPartial.cshtml" />
+    <Content Include="Views\Report\Partial\_JoSummaryPartial.cshtml" />
+    <Content Include="Views\Report\Partial\_SalarySummaryPartial.cshtml" />
+    <Content Include="Views\Report\Partial\_DivisionSummaryPartial.cshtml" />
+    <Content Include="Views\Report\Message\_MessagePartial.cshtml" />
+    <Content Include="Views\PartialView\_BenefitsNavTabPartial.cshtml" />
+    <Content Include="Views\PartialView\Tabs\_HazardTabs.cshtml" />
+    <Content Include="Views\PartialView\Tabs\_RataTabs.cshtml" />
+    <Content Include="Views\PartialView\Tabs\_CellphoneTabs.cshtml" />
+    <Content Include="Views\PartialView\Tabs\_LongevityTabs.cshtml" />
+    <Content Include="Views\PartialView\Tabs\_SubsistenceTabs.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

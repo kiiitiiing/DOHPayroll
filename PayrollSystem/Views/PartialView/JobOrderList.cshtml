@@ -5,74 +5,75 @@
 
 <!-- /.box-header -->
 
-      <table class="table">
+<table class="table">
+     <tr>
+          <th>ID NO</th>
+          <th>FIRST NAME</th>
+          <th>MIDDLE NAME</th>
+          <th>LASTNAME</th>
+          <th>DESIGNATION</th>
+          <th>SALARY</th>
+          <th></th>
+     </tr>
+
+     @foreach (var item in Model)
+     {
           <tr>
-              <th>ID NO</th>
-              <th>FIRST NAME</th>
-              <th>MIDDLE NAME</th>
-              <th>LASTNAME</th>
-              <th>DESIGNATION</th>
-              <th>SALARY</th>
-              <th></th>
+               <td class="@item.ID">
+                    @Html.DisplayFor(modelItem => item.ID)
+               </td>
+               <td class="@item.ID">
+                    @Html.DisplayFor(modelItem => item.Firstname)
+               </td>
+               <td class="@item.ID">
+                    @Html.DisplayFor(modelItem => item.Middlename)
+               </td>
+               <td class="@item.ID">
+                    @Html.DisplayFor(modelItem => item.Lastname)
+               </td>
+               <td class="@item.ID">
+                    @Html.DisplayFor(modelItem => item.Designation)
+               </td>
+               <td class="@item.ID">
+                    @Html.DisplayFor(modelItem => item.Salary)
+               </td>
+               <td class="hidden">
+                    @item.CoopFormat()
+               </td>
+               <td class="hidden">
+                    @item.PagibigFormat()
+               </td>
+               <td class="hidden">
+                    @item.GsisFormat()
+               </td>
+               <td class="hidden">
+                    @item.PhicFormat()
+               </td>
+               <td class="hidden">
+                    @item.ExcessFormat()
+               </td>
+               <td>
+                    <button class="btn btn-xs btn-success create_jo_payroll">Payroll</button>
+               </td>
           </tr>
 
-          @foreach (var item in Model)
-            {
-              <tr>
-                  <td class="@item.ID">
-                      @Html.DisplayFor(modelItem => item.ID)
-                  </td>
-                  <td class="@item.ID">
-                      @Html.DisplayFor(modelItem => item.Firstname)
-                  </td>
-                  <td class="@item.ID">
-                      @Html.DisplayFor(modelItem => item.Middlename)
-                  </td>
-                  <td class="@item.ID">
-                      @Html.DisplayFor(modelItem => item.Lastname)
-                  </td>
-                  <td class="@item.ID">
-                      @Html.DisplayFor(modelItem => item.Designation)
-                  </td>
-                  <td class="@item.ID">
-                      @Html.DisplayFor(modelItem => item.Salary)
-                  </td>
-                  <td class="hidden">
-                      @item.CoopFormat()
-                  </td>
-                  <td class="hidden">
-                      @item.PagibigFormat()
-                  </td>
-                  <td class="hidden">
-                      @item.GsisFormat()
-                  </td>
-                  <td class="hidden">
-                      @item.PhicFormat()
-                  </td>
-                  <td class="hidden">
-                      @item.ExcessFormat()
-                  </td>
-                  <td>
-                      <button class="btn btn-xs btn-success create_jo_payroll"><i class="glyphicon glyphicon-plus-sign"></i></button>
-                  </td>
-              </tr>
-
-          }
-      </table>
+     }
+</table>
 <!-- /.box-body -->
 <div class="box-footer-jo-employee-list" style="margin-top:15px;">
-    Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+     Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
 
-    @Html.PagedListPager(Model, page => Url.Action("JobOrder",
+     @Html.PagedListPager(Model, page => Url.Action("JobOrder",
  new { page, search = ViewBag.Search }))
 </div>
-
-    <script>
+<script>
         $(document).ready(function () {
+
             $(".pagination li").click(function(e){
                 e.preventDefault();
 
                 var page = $(this).text();
+                var search_value = $("#search_value").val();
 
                 if (page === "»") {
                     if(@Model.PageNumber + 10 >= @Model.PageCount)
@@ -91,9 +92,9 @@
                 if (page === "»»") page = @Model.PageCount;
                 if (page === "««") page = 1;
 
-                loadJoEmployee(null, page, "");
-            });
+                loadJoEmployee(getPageId(), page, search_value);
 
+            });
 
             $('.create_jo_payroll').click(function () {
 

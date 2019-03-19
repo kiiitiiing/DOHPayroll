@@ -7,118 +7,80 @@ using System.Data;
 
 namespace PayrollSystem.Database
 {
-    public sealed class DTSDatabase
-    {
-        public static string server;
-        public static string database;
-        public static string uid;
-        public static string password;
-        public MySqlConnection SqlConnection = null;
+     public sealed class DTSDatabase
+     {
 
-        private static DTSDatabase instance;
+          public static string connectionString;
+          private static DTSDatabase instance;
 
-        private DTSDatabase() { }
+          private DTSDatabase() { }
 
-        //Singleton Pattern
-        public static DTSDatabase Instance
-        {
-            get
-            {
-                if (instance == null)
-                {
-                    instance = new DTSDatabase();
-                    instance.Initialize();
-
-                }
-                return instance;
-            }
-        }
-
-        public void Initialize()
-        {
-            if (SqlConnection == null)
-            {
-                server = "192.168.100.17";
-                database = "dts";
-                uid = "doh7payroll";
-                password = "doh7payroll";
-                string connectionString;
-                connectionString = "SERVER=" + server + ";" + "DATABASE=" +
-                        database + ";" + "UID=" + uid + ";" + "PASSWORD=" + password + "; pooling = false; SslMode=none; convert zero datetime=True";
-
-                SqlConnection = new MySqlConnection(connectionString);
-            }
-        }
-
-        private bool OpenConnection()
-        {
-
-            try
-            {
-                if (SqlConnection.State == ConnectionState.Closed)
-                {
-                    SqlConnection.Open();
-                }
-                return true;
-
-            }
-            catch { }
-            return false;
-        }
-
-        //Close connection
-        private bool CloseConnection()
-        {
-            try
-            {
-                SqlConnection.Close();
-                return true;
-            }
-            catch { }
-            return false;
-        }
-
-        public string GetDivisionNameByID(string id)
-        {
-            String division = "";
-            String query = "SELECT description FROM division WHERE id = '" + id + "'";
-            if (this.OpenConnection() == true)
-            {
-                MySqlCommand cmd = new MySqlCommand(query, SqlConnection); 
-                MySqlDataReader dataReader = cmd.ExecuteReader();
-                while (dataReader.Read())
-                {
-                    division = dataReader["description"].ToString().Split('-')[0];
-                }
-                dataReader.Close();
-                this.CloseConnection();
-            }
-            return division;
-        }
-
-        public string GetDesignationName(string id)
-        {
-            string name = "";
-            string query = "SELECT description FROM dts.designation WHERE id = '" + id + "' LIMIT 1";
-            if (this.OpenConnection() == true)
-            {
-                try
-                {
-                    MySqlCommand cmd = new MySqlCommand(query, SqlConnection);
-                    MySqlDataReader dataReader = cmd.ExecuteReader();
-                    while (dataReader.Read())
+          //Singleton Pattern
+          public static DTSDatabase Instance
+          {
+               get
+               {
+                    if (instance == null)
                     {
-                        name = dataReader["description"].ToString();
+                         instance = new DTSDatabase();
+                         instance.Initialize();
+
                     }
-                    dataReader.Close();
-                    this.CloseConnection();
-                }
-                catch (MySqlException e)
-                {
-                    this.CloseConnection();
-                }
-            }
-            return name;
-        }
-    }
+                    return instance;
+               }
+          }
+
+          public void Initialize()
+          {
+               string server = "192.168.100.17";
+               string database = "dts";
+               string uid = "doh7payroll";
+               string password = "doh7payroll";
+               connectionString = "SERVER=" + server + ";" + "DATABASE=" + database + ";" + "UID=" + uid + ";" + "PASSWORD=" + password + "; pooling = false; SslMode=none; convert zero datetime=True";
+          }
+
+
+          public string GetDivisionNameByID(string id)
+          {
+               string division = "";
+               string query = "SELECT description FROM division WHERE id = '" + id + "'";
+               using (MySqlConnection SqlConnection = new MySqlConnection(connectionString))
+               {
+                    SqlConnection.Open();
+                    using (MySqlCommand cmd = new MySqlCommand(query, SqlConnection))
+                    {
+                         MySqlDataReader dataReader = cmd.ExecuteReader();
+                         while (dataReader.Read())
+                         {
+                              division = dataReader["description"].ToString().Split('-')[0];
+                         }
+                         dataReader.Close();
+                    }
+                    SqlConnection.Close();
+               }
+
+               return division;
+          }
+
+          public string GetDesignationName(string id)
+          {
+               string name = "";
+               string query = "SELECT description FROM dts.designation WHERE id = '" + id + "' LIMIT 1";
+               using (MySqlConnection SqlConnection = new MySqlConnection(connectionString))
+               {
+                    SqlConnection.Open();
+                    using (MySqlCommand cmd = new MySqlCommand(query, SqlConnection))
+                    {
+                         MySqlDataReader dataReader = cmd.ExecuteReader();
+                         while (dataReader.Read())
+                         {
+                              name = dataReader["description"].ToString();
+                         }
+                         dataReader.Close();
+                    }
+                    SqlConnection.Close();
+               }
+               return name;
+          }
+     }
 }

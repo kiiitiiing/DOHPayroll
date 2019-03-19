@@ -2,303 +2,138 @@
 @using PagedList.Mvc;
 <link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 @{
-    ViewBag.Title = "Report";
+     ViewBag.Title = "Report";
 }
 <style>
-    .td-button {
-        float:right;
-        margin:1px;
-    }
+   .td-button {
+        float: right;
+        margin: 1px;
+   }
 </style>
 
 <div class="message-container">
-    @if (ViewBag.Message != null)
-    {
-        if (ViewBag.Message.Equals("Generated Successfully"))
-        {
-            <div class="alert alert-success center" role="alert">
-                <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-                <span class="sr-only">Error:</span>
-                @ViewBag.Message
-            </div>
-        }
-        else
-        {
-            <div class="alert alert-danger center" role="alert">
-                <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-                <span class="sr-only">Error:</span>
-                @ViewBag.Message
-            </div>
-        }
-
-    }
+     @Html.Partial("Message/_MessagePartial")
 </div>
 
 <div class="col-md-3">
-    <div class="box box-solid box-primary">
-        <div class="box-header with-border">
-            <p class="box-title">Job Order</p>
-            <div class="box-tools pull-right">
-                <span><i class="glyphicon glyphicon-stats"></i></span>
-            </div>
-            <!-- /.box-tools -->
-        </div>
-        <!-- /.box-header -->
-        <div class="box-body">
-          
-                @using (Html.BeginForm("CreateJoSummary", "Report", FormMethod.Post))
-                {
-                    <div class="table-responsive">
-                        <table class="table">
-                            <tr>
-                                <td class="col-sm-4"><strong>Date Range</strong></td>
-                                <td class="col-sm-1">: </td>
-                                <td class="col-sm-7">
-                                    <input type="text" name="date" placeholder="Date Range" class="form-control summary_date" style="border-radius:0px;background:#fff" required readonly/>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="col-sm-4"><strong>Document</strong></td>
-                                <td class="col-sm-1"> :</td>
-                                <td class="col-sm-7">
-                                    <select name="document" class="form-control pull-left" style="border-radius:0px;" required>
-                                        <option value="ALL">ALL</option>
-                                        <option value="PAGIBIG">Pag-Ibig</option>
-                                        <option value="COOP">Coop</option>
-                                        <option value="PHIC">PHIC</option>
-                                        <option value="GSIS">GSIS</option>
-                                        <option value="EXCESS">EXCESS</option>
-                                    </select>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="col-sm-4"><strong>Disbursement</strong></td>
-                                <td class="col-sm-1"> :</td>
-                                <td class="col-sm-7">
-                                    <select name="disbursement" id="disbursement" class="form-control pull-left" style="border-radius:0px;" required>
-                                        <option value="ATM">ATM</option>
-                                        <option value="CASH_CARD">Cashcard</option>
-                                        <option value="NO_CARD">W/O LBP Cards</option>
-                                        <option value="UNDER_VTF">Under VTF</option>
-                                    </select>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="col-sm-4"><strong>Salary Charge</strong></td>
-                                <td class="col-sm-1"> :</td>
-                                <td class="col-sm-7">
+     <div class="box box-solid box-primary">
+          <div class="box-header with-border">
+               <p class="box-title">Job Order</p>
+               <div class="box-tools pull-right">
+                    <span><i class="glyphicon glyphicon-stats"></i></span>
+               </div>
+          </div>
+          <div class="box-body">
+               @Html.Partial("Partial/_JoSummaryPartial")
+          </div>
+     </div>
 
-                                    <select name="salary_charge" class="form-control pull-left" style="border-radius:0px;" required>
-                                        <option value="ALL">ALL</option>
-                                        <option value="HEALTH PROMOTION">HEALTH PROMOTION</option>
-                                        <option value="HEALTH EMERGENCY PREPAREDNESS AND RESPONSE (HEPR)">HEALTH EMERGENCY PREPAREDNESS AND RESPONSE (HEPR)</option>
-                                        <option value="REGULATION OF REGIONAL HEALTH FACILITIES AND SERVICES">REGULATION OF REGIONAL HEALTH FACILITIES AND SERVICES</option>
-                                        <option value="SAA 2018-01-0014">SAA 2018-01-0014</option>
-                                        <option value="SAA 2018-02-0059">SAA 2018-02-0059</option>
-                                        <option value="SUPPORT TO OPERATIONS (STO)">SUPPORT TO OPERATIONS (STO)</option>
-                                        <option value="PUBLIC HEALTH MANAGEMENT (PHM)">PUBLIC HEALTH MANAGEMENT (PHM)</option>
-                                        <option value="SAA 2018-02-0203">SAA 2018-02-0203</option>
-                                        <option value="SAA 2018-04-0699">SAA 2018-04-0699</option>
-                                        <option value="SAA 2018-02-0081">SAA 2018-02-0081</option>
+     <div class="box box-solid box-primary">
+          <div class="box-header with-border">
+               <p class="box-title">Regular - Salary Charge</p>
+               <div class="box-tools pull-right">
+                    <span><i class="glyphicon glyphicon-stats"></i></span>
+               </div>
+          </div>
+          <div class="box-body">
+               @Html.Partial("Partial/_SalarySummaryPartial")
+          </div>
+     </div>
 
-                                    </select>
-                                </td>
-                            </tr>
-                        </table>
-                    </div>
-                    <button type="submit" class="btn-lg btn-default center-block col-sm-12 btn_payroll_print">
-                       <span class="glyphicon glyphicon-print" aria-hidden="true"></span> Print
-                    </button>
-                }
-           
-        </div>
-    </div>
-
-    <div class="box box-solid box-primary">
-        <div class="box-header with-border">
-            <p class="box-title">Regular - Salary Charge</p>
-            <div class="box-tools pull-right">
-                <span><i class="glyphicon glyphicon-stats"></i></span>
-            </div>
-            <!-- /.box-tools -->
-        </div>
-        <!-- /.box-header -->
-        <div class="box-body">
-                @using (Html.BeginForm("CreateSalarySummary", "Report", FormMethod.Post))
-                {
-                    <div class="table-responsive">
-                        <table class="table">
-                            <tr>
-                                <td class="col-sm-4"><strong>Date</strong></td>
-                                <td class="col-sm-1">: </td>
-                                <td class="col-sm-7">
-                                    <input type="text" name="date" placeholder="Choose Date" class="inline form-control regular_date" style="border-radius:0px;background:#fff" readonly/>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="col-sm-4"><strong>Salary Charge</strong></td>
-                                <td class="col-sm-1"> :</td>
-                                <td class="col-sm-7">
-
-                                    <select name="salary_charge" id="salary_charge" class="form-control pull-left" style="border-radius:0px;" required>
-                                        <option value="ALL">ALL</option>
-                                        <option value="RD_ARD">RD/ARD</option>
-                                        <option value="MSD">MSD</option>
-                                        <option value="LHSD">LHSD</option>
-                                        <option value="RLED">RLED</option>
-                                        <option value="PDO-CEBU">PDO-CEBU</option>
-                                        <option value="PDO-NEGROS">PDO-NEGROS</option>
-                                        <option value="PDO-SIQUIJOR">PDO-SIQUIJOR</option>
-                                    </select>
-                                </td>
-                            </tr>
-                        </table>
-                    </div>
-                    <button type="submit" name="submit" class="btn-lg btn-default center-block col-sm-12 btn_payroll_print" value="Search">
-                        <span class="glyphicon glyphicon-print" aria-hidden="true"></span> Print
-                    </button>
-                }
-        
-        </div>
-    </div>
-
-    <div class="box box-solid box-primary">
-        <div class="box-header with-border">
-            <p class="box-title">Regular - Division</p>
-            <div class="box-tools pull-right">
-                <span><i class="glyphicon glyphicon-stats"></i></span>
-            </div>
-            <!-- /.box-tools -->
-        </div>
-        <!-- /.box-header -->
-        <div class="box-body">
-
-            @using (Html.BeginForm("CreateDivisionSummary", "Report", FormMethod.Post))
-            {
-                <div class="table-responsive">
-                    <table class="table">
-                        <tr>
-                            <td class="col-sm-4"><strong>Date</strong></td>
-                            <td class="col-sm-1">: </td>
-                            <td class="col-sm-7">
-                                <input type="text" name="date" placeholder="Choose Date" class="form-control regular_date" style="border-radius:0px;background:#fff" readonly/>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="col-sm-4"><strong>Division</strong></td>
-                            <td class="col-sm-1"> :</td>
-                            <td class="col-sm-7">
-
-                                <select name="division" id="division" class="form-control pull-left" style="border-radius:0px;" required>
-                                    <option value="3">Office of the RD / ARD</option>
-                                    <option value="4">LHSD - Local Health Support Division</option>
-                                    <option value="5">RLED - Regulatory and Licensing Enforcement Division</option>
-                                    <option value="6">MSD - Management Support Division</option>
-                                </select>
-                            </td>
-                        </tr>
-                    </table>
-                </div>
-                    <button type="submit" name="submit" class="btn-lg btn-default center-block col-sm-12 btn_payroll_print" value="Search">
-                        <span class="glyphicon glyphicon-print" aria-hidden="true"></span> Print
-                    </button>
-            }
-
-        </div>
-    </div>
-
-
-
+     <div class="box box-solid box-primary">
+          <div class="box-header with-border">
+               <p class="box-title">Regular - Division</p>
+               <div class="box-tools pull-right">
+                    <span><i class="glyphicon glyphicon-stats"></i></span>
+               </div>
+          </div>
+          <div class="box-body">
+               @Html.Partial("Partial/_DivisionSummaryPartial")
+          </div>
+     </div>
 </div>
 <div class="col-md-9">
-    <div class="box box-solid box-primary">
-        <div class="box-header with-border">
-            <p class="box-title">Report List</p>
-            <div class="box-tools pull-right">
-                <!-- Buttons, labels, and many other things can be placed here! -->
-                <!-- Here is a label for example -->
-                <span><i class="glyphicon glyphicon-file"></i></span>
-            </div>
-            <!-- /.box-tools -->
-        </div>
-        <!-- /.box-header -->
+     <div class="box box-solid box-primary">
+          <div class="box-header with-border">
+               <p class="box-title">Report List</p>
+               <div class="box-tools pull-right">
+                    <span><i class="glyphicon glyphicon-file"></i></span>
+               </div>
+          </div>
 
-        @using (Html.BeginForm("Index", "Report", FormMethod.Get, new { @class = "navbar-form" }))
-        {
+          @using (Html.BeginForm("Index", "Report", FormMethod.Get, new { @class = "navbar-form" }))
+          {
 
-            <div class="input-group add-on">
-                <input class="form-control" placeholder="Search" name="search" value="@ViewBag.Search" id="srch-term" type="text" />
-                <div class="input-group-btn">
-                    <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
-                </div>
-            </div>
-        }
-        <div class="box-body">
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th>From</th>
-                        <th>To</th>
-                        <th>Document</th>
-                        <th>Disbursement</th>
-                        <th>Salary Charge</th>
-                        <th>Division</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var item in Model)
-                    {
-                        <tr>
-                            <td width="150">
-                                @Html.DisplayFor(modelItem => item.From)
-                            </td>
-                            <td width="150">
-                                @Html.DisplayFor(modelItem => item.To)
-                            </td>
-                            <td width="150">
-                                @Html.DisplayFor(modelItem => item.Document)
-                            </td>
-                            <td width="150">
-                                @Html.DisplayFor(modelItem => item.Disbursement)
-                            </td>
-                            <td width="300">
-                                @Html.DisplayFor(modelItem => item.SalaryCharge)
-                            </td>
-                            <td width="300">
-                                @Html.DisplayFor(modelItem => item.Division)
-                            </td>
-                            <td width="300">
-                                @using (Html.BeginForm("DeletePDF", "Report", FormMethod.Post))
-                                {
-                                 <button type="submit" name="id" value="@item.ID" class="btn btn-xs btn-danger td-button"><i class="glyphicon glyphicon-trash"></i></button>
-                                }
-                                @using (Html.BeginForm("ViewPDF", "Report", FormMethod.Post))
-                                {
-                                    <button type="submit" name="pdf" formtarget="_blank" value="@item.FilePath" class="btn btn-xs btn-primary td-button"><i class="glyphicon glyphicon-book"></i></button>
-                                }
-                                
-                                <!-- <button type="button" class="btn btn-xs btn-success"><i class="glyphicon glyphicon-transfer"></i></button> -->
+               <div class="input-group add-on">
+                    <input class="form-control" placeholder="Search" name="search" value="@ViewBag.Search" id="srch-term" type="text" />
+                    <div class="input-group-btn">
+                         <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+                    </div>
+               </div>
+          }
+          <div class="box-body">
+               <table class="table table-striped">
+                    <thead>
+                         <tr>
+                              <th>From</th>
+                              <th>To</th>
+                              <th>Document</th>
+                              <th>Disbursement</th>
+                              <th>Salary Charge</th>
+                              <th>Division</th>
+                              <th></th>
+                         </tr>
+                    </thead>
+                    <tbody>
+                         @foreach (var item in Model)
+                         {
+                              <tr>
+                                   <td width="150">
+                                        @Html.DisplayFor(modelItem => item.From)
+                                   </td>
+                                   <td width="150">
+                                        @Html.DisplayFor(modelItem => item.To)
+                                   </td>
+                                   <td width="150">
+                                        @Html.DisplayFor(modelItem => item.Document)
+                                   </td>
+                                   <td width="150">
+                                        @Html.DisplayFor(modelItem => item.Disbursement)
+                                   </td>
+                                   <td width="300">
+                                        @Html.DisplayFor(modelItem => item.SalaryCharge)
+                                   </td>
+                                   <td width="300">
+                                        @Html.DisplayFor(modelItem => item.Division)
+                                   </td>
+                                   <td width="300">
+                                        @using (Html.BeginForm("DeletePDF", "Report", FormMethod.Post))
+                                        {
+                                             <button type="submit" name="id" value="@item.ID" class="btn btn-xs btn-danger td-button"><i class="glyphicon glyphicon-trash"></i></button>
+                                        }
+                                        @using (Html.BeginForm("ViewPDF", "Report", FormMethod.Post))
+                                        {
+                                             <button type="submit" name="pdf" formtarget="_blank" value="@item.FilePath" class="btn btn-xs btn-primary td-button"><i class="glyphicon glyphicon-book"></i></button>
+                                        }
+                                   </td>
+                              </tr>
+                         }
+                    </tbody>
+               </table>
+          </div>
+          <div class="box-footer">
+               Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
 
-                            </td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
-        </div>
-        <div class="box-footer">
-            Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
-
-            @Html.PagedListPager(Model, page => Url.Action("JobOrder",
+               @Html.PagedListPager(Model, page => Url.Action("JobOrder",
  new { page, search = ViewBag.Search }))
-        </div>
-    </div>
+          </div>
+     </div>
 </div>
 @section scripts{
-<script>
+     <script>
     $(document).ready(function () {
 
-        $(".regular_date").datepicker({
+         $(".regular_salary_date,.regular_division_date").datepicker({
             format: "mm-yyyy",
             viewMode: "months",
             minViewMode: "months"
@@ -310,16 +145,43 @@
             autoClose: true,
         }).on("changeDate", function (event) {
             var dates = event.dates, elem = $('.summary_date');
-            if (elem.data("selecteddates") == dates.join(",")) return; //To prevernt recursive call, that lead to lead the maximum stack in the browser. 
+            if (elem.data("selecteddates") == dates.join(",")) return; //To prevernt recursive call, that lead to lead the maximum stack in the browser.
             if (dates.length > 2) dates = dates.splice(dates.length - 1);
             dates.sort(function (a, b) { return new Date(a).getTime() - new Date(b).getTime() });
             elem.data("selecteddates", dates.join(",")).datepicker('setDates', dates);
         });
 
-      
+        $("#jo_summary_form").submit(function (e) {
+
+            var date = $(".summary_date").val();
+            if (date.split('-').length == 1) {
+                e.preventDefault();
+                alert("Please indiciate the inclusive dates");
+                return;
+            }
+        });
+
+        $("#regular_division_form").submit(function (e) {
+             var date = $(".regular_division_date").val();
+             if (date === "") {
+                  e.preventDefault();
+                  alert("Please indiciate the inclusive dates");
+                  return;
+             }
+        });
+
+        $("#regular_salary_form").submit(function (e) {
+             var date = $(".regular_salary_date").val();
+             if (date === "") {
+                  e.preventDefault();
+                  alert("Please indiciate the inclusive dates");
+                  return;
+             }
+        });
+
 
     });
 
-</script>        
+     </script>
 }
 

@@ -7,34 +7,34 @@ using iTextSharp.text.pdf;
 
 namespace PayrollSystem.Models
 {
-    public class JoPayslipItem
-    {
-        public string LeftDescription { get; set; }
-        public string LeftValue { get; set; }
-        public int LeftPosition { get; set; }
-        public BaseColor LeftBackground { get; set; }
-        public BaseColor LeftBaseColor { get; set; }
+     public class JoPayslipItem
+     {
+          public string LeftDescription { get; set; }
+          public string LeftValue { get; set; }
+          public int LeftPosition { get; set; }
+          public BaseColor LeftBackground { get; set; }
+          public BaseColor LeftBaseColor { get; set; }
 
 
 
 
-        public JoPayslipItem(string LeftDescription,string LeftValue, int LeftPosition, BaseColor LeftBackground, BaseColor LeftBaseColor)
-        {
-            this.LeftDescription = LeftDescription;
-            this.LeftValue = LeftValue;
-            this.LeftPosition = LeftPosition;
-            this.LeftBackground = LeftBackground;
-            this.LeftBaseColor = LeftBaseColor;
-        }
+          public JoPayslipItem(string LeftDescription, string LeftValue, int LeftPosition, BaseColor LeftBackground, BaseColor LeftBaseColor)
+          {
+               this.LeftDescription = LeftDescription;
+               this.LeftValue = LeftValue;
+               this.LeftPosition = LeftPosition;
+               this.LeftBackground = LeftBackground;
+               this.LeftBaseColor = LeftBaseColor;
+          }
 
-      
 
-        public static List<JoPayslipItem> Seeder(JoPayslipModel data)
-        {
-            BaseColor black = new BaseColor(0, 0, 0);
-            BaseColor white = new BaseColor(255, 255, 255);
 
-            List<JoPayslipItem> list = new List<JoPayslipItem>()
+          public static List<JoPayslipItem> Seeder(JoPayslipModel data)
+          {
+               BaseColor black = new BaseColor(0, 0, 0);
+               BaseColor white = new BaseColor(255, 255, 255);
+
+               List<JoPayslipItem> list = new List<JoPayslipItem>()
             {
                 new JoPayslipItem("Basic Salary:",data.BasicSalary.ToString("#,##0.00"),1,white,black),
                 new JoPayslipItem("Adjustment (+):",data.Adjustment.ToString("#,##0.00"),1,white,black),
@@ -66,7 +66,7 @@ namespace PayrollSystem.Models
 
             };
 
-            return list;
-        }
-    }
+               return list;
+          }
+     }
 }

@@ -6,12 +6,12 @@ using System.Web.Mvc;
 
 namespace PayrollSystem.Controllers
 {
-    public class LoginController : Controller
-    {
-        // GET: Login
-        public ActionResult Index()
-        {
-            return View();
-        }
-    }
+     public class LoginController : Controller
+     {
+          // GET: Login
+          public ActionResult Index()
+          {
+               return View();
+          }
+     }
 }

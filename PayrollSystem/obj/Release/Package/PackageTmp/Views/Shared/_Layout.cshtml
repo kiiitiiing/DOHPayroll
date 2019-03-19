@@ -89,13 +89,13 @@
                             <li class="active"><a href="@Url.Action("JobOrder","Home",new { id = 3})">UNDER VTF</a></li>
                         </ul>
                     </li>
-                    <li>
+                    <li class="menu-regular">
                         <a href="@Url.Action("Regular","Home")">
                             <i class="fa fa-user"></i>
                             <span>REGULAR</span>
                         </a>
                     </li>
-                    <li>
+                    <li class="menu-report">
                         <a href="@Url.Action("Index","Report")">
                             <i class="glyphicon glyphicon-file"></i>
                             <span>GENERATE REPORT</span>
@@ -137,30 +137,47 @@
                 return isNumber(event, this)
             });
 
-            $(".menu-jo li").click(function(e){
+            $(".menu-jo li").click(function (e) {
+                var flag = $(".jo_title").text();
+                if (flag === "") {
+                    return;
+                }
                 e.preventDefault();
                 var title = $(this).text();
                 $(".jo_title").text("Job Order - " + title);
-              
-                switch (title) {
-                    case "ATM CARD":
-                        loadJoEmployee(0, 1, "");
-                        break;
-                    case "CASH CARD":
-                        loadJoEmployee(1, 1, "");
-                        break;
-                    case "W/O LBP CARD":
-                        loadJoEmployee(2, 1, "");
-                        break;
-                    case "UNDER VTF":
-                        loadJoEmployee(3, 1, "");
-                        break;
-                }
+
+                var search_value = $("#search_value").val();
+                loadJoEmployee(getPageId(), 1, search_value);
+            });
+
+            $(".menu-regular").click(function (e) {
+                
+            });
+
+            $(".menu-report").click(function (e) {
+
             });
         });
 
+        function getPageId() {
+            var flag = $(".jo_title").text();
+            switch (flag) {
+                case "Job Order - ATM":
+                    return 0;
+                case "Job Order - CASH CARD":
+                    return 1;
+                case "Job Order - W/O LBP CARD":
+                    return 2;
+                case "Job Order - UNDER VTF":
+                    return 3;
+                default:
+                    return 0;
+            }
+
+        }
+
         function loadJoEmployee(id,page,search) {
-            
+
             var url = "@Url.Action("JobOrderList", "PartialView")";
             $(".jo-employee-list").html("Loading employee ....");
             $.ajax({
@@ -173,6 +190,23 @@
                 },
                 success: function (html) {
                     $(".jo-employee-list").empty().html(html);
+                }
+            });
+        }
+
+        function loadRegularEmployee(page,search) {
+
+            var url = "@Url.Action("RegularList", "PartialView")";
+            $(".regular-employee-list").html("Loading employee ....");
+            $.ajax({
+                url: url,
+                type: "POST",
+                data: {
+                    page: page,
+                    search: search
+                },
+                success: function (html) {
+                    $(".regular-employee-list").empty().html(html);
                 }
             });
         }

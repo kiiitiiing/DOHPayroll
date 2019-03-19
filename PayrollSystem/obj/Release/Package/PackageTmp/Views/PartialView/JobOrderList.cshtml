@@ -66,13 +66,14 @@
     @Html.PagedListPager(Model, page => Url.Action("JobOrder",
  new { page, search = ViewBag.Search }))
 </div>
-
     <script>
         $(document).ready(function () {
+           
             $(".pagination li").click(function(e){
                 e.preventDefault();
 
                 var page = $(this).text();
+                var search_value = $("#search_value").val();
 
                 if (page === "»") {
                     if(@Model.PageNumber + 10 >= @Model.PageCount)
@@ -91,9 +92,9 @@
                 if (page === "»»") page = @Model.PageCount;
                 if (page === "««") page = 1;
 
-                loadJoEmployee(null, page, "");
-            });
+                loadJoEmployee(getPageId(), page, search_value);
 
+            });
 
             $('.create_jo_payroll').click(function () {
 

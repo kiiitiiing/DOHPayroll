@@ -1,16 +1,16 @@
 ﻿@{
-    ViewBag.Title = "Home Page";
-    Layout = null;
+     ViewBag.Title = "Home Page";
+     Layout = null;
 }
 
 <html>
 <head>
 
-@Styles.Render("~/Content/css")
-@Styles.Render("~/bundles/clockpicker-css")
-@Scripts.Render("~/bundles/modernizr")
+     @Styles.Render("~/Content/css")
+     @Styles.Render("~/bundles/clockpicker-css")
+     @Scripts.Render("~/bundles/modernizr")
 
-<style>
+     <style>
 
      body{
         background: url('@Url.Content("/Images/login_backdrop.jpg")');
@@ -72,39 +72,39 @@
     }
     .back { text-align: left; margin-top:10px;}
     .back a {color: #444444; font-size: 13px;text-decoration: none;}
-</style>
+     </style>
 </head>
 
 <body id="LoginForm" class="parent">
-    <div class="container">
-        <div class="login-form">
-            <div class="main-div">
-                <div class="panel">
-                    <h2><b>PAYROLL SYSTEM</b></h2>
-                    <p>Please enter your credentials</p>
-                    @if (ViewBag.Message != null)
-                    {
-                        <div class="alert alert-danger" role="alert">
-                            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-                            <span class="sr-only">Error:</span>
-                            @ViewBag.Message
-                        </div>
-                    }
-                </div>
-                <form id="Login" method="POST" action="" role="form">
-                    <div class="form-group">
-                        <input type="text" class="form-control" name="userid" id="inputEmail" placeholder="Login ID">
+     <div class="container">
+          <div class="login-form">
+               <div class="main-div">
+                    <div class="panel">
+                         <h2><b>PAYROLL SYSTEM</b></h2>
+                         <p>Please enter your credentials</p>
+                         @if (ViewBag.Message != null)
+                         {
+                              <div class="alert alert-danger" role="alert">
+                                   <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                                   <span class="sr-only">Error:</span>
+                                   @ViewBag.Message
+                              </div>
+                         }
                     </div>
-                    <div class="form-group">
-                        <input type="password" class="form-control" name="pin" id="inputPassword" placeholder="PIN">
-                    </div>
-                    <button type="submit" class="btn btn-primary btn-login">Login</button>
-                </form>
-            </div>
-        </div>
-    </div>
-    @Scripts.Render("~/bundles/iemmis/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @Scripts.Render("~/bundles/clockpicker-js")
+                    <form id="Login" method="POST" action="" role="form">
+                         <div class="form-group">
+                              <input type="text" class="form-control" name="userid" id="inputEmail" placeholder="Login ID">
+                         </div>
+                         <div class="form-group">
+                              <input type="password" class="form-control" name="pin" id="inputPassword" placeholder="PIN">
+                         </div>
+                         <button type="submit" class="btn btn-primary btn-login">Login</button>
+                    </form>
+               </div>
+          </div>
+     </div>
+     @Scripts.Render("~/bundles/iemmis/jquery")
+     @Scripts.Render("~/bundles/bootstrap")
+     @Scripts.Render("~/bundles/clockpicker-js")
 </body>
 </html>

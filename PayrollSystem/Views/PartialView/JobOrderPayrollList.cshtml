@@ -1,61 +1,61 @@
 ﻿@model PagedList.IPagedList<PayrollSystem.Models.JobOrderPayrollModel>
 @using PagedList.Mvc;
 
-    <table class="table table-striped table-bordered">
-        <tr>
-            <th>ID NO</th>
-            <th>FIRST NAME</th>
-            <th>LAST NAME</th>
-            <th>FROM</th>
-            <th>TO</th>
-            <th></th>
-        </tr>
-        @foreach (var item in Model)
-            {
-            <tr>
-                <td>
+<table class="table table-striped table-bordered">
+     <tr>
+          <th>ID NO</th>
+          <th>FIRST NAME</th>
+          <th>LAST NAME</th>
+          <th>FROM</th>
+          <th>TO</th>
+          <th></th>
+     </tr>
+     @foreach (var item in Model)
+     {
+          <tr>
+               <td>
                     @Html.DisplayFor(modelItem => item.Employee.ID)
-                </td>
-                <td>
+               </td>
+               <td>
                     @Html.DisplayFor(modelItem => item.Employee.Firstname)
-                </td>
-                <td>
+               </td>
+               <td>
                     @Html.DisplayFor(modelItem => item.Employee.Lastname)
-                </td>
-                <td>
-                  @Html.DisplayFor(modelItem => item.StartDate)
-                </td>
-                <td>
+               </td>
+               <td>
+                    @Html.DisplayFor(modelItem => item.StartDate)
+               </td>
+               <td>
                     @Html.DisplayFor(modelItem => item.EndDate)
-                </td>
-                <td class="hidden">
+               </td>
+               <td class="hidden">
                     @Html.DisplayFor(modelItem => item.Id)
-                </td>
-                <td>
-                  
-                    
-                  
+               </td>
+               <td>
+
+
+
                     @using (Html.BeginForm("CreateJoPayslip", "Report", FormMethod.Post))
                     {
-                        <input type="hidden" name="fullnames" id="fullnames" value="@(item.Employee.Firstname+" "+item.Employee.Middlename+" "+item.Employee.Lastname)" />
-                        <input type="hidden" name="designation" value="@item.Employee.Designation" />
-                        <input type="hidden" name="date_from" value="@item.StartDate" />
-                        <input type="hidden" name="date_to" value="@item.EndDate" />
-                        <button type="button" class="btn btn-xs btn-danger remove-payroll-list" value="@item.Id"><i class="glyphicon glyphicon-trash"></i></button>
-                        <button type="submit" name="id" id="emp_id" formtarget="_blank" class="btn btn-xs btn-primary td-button" value="@item.Employee.ID"><i class="glyphicon glyphicon-book"></i></button>
+                         <input type="hidden" name="fullnames" id="fullnames" value="@(item.Employee.Firstname+" "+item.Employee.Middlename+" "+item.Employee.Lastname)" />
+                         <input type="hidden" name="designation" value="@item.Employee.Designation" />
+                         <input type="hidden" name="date_from" value="@item.StartDate" />
+                         <input type="hidden" name="date_to" value="@item.EndDate" />
+                         <button type="button" class="btn btn-xs btn-danger remove-payroll-list" value="@item.Id"><i class="glyphicon glyphicon-trash"></i></button>
+                         <button type="submit" name="id" id="emp_id" formtarget="_blank" class="btn btn-xs btn-primary td-button" value="@item.Employee.ID"><i class="glyphicon glyphicon-book"></i></button>
                     }
-                </td>
-            </tr>
-        }
-    </table>
-    <div class="box-footer-jo-payroll-list">
-        Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+               </td>
+          </tr>
+     }
+</table>
+<div class="box-footer-jo-payroll-list">
+     Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
 
-        @Html.PagedListPager(Model, page => Url.Action("Index",
+     @Html.PagedListPager(Model, page => Url.Action("Index",
  new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
-    </div>
+</div>
 
-    <script>
+<script>
 
         $(document).ready(function () {
 
@@ -127,21 +127,21 @@
                         var lastname = $("#fullnames").val().split(" ")[2];
 
                         loadJoPayrollList(1, empID, firstname, lastname);
-                            
+
                     } else {
                         $.toast({
                             heading: 'Error',
                             text: 'Something went wrong, please contact system administrator',
                             icon: 'error'
-                        });   
+                        });
                     }
-                        
+
                 }
             });
         }
 
 
-    </script>
+</script>
 
-    
+
 
