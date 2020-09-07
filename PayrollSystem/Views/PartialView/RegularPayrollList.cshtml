@@ -45,6 +45,7 @@
                          <input type="hidden" name="month" value="@item.Month" />
                          <input type="hidden" name="year" value="@item.Year" />
                          <button type="button" class="btn btn-xs btn-danger remove-regular-payroll-list" value="@item.Id"><i class="glyphicon glyphicon-trash"></i></button>
+                         <button type="button" class="btn btn-xs btn-success edit--regular-payroll-list" value="@item.Id"><i class="glyphicon glyphicon-pencil"></i></button>
                          <button type="submit" name="id" id="emp_id" formtarget="_blank" class="btn btn-xs btn-primary td-button" value="@item.Employee.ID"><i class="glyphicon glyphicon-book"></i></button>
                     }
                </td>
@@ -72,76 +73,18 @@
             });
 
             $("body").on("click", ".box-footer-regular-payroll-list li", function (e) {
-                e.preventDefault();
+                 e.preventDefault();
 
-                var page = $(this).text();
-                if (page === "»") page = @Model.PageCount;
-                if (page === "«") page = 1;
+                 var page = $(this).text();
+                 if (page === "»") page = @Model.PageCount;
+                 if (page === "«") page = 1;
 
-                var empID = $("#emp_id").val();
-                var firstname = $("#fullname").val().split(" ")[0];
-                var lastname = $("#fullname").val().split(" ")[2];
+                 var empID = $("#emp_id").val();
+                 var firstname = $("#fullname").val().split(" ")[0];
+                 var lastname = $("#fullname").val().split(" ")[2];
 
-                loadRegularPayrollList(page, empID, firstname, lastname);
+                 loadRegularPayrollList(page, empID, firstname, lastname);
             });
-
-            function loadRegularPayrollList(page,empID,firstname,lastname) {
-
-                var url = "@Url.Action("RegularPayrollList", "PartialView")";
-                $(".parent-payroll-list").html("Loading data ...");
-
-                $.ajax({
-                    url: url,
-                    type: "POST",
-                    data: {
-                        page: page,
-                        empID:empID,
-                        firstname: firstname,
-                        lastname: lastname,
-                        middlename:""
-                    },
-                    success: function (html) {
-                        $(".parent-payroll-list").html(html);
-                    }
-                });
-            }
-
-            function deletePayrollByID(id,empID,firstname,lastname) {
-
-                var url = "@Url.Action("DeleteRegularPayroll", "Home")";
-
-                $.ajax({
-                    url: url,
-                    type: "POST",
-                    data: {
-                        id: id
-                    },
-                    success: function (flag) {
-                        if (flag) {
-                            $.toast({
-                                heading: 'Success',
-                                text: 'Payroll ID: '+id+' deleted.',
-                                icon: 'success'
-                            });
-
-                            var empID = $("#emp_id").val();
-                            var firstname = $("#fullname").val().split(" ")[0];
-                            var lastname = $("#fullname").val().split(" ")[2];
-
-                            loadRegularPayrollList(1, empID, firstname, lastname);
-                        } else {
-                            $.toast({
-                                heading: 'Error',
-                                text: 'Something went wrong, please contact system administrator',
-                                icon: 'error'
-                            });
-                        }
-
-                    }
-                });
-            }
-
-
         });
 </script>
 

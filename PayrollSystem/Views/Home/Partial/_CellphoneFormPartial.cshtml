@@ -1,0 +1,120 @@
+﻿<input type="text" class="hidden" id="hazard_date_range" />
+<input type="text" class="hidden" id="cellphone_userid" name="cellphone_userid" />
+<input type="text" class="hidden" id="cellphone_username" name="cellphone_username" />
+
+<div class="box-header with-border">
+     <h1 class="box-title"><b>Create Cellphone</b></h1>
+     <div class="box-tools pull-right">
+          <button class="btn btn-xs btn-danger remove_cellphone_benefits"><i class="glyphicon glyphicon-remove"></i></button>
+     </div>
+</div>
+<div class="box-body" id="benefits_container">
+     <div class="row">
+          <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
+               <div class="form-group">
+                    <label>Month</label>
+                    <select name="cell_month" id="cell_month" class="form-control" required>
+                         <option value="1">January</option>
+                         <option value="2">Februrary</option>
+                         <option value="3">March</option>
+                         <option value="4">April</option>
+                         <option value="5">May</option>
+                         <option value="6">June</option>
+                         <option value="7">July</option>
+                         <option value="8">August</option>
+                         <option value="9">September</option>
+                         <option value="10">October</option>
+                         <option value="11">November</option>
+                         <option value="12">December</option>
+                    </select>
+               </div>
+          </div>
+          <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
+               <div class="form-group">
+                    <label>Year</label>
+                    <select name="cell_year" id="cell_year" class="form-control" required>
+                         @for (int i = 2018; i <= DateTime.Now.Year; i++)
+                         {
+                              <option value="@i">@i</option>
+                         }
+                    </select>
+               </div>
+          </div>
+     </div>
+
+     <div class="row">
+          <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
+               <div class="form-group">
+                    <label>Amount</label>
+                    <input type="text" name="cell_amount" id="cell_amount" class="form-control" value="0.00" required />
+               </div>
+          </div>
+          <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
+               <div class="form-group">
+                    <label>Less Nov. Billing</label>
+                    <input type="text" name="cell_less" id="cell_less" class="form-control" value="0.00" required />
+               </div>
+          </div>
+     </div>
+
+     <div class="row">
+          <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
+               <div class="form-group">
+                    <label>Net Amount</label>
+                    <input type="text" name="cell_net_amount" id="cell_net_amount" class="form-control" value="0.00" required readonly />
+               </div>
+          </div>
+     </div>
+     <div class="row">
+          <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+               <div class="form-group">
+                    <label>Remarks</label>
+                    <textarea rows="7" id="cell_remarks" name="cell_remarks" class="form-control"></textarea>
+               </div>
+          </div>
+     </div>
+
+     <div class="row">
+          <div class="col-md-4 col-md-offset-4 col-sm-4 col-sm-offset-4 col-xs-4 col-xs-offset-4">
+               <button type="submit" class="btn btn-primary form-control" id="cellphone_save" value="Save">Save</button>
+          </div>
+     </div>
+</div>   
+<script>
+     $(document).ready(function () {
+          $(".remove_cellphone_benefits").click(function () {
+               $("#cellphone_benefits_form").addClass("hide");
+          });
+          $(".remove_cellphone_list").click(function () {
+               $("#cellphone_benefits_list").addClass("hide");
+          });
+          $("#cell_amount,#cell_less").change(function () {
+               $(this).val(formatComma(roundOff($(this).val())));
+               ComputeTotal();
+          });
+
+          $("#cellphone_save").click(function () {
+               var id = null;
+               var userid = $("#userid").val();
+               var fname = $("#username").val().split(' ')[0];
+               var lname = $("#username").val().split(' ')[1];
+               var amount = $("#cell_amount").val().replace(/,/g, '');
+               var less =  $("#cell_less").val().replace(/,/g, '');
+               var remark = $("#cell_remarks").val();
+               var month = $("#cell_month").val();
+               var year = $("#cell_year").val();
+
+               insert_cell(id, userid, fname, lname, month, year, amount,less,remark);
+          });
+          function ComputeTotal() {
+               var cell_amount = $("#cell_amount").val().replace(/,/g, '');
+               var cell_less = $("#cell_less").val().replace(/,/g, '');
+               
+               var total = parseFloat(cell_amount) - parseFloat(cell_less);
+               $("#cell_net_amount").val(formatComma(roundOff(total)));
+          }
+     });
+    
+</script>
+
+

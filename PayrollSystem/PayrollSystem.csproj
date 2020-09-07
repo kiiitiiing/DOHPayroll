@@ -229,7 +229,6 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\PartialViewController.cs" />
     <Compile Include="Controllers\ReportController.cs" />
-    <Compile Include="Database\DatabaseConnect.cs" />
     <Compile Include="Database\DTSDatabase.cs" />
     <Compile Include="Database\DTRDatabase.cs" />
     <Compile Include="Database\PayrollDatabase.cs" />
@@ -238,10 +237,22 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\Entity\Subsistence.cs" />
+    <Compile Include="Models\Entity\Longevity.cs" />
+    <Compile Include="Models\Entity\Cellphone.cs" />
+    <Compile Include="Models\Entity\Rata.cs" />
+    <Compile Include="Models\PDF\RegularSalaryChargeSummary\SalaryPageTotal.cs" />
+    <Compile Include="Models\PDF\RegularSalaryChargeSummary\SalaryChargeItem.cs" />
+    <Compile Include="Models\PDF\RegularSalaryChargeSummary\SalaryChargeModel.cs" />
     <Compile Include="Models\Utility\DateUtility.cs" />
     <Compile Include="Models\PDF\RegularDivisionSummary\RegularDivisionPDFView.cs" />
-    <Compile Include="Models\ViewModel\Employee.cs" />
+    <Compile Include="Models\Entity\Employee.cs" />
     <Compile Include="Models\Entity\Hazard.cs" />
+    <Compile Include="Models\ViewModel\SubsistenceListViewModel.cs" />
+    <Compile Include="Models\ViewModel\LongevityListViewModel.cs" />
+    <Compile Include="Models\ViewModel\CellListViewModel.cs" />
+    <Compile Include="Models\ViewModel\RataListViewModel.cs" />
+    <Compile Include="Models\ViewModel\HazardListViewModel.cs" />
     <Compile Include="Models\ViewModel\HazardViewModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Entity\JobOrderPayrollModel.cs" />
@@ -624,12 +635,16 @@
     <Content Include="Views\Report\Partial\_SalarySummaryPartial.cshtml" />
     <Content Include="Views\Report\Partial\_DivisionSummaryPartial.cshtml" />
     <Content Include="Views\Report\Message\_MessagePartial.cshtml" />
-    <Content Include="Views\PartialView\_BenefitsNavTabPartial.cshtml" />
-    <Content Include="Views\PartialView\Tabs\_HazardTabs.cshtml" />
-    <Content Include="Views\PartialView\Tabs\_RataTabs.cshtml" />
-    <Content Include="Views\PartialView\Tabs\_CellphoneTabs.cshtml" />
-    <Content Include="Views\PartialView\Tabs\_LongevityTabs.cshtml" />
-    <Content Include="Views\PartialView\Tabs\_SubsistenceTabs.cshtml" />
+    <Content Include="Views\Home\Partial\_HazardFormPartial.cshtml" />
+    <Content Include="Views\Home\Partial\_RataFormPartial.cshtml" />
+    <Content Include="Views\Home\Partial\_CellphoneFormPartial.cshtml" />
+    <Content Include="Views\Home\Partial\_LongevityFormPartial.cshtml" />
+    <Content Include="Views\Home\Partial\_SubsistenceFormPartial.cshtml" />
+    <Content Include="Views\PartialView\HazardList.cshtml" />
+    <Content Include="Views\PartialView\RataList.cshtml" />
+    <Content Include="Views\PartialView\CellphoneList.cshtml" />
+    <Content Include="Views\PartialView\LongevityList.cshtml" />
+    <Content Include="Views\PartialView\SubsistenceList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

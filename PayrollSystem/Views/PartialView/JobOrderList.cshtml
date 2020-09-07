@@ -66,6 +66,7 @@
      @Html.PagedListPager(Model, page => Url.Action("JobOrder",
  new { page, search = ViewBag.Search }))
 </div>
+
 <script>
         $(document).ready(function () {
 
@@ -93,7 +94,6 @@
                 if (page === "««") page = 1;
 
                 loadJoEmployee(getPageId(), page, search_value);
-
             });
 
             $('.create_jo_payroll').click(function () {
@@ -123,6 +123,14 @@
                 $("#jo_salary").val(formatComma(salary));
                 $("#jo_id").val(id);
                 $("#jo_name").val(fullname);
+
+                $("#jo_month").prop('disabled',false);
+                $("#jo_year").prop('disabled',false);
+                $("#jo_month_range").prop('disabled',false);
+                $("#jo_save").text("Save");
+
+                $("#jo_ewt").val("0.00");
+                $("#jo_prof_tax").val("0.00");
 
                 $("#jo_coop").val(formatComma(coop.split('/')[0]));
                 $("#jo_coop_payment").val(coop.split('/')[1]);

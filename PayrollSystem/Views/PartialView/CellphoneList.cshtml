@@ -1,0 +1,93 @@
+﻿@model PagedList.IPagedList<PayrollSystem.Models.CellListViewModel>
+@using PagedList.Mvc;
+
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
+<!-- /.box-header -->
+
+<table class="table table-striped">
+     <tr>
+          <th>ID NO</th>
+          <th>FIRST NAME</th>
+          <th>LASTNAME</th>
+          <th>MONTH</th>
+          <th>YEAR</th>
+          <th>NET AMOUNT</th>
+          <th></th>
+     </tr>
+
+     @foreach (var item in Model)
+     {
+          <tr>
+               <td>
+                    @item.Userid
+               </td>
+               <td>
+                    @Html.DisplayFor(modelItem => item.Firstname)
+               </td>
+               <td>
+                    @Html.DisplayFor(modelItem => item.Lastname)
+               </td>
+               <td>
+                    @item.GetMonth()
+               </td>
+               <td>
+                    @Html.DisplayFor(modelItem => item.Year)
+               </td>
+               <td>
+                    @item.GetNetAmount()
+               </td>
+              
+               <td>
+                    <button class="btn btn-xs btn-danger remove_cellphone_btn" value="@item.Id"><i class="glyphicon glyphicon-trash"></i></button>    
+               </td>
+          </tr>
+     }
+</table>
+
+<div class="box-footer-regular-employee-list" style="margin-top:15px;">
+     Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+     @Html.PagedListPager(Model, page => Url.Action("JobOrder",
+ new { page, search = ViewBag.Search }))
+</div>
+
+<script>
+        $(document).ready(function () {
+            $(".pagination li").click(function(e){
+                e.preventDefault();
+
+                var page = $(this).text();
+                var userid = $("#userid").val();
+                var fname = $("#username").val().split(' ')[0];
+                var lname = $("#username").val().split(' ')[1];
+
+                if (page === "»") {
+                    if(@Model.PageNumber + 10 >= @Model.PageCount)
+                        page = @Model.PageCount;
+                    else
+                        page = @Model.PageNumber + 10;
+                }
+                if (page === "«"){
+                    if(@Model.PageNumber - 10 >= 1)
+                        page = @Model.PageNumber - 10;
+
+                    else
+                        page = 1;
+                }
+
+                if (page === "»»") page = @Model.PageCount;
+                if (page === "««") page = 1;
+
+                loadCellList(page, userid,fname,lname);
+            });
+
+             $(".remove_cellphone_btn").click(function(){
+                  var id = $(this).val();
+                  var userid = $(this).closest('tr').find('td:eq(0)').text().trim();
+                  var fname = $(this).closest('tr').find('td:eq(1)').text().trim();
+                  var lname = $(this).closest('tr').find('td:eq(2)').text().trim();
+                  removeCellList(id,userid,fname,lname);
+             }); 
+        });
+</script>

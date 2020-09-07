@@ -1,0 +1,198 @@
+﻿<input type="text" class="hidden" id="longevity_date_range" />
+<input type="text" class="hidden" id="longevity_userid" name="longevity_userid" />
+<input type="text" class="hidden" id="longevity_username" name="longevity_username" />
+
+<div class="box-header with-border">
+     <h1 class="box-title"><b>Create Longevity</b></h1>
+     <div class="box-tools pull-right">
+          <button class="btn btn-xs btn-danger remove_longevity_benefits"><i class="glyphicon glyphicon-remove"></i></button>
+     </div>
+</div>
+<div class="box-body" id="benefits_container">
+     <div class="row">
+          <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
+               <div class="form-group">
+                    <label>Month</label>
+                    <select name="longevity_month" id="longevity_month" class="form-control" required>
+                         <option value="1">January</option>
+                         <option value="2">Februrary</option>
+                         <option value="3">March</option>
+                         <option value="4">April</option>
+                         <option value="5">May</option>
+                         <option value="6">June</option>
+                         <option value="7">July</option>
+                         <option value="8">August</option>
+                         <option value="9">September</option>
+                         <option value="10">October</option>
+                         <option value="11">November</option>
+                         <option value="12">December</option>
+                    </select>
+               </div>
+          </div>
+          <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
+               <div class="form-group">
+                    <label>Year</label>
+                    <select name="longevity_year" id="longevity_year" class="form-control" required>
+                         @for (int i = 2018; i <= DateTime.Now.Year; i++)
+                         {
+                              <option value="@i">@i</option>
+                         }
+                    </select>
+               </div>
+          </div>
+     </div>
+
+     <div class="row">
+          <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
+               <div class="form-group">
+                    <label>Salary</label>
+                    <input type="text" name="longevity_salary_1" id="longevity_salary_1" class="form-control" value="0.00" required />
+               </div>
+          </div>
+          <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
+               <div class="form-group">
+                    <label>LP(1) 5%</label>
+                    <input type="text" name="longevity_lp_1" id="longevity_lp_1" class="form-control" value="0.00" required readonly />
+               </div>
+          </div>
+     </div>
+
+     <div class="row">
+          <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
+               <div class="form-group">
+                    <label>Salary</label>
+                    <input type="text" name="longevity_salary_2" id="longevity_salary_2" class="form-control" value="0.00" required />
+               </div>
+          </div>
+          <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
+               <div class="form-group">
+                    <label>LP(2) 5%</label>
+                    <input type="text" name="longevity_lp_2" id="longevity_lp_2" class="form-control" value="0.00" required readonly />
+               </div>
+          </div>
+     </div>
+
+     <div class="row">
+          <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
+               <div class="form-group">
+                    <label>Salary</label>
+                    <input type="text" name="longevity_salary_3" id="longevity_salary_3" class="form-control" value="0.00" required />
+               </div>
+          </div>
+          <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
+               <div class="form-group">
+                    <label>LP(3) 5%</label>
+                    <input type="text" name="longevity_lp_3" id="longevity_lp_3" class="form-control" value="0.00" required readonly />
+               </div>
+          </div>
+     </div>
+
+     <div class="row">
+          <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
+               <div class="form-group">
+                    <label>Salary</label>
+                    <input type="text" name="longevity_salary_4" id="longevity_salary_4" class="form-control" value="0.00" required />
+               </div>
+          </div>
+          <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
+               <div class="form-group">
+                    <label>LP(4) 5%</label>
+                    <input type="text" name="longevity_lp_4" id="longevity_lp_4" class="form-control" value="0.00" required readonly />
+               </div>
+          </div>
+     </div>
+
+     <div class="row">
+          <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
+               <div class="form-group">
+                    <label>Salary</label>
+                    <input type="text" name="longevity_salary_5" id="longevity_salary_5" class="form-control" value="0.00" required />
+               </div>
+          </div>
+          <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
+               <div class="form-group">
+                    <label>LP(5) 5% Existing Salary</label>
+                    <input type="text" name="longevity_lp_5" id="longevity_lp_5" class="form-control" value="0.00" required readonly />
+               </div>
+          </div>
+     </div>
+     <div class="row">
+          <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
+               <div class="form-group">
+                    <label>Disallowance</label>
+                    <input type="text" name="longevity_disallowance" id="longevity_disallowance" class="form-control" value="0.00" required />
+               </div>
+          </div>
+          <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
+               <div class="form-group">
+                    <label>Total LP/MO</label>
+                    <input type="text" name="longevity_total" id="longevity_total" class="form-control" value="0.00" required readonly />
+               </div>
+          </div>
+     </div>
+     <div class="row">
+          <div class="col-md-4 col-md-offset-4 col-sm-4 col-sm-offset-4 col-xs-4 col-xs-offset-4">
+               <button type="submit" class="btn btn-primary form-control" id="longevity_save" value="Save">Save</button>
+          </div>
+     </div>
+</div>   
+<script>
+     $(document).ready(function () {
+          $(".remove_longevity_benefits").click(function () {
+               $("#longevity_benefits_form").addClass("hide");
+          });
+          $(".remove_longevity_list").click(function () {
+               $("#longevity_benefits_list").addClass("hide");
+          });
+
+          $("#longevity_salary_1,#longevity_salary_2,#longevity_salary_3,#longevity_salary_4,#longevity_salary_5,#longevity_disallowance").change(function () {
+               $(this).val(formatComma(roundOff($(this).val())));
+               ComputeTotal();
+          });
+
+          $("#longevity_save").click(function () {
+               var id = null;
+               var userid = $("#userid").val();
+               var fname = $("#username").val().split(' ')[0];
+               var lname = $("#username").val().split(' ')[1];
+               var month = $("#longevity_month").val();
+               var year = $("#longevity_year").val();
+               var longevity_salary_1 = $("#longevity_salary_1").val().replace(/,/g, '');
+               var longevity_salary_2 = $("#longevity_salary_2").val().replace(/,/g, '');
+               var longevity_salary_3 = $("#longevity_salary_3").val().replace(/,/g, '');
+               var longevity_salary_4 = $("#longevity_salary_4").val().replace(/,/g, '');
+               var longevity_salary_5 = $("#longevity_salary_5").val().replace(/,/g, '');
+               var disallowance = $("#longevity_disallowance").val().replace(/,/g, '');
+
+               insert_longevity(id, userid, fname, lname, month, year, longevity_salary_1, longevity_salary_2, longevity_salary_3, longevity_salary_4, longevity_salary_5,disallowance);
+
+          });
+          function ComputeTotal() {
+               var longevity_salary_1 = $("#longevity_salary_1").val().replace(/,/g, '');
+               var longevity_salary_2 = $("#longevity_salary_2").val().replace(/,/g, '');
+               var longevity_salary_3 = $("#longevity_salary_3").val().replace(/,/g, '');
+               var longevity_salary_4 = $("#longevity_salary_4").val().replace(/,/g, '');
+               var longevity_salary_5 = $("#longevity_salary_5").val().replace(/,/g, '');
+               var disallowance = $("#longevity_disallowance").val().replace(/,/g, '');
+
+               var lp_1 = parseFloat(longevity_salary_1) * 0.05;
+               var lp_2 = parseFloat(longevity_salary_2) * 0.05;
+               var lp_3 = parseFloat(longevity_salary_3) * 0.05;
+               var lp_4 = parseFloat(longevity_salary_4) * 0.05;
+               var lp_5 = parseFloat(longevity_salary_5) * 0.05;
+
+               var total = roundOff(lp_1 + lp_2 + lp_3 + lp_4 + lp_5 - parseFloat(disallowance));
+
+               $("#longevity_lp_1").val(formatComma(roundOff(lp_1)));
+               $("#longevity_lp_2").val(formatComma(roundOff(lp_2)));
+               $("#longevity_lp_3").val(formatComma(roundOff(lp_3)));
+               $("#longevity_lp_4").val(formatComma(roundOff(lp_4)));
+               $("#longevity_lp_5").val(formatComma(roundOff(lp_5)));
+
+               $("#longevity_total").val(formatComma(roundOff(total)));
+          }
+
+     });
+   
+</script>
+

@@ -38,7 +38,7 @@ namespace PayrollSystem.Database
           public void Initialize()
           {
 
-               string server = "192.168.100.17";
+               string server = "192.168.110.17";
                string database = "pis";
                string uid = "doh7payroll";
                string password = "doh7payroll";
@@ -72,7 +72,7 @@ namespace PayrollSystem.Database
                               "LEFT JOIN payroll.gsis_remittance gsis ON gsis.userid = p.userid " +
                               "LEFT JOIN payroll.phic_remittance phic ON phic.userid = p.userid " +
                               "LEFT JOIN payroll.excess_remittance excess ON excess.userid = p.userid " +
-                              "WHERE p.job_status = 'Job Order' AND p.employee_status = 'Active' AND (p.position <> 'Health Aiders' OR p.position IS NULL) AND p.disbursement_type = '" + Disbursement + "'";
+                              "WHERE p.job_status = 'Job Order' AND p.employee_status = '1' AND (p.position <> 'Health Aiders' OR p.position IS NULL) AND p.disbursement_type = '" + Disbursement + "'";
 
                if (!SearchString.Equals(""))
                {
@@ -186,7 +186,7 @@ namespace PayrollSystem.Database
                               "LEFT JOIN payroll.dbp_remittance dbp ON dbp.userid = p.userid " +
                               "LEFT JOIN payroll.disallowance_remittance disallowances ON disallowances.userid = p.userid " +
                               "LEFT JOIN payroll.tax_remittance tax ON tax.userid = p.userid " +
-                              "WHERE p.job_status = 'Permanent' AND p.employee_status = 'Active' AND (p.position <> 'Health Aiders' OR p.position IS NULL) AND p.disbursement_type = 'ATM'";
+                              "WHERE p.job_status = 'Permanent' AND p.employee_status = '1' AND (p.position <> 'Health Aiders' OR p.position IS NULL) AND p.disbursement_type = 'ATM'";
 
                if (!SearchString.Equals(""))
                {

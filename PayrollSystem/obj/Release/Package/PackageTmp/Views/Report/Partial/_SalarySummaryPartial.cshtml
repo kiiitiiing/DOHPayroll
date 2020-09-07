@@ -1,0 +1,33 @@
+﻿<form method="POST" action="@Url.Action("CreateSalarySummary","Report")" id="regular_salary_form">
+     <div class="table-responsive">
+          <table class="table">
+               <tr>
+                    <td class="col-sm-4"><strong>Date</strong></td>
+                    <td class="col-sm-1">: </td>
+                    <td class="col-sm-7">
+                         <input type="text" name="date" placeholder="Choose Date" class="inline form-control regular_salary_date" style="border-radius:0px;background:#fff" readonly />
+                    </td>
+               </tr>
+               <tr>
+                    <td class="col-sm-4"><strong>Salary Charge</strong></td>
+                    <td class="col-sm-1"> :</td>
+                    <td class="col-sm-7">
+
+                         <select name="salary_charge" id="salary_charge" class="form-control pull-left" style="border-radius:0px;" required>
+                              <option value="ALL">ALL</option>
+                              <option value="RD_ARD">RD/ARD</option>
+                              <option value="MSD">MSD</option>
+                              <option value="LHSD">LHSD</option>
+                              <option value="RLED">RLED</option>
+                              <option value="PDO-CEBU">PDO-CEBU</option>
+                              <option value="PDO-NEGROS">PDO-NEGROS</option>
+                              <option value="PDO-SIQUIJOR">PDO-SIQUIJOR</option>
+                         </select>
+                    </td>
+               </tr>
+          </table>
+     </div>
+     <button type="submit" name="submit" class="btn-lg btn-default center-block col-sm-12 btn_payroll_print" value="Search">
+          <span class="glyphicon glyphicon-print" aria-hidden="true"></span> Print
+     </button>
+</form>

@@ -4,6 +4,8 @@
 <link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 
 <!-- /.box-header -->
+<input type="text" class="hidden" id="userid" name="userid" />
+<input type="text" class="hidden" id="username" name="username" />
 
 <table class="table table-striped">
      <tr>
@@ -84,11 +86,11 @@
                </td>
                <td>
                     <button class="btn btn-xs btn-success create_regular_payroll">Payroll</button>
-                    <button class="btn btn-xs btn-success create_regular_benefits">Hazard</button>
-                    <button class="btn btn-xs btn-success create_regular_benefits">Rata</button>
-                    <button class="btn btn-xs btn-success create_regular_benefits">Cellphone</button>
-                    <button class="btn btn-xs btn-success create_regular_benefits">Longevity</button>
-                    <button class="btn btn-xs btn-success create_regular_benefits">Subsistence</button>
+                    <button class="btn btn-xs btn-success create_hazard_benefits" value="hazard">Hazard</button>
+                    <button class="btn btn-xs btn-success create_rata_benefits" value="rata">Rata</button>
+                    <button class="btn btn-xs btn-success create_cellphone_benefits" value="cellphone">Cellphone</button>
+                    <button class="btn btn-xs btn-success create_longevity_benefits" value="longevity">Longevity</button>
+                    <button class="btn btn-xs btn-success create_subsistence_benefits" value="subsistence">Subsistence</button>
                </td>
           </tr>
      }
@@ -130,6 +132,42 @@
                 loadRegularEmployee(page, search_value);
             });
 
+             $(".create_hazard_benefits,.create_rata_benefits,.create_cellphone_benefits,.create_longevity_benefits,.create_subsistence_benefits").click(function(){
+                  var type = $(this).val();
+
+                  var id = $(this).closest('tr').find('td:eq(0)').text().trim();
+                  var firstname = $(this).closest('tr').find('td:eq(1)').text().trim();
+                  var middlename = $(this).closest('tr').find('td:eq(2)').text().trim();
+                  var lastname = $(this).closest('tr').find('td:eq(3)').text().trim();
+                  var fullname = firstname + " " + lastname;
+
+                  switch(type){
+                       case "hazard": 
+                            loadHazardList(1,id,firstname,lastname);
+                            break;
+                       case "rata": 
+                            loadRataList(1,id,firstname,lastname);
+                            break;
+                       case "cellphone": 
+                            loadCellList(1,id,firstname,lastname);
+                            break;
+                       case "longevity": 
+                            loadLongevityList(1,id,firstname,lastname);
+                            break;
+                       case "subsistence": 
+                            loadSubsistenceList(1,id,firstname,lastname);
+                            break;
+                  }
+                  
+
+                  $("#userid").val(id);
+                  $("#username").val(fullname);
+
+                  $("#"+type+"_benefits_form").removeClass("hide");
+                  $("#"+type+"_benefits_list").removeClass("hide");
+
+             });
+            
             $('.create_regular_payroll').click(function () {
 
                 var id = $(this).closest('tr').find('td:eq(0)').text().trim();
@@ -157,11 +195,13 @@
 
                 $(".selected").removeClass("selected");
                 $("." + id).addClass("selected");
+                $("#userid").val(id);
+                $("#username").val(fullname);
 
-                $('#box_create_payroll').removeClass("hide");
+                $('#regular_payroll_container').removeClass("hide");
                 $('#box_regular_payroll_list').removeClass("hide");
                 $(".parent-payroll-list").html("Loading......");
-                loadRegularPayrollList(id, firstname, lastname, middlename);
+                loadRegularPayrollList(1,id, firstname, lastname);
 
                 $("#regular_id").val(id);
                 $("#regular_name").val(fullname);

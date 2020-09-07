@@ -9,24 +9,16 @@ namespace PayrollSystem.Models
      {
           public string ID { get; set; }
           public string PersonnelID { get; set; }
-          public string Pay { get; set; }
-          public string HWMPC { get; set; }
-          public string Mortuary { get; set; }
-          public string DigitelBilling { get; set; }
+          public decimal Pay { get; set; }
+          public decimal HWMPC { get; set; }
+          public decimal Mortuary { get; set; }
+          public decimal DigitelBilling { get; set; }
           public int Month { get; set; }
           public int Year { get; set; }
           public int DaysLeave { get; set; }
           public int DaysOO { get; set; }
 
-          public Decimal GetNetAmount
-          {
-               get
-               {
-                    return decimal.Parse(this.Pay) - decimal.Parse(this.HWMPC) - decimal.Parse(this.Mortuary) - decimal.Parse(this.DigitelBilling);
-               }
-          }
-
-          public Hazard(string ID, string PersonnelID, string Pay, string HWMPC, string Mortuary, string DigitelBilling, int Month, int Year, int DaysLeave, int DaysOO)
+          public Hazard(string ID, string PersonnelID, decimal Pay, decimal HWMPC, decimal Mortuary, decimal DigitelBilling, int Month, int Year, int DaysLeave, int DaysOO)
           {
                this.ID = ID;
                this.PersonnelID = PersonnelID;
@@ -39,5 +31,13 @@ namespace PayrollSystem.Models
                this.DaysLeave = DaysLeave;
                this.DaysOO = DaysOO;
           }
+          public decimal GetNetAmount
+          {
+               get
+               {
+                    return Pay + HWMPC - Mortuary - DigitelBilling;
+               }
+          }
+
      }
 }

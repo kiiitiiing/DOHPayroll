@@ -31,7 +31,7 @@ namespace PayrollSystem.Database
 
           public void Initialize()
           {
-               string server = "192.168.100.17";
+               string server = "192.168.110.17";
                string database = "dohdtr";
                string uid = "doh7payroll";
                string password = "doh7payroll";
@@ -150,7 +150,7 @@ namespace PayrollSystem.Database
                return found;
           }
 
-          public bool ifWeekend(String date)
+          public bool ifWeekend(string date)
           {
                DateTime dateTime = new DateTime(int.Parse(date.Split('/')[2]), int.Parse(date.Split('/')[0]), int.Parse(date.Split('/')[1]));
                DayOfWeek datez = dateTime.DayOfWeek;
@@ -488,6 +488,25 @@ namespace PayrollSystem.Database
                     }
                }
                return mins + " " + working_days + " " + days_absent + " " + days_rendered;
+          }
+
+          public int GetWorkingDays(string from, string to)
+          {
+               List<int> days = new List<int>();
+               int month = int.Parse(from.Split('-')[1]);
+               int year = int.Parse(from.Split('-')[0]);
+               int no_days = DateTime.DaysInMonth(year, month);
+               int working_days = 0;
+              
+               for (int i = 1; i <= no_days; i++)
+               {
+                    string format = month + "/" + i + "/" + year;
+                    if (!ifWeekend(format) && !IsHoliday(format))
+                    {
+                         working_days++;
+                    }
+               }
+               return working_days;
           }
      }
 }

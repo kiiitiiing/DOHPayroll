@@ -31,10 +31,50 @@
                <td class="hidden">
                     @Html.DisplayFor(modelItem => item.Id)
                </td>
+
+               <td class="hidden">
+                    @Html.DisplayFor(modelItem => item.Adjustment)
+               </td>
+               <td class="hidden">
+                    @Html.DisplayFor(modelItem => item.Salary)
+               </td>
+               <td class="hidden">
+                    @Html.DisplayFor(modelItem => item.WorkDays)
+               </td>
+               <td class="hidden">
+                    @Html.DisplayFor(modelItem => item.MinutesLate)
+               </td>
+               <td class="hidden">
+                    @Html.DisplayFor(modelItem => item.DaysAbsent)
+               </td>
+               <td class="hidden">
+                    @Html.DisplayFor(modelItem => item.Tax)
+               </td>
+               <td class="hidden">
+                    @Html.DisplayFor(modelItem => item.Disallowance)
+               </td>
+               <td class="hidden">
+                    @Html.DisplayFor(modelItem => item.Coop)
+               </td>
+               <td class="hidden">
+                    @Html.DisplayFor(modelItem => item.OtherAdjustment)
+               </td>
+               <td class="hidden">
+                    @Html.DisplayFor(modelItem => item.Pagibig)
+               </td>
+               <td class="hidden">
+                    @Html.DisplayFor(modelItem => item.Phic)
+               </td>
+               <td class="hidden">
+                    @Html.DisplayFor(modelItem => item.Gsis)
+               </td>
+               <td class="hidden">
+                    @Html.DisplayFor(modelItem => item.ExcessMobile)
+               </td>
+               <td class="hidden">
+                    @Html.DisplayFor(modelItem => item.Remarks)
+               </td>
                <td>
-
-
-
                     @using (Html.BeginForm("CreateJoPayslip", "Report", FormMethod.Post))
                     {
                          <input type="hidden" name="fullnames" id="fullnames" value="@(item.Employee.Firstname+" "+item.Employee.Middlename+" "+item.Employee.Lastname)" />
@@ -42,6 +82,7 @@
                          <input type="hidden" name="date_from" value="@item.StartDate" />
                          <input type="hidden" name="date_to" value="@item.EndDate" />
                          <button type="button" class="btn btn-xs btn-danger remove-payroll-list" value="@item.Id"><i class="glyphicon glyphicon-trash"></i></button>
+                         <button type="button" class="btn btn-xs btn-success edit-payroll-list" value="@item.Id"><i class="glyphicon glyphicon-pencil"></i></button>
                          <button type="submit" name="id" id="emp_id" formtarget="_blank" class="btn btn-xs btn-primary td-button" value="@item.Employee.ID"><i class="glyphicon glyphicon-book"></i></button>
                     }
                </td>
@@ -51,8 +92,7 @@
 <div class="box-footer-jo-payroll-list">
      Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
 
-     @Html.PagedListPager(Model, page => Url.Action("Index",
- new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+     @Html.PagedListPager(Model, page => Url.Action("Index", new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
 </div>
 
 <script>
@@ -66,6 +106,91 @@
                 var lastname = $(this).closest('tr').find('td:eq(3)').text().trim();
 
                 deletePayrollByID($(this).val(),empID,firstname,lastname);
+            });
+
+            $(".edit-payroll-list").click(function () {
+
+
+                 var empID = $(this).closest('tr').find('td:eq(0)').text().trim();
+                 var startDate = $(this).closest('tr').find('td:eq(3)').text().trim();
+                 var endDate = $(this).closest('tr').find('td:eq(4)').text().trim();
+                 var id = $(this).closest('tr').find('td:eq(5)').text().trim();
+                 var adjustment = $(this).closest('tr').find('td:eq(6)').text().trim();
+                 var salary = $(this).closest('tr').find('td:eq(7)').text().trim();
+                 var working_days = $(this).closest('tr').find('td:eq(8)').text().trim();
+                 var mins_late = $(this).closest('tr').find('td:eq(9)').text().trim();
+                 var absent_days = $(this).closest('tr').find('td:eq(10)').text().trim();
+                 var ewt = $(this).closest('tr').find('td:eq(11)').text().trim();
+                 var prof_tax = $(this).closest('tr').find('td:eq(12)').text().trim();
+
+                 var coop = $(this).closest('tr').find('td:eq(13)').text().trim();
+                 var other_adjustment = $(this).closest('tr').find('td:eq(14)').text().trim();
+                 var pagibig = $(this).closest('tr').find('td:eq(15)').text().trim();
+                 var phic = $(this).closest('tr').find('td:eq(16)').text().trim();
+                 var gsis = $(this).closest('tr').find('td:eq(17)').text().trim();
+                 var excess = $(this).closest('tr').find('td:eq(18)').text().trim();
+
+                 var remarks = $(this).closest('tr').find('td:eq(19)').text().trim();
+
+                 var month = parseInt(startDate.split('/')[0]);
+                 var year = parseInt(startDate.split('/')[2]);
+                 var option = (parseInt(startDate.split('/')[1]) == 1)?1:2;
+
+                 
+
+                 $("#jo_id").val(empID);
+                 $("#jo_payroll_id").val(id);
+                 
+                 $("#jo_month").val(month);
+                 $("#jo_month").prop('disabled',true);
+
+                 $("#jo_year").val(year);
+                 $("#jo_year").prop('disabled',true);
+
+                 $("#jo_month_range").val(option);
+                 $("#jo_month_range").prop('disabled',true);
+
+                 $("#jo_adjustment").val(formatComma(adjustment));
+                 $("#jo_salary").val(formatComma(salary));
+                 $("#jo_working_days").val(working_days);
+                 $("#jo_minutes_late").val(mins_late);
+
+                 $("#jo_ewt").val(formatComma(ewt));
+                 $("#jo_prof_tax").val(formatComma(prof_tax));
+
+                 $("#jo_coop").val(formatComma(coop));
+                 $("#jo_other_adjustment").val(formatComma(other_adjustment));
+                 $("#jo_pagibig").val(formatComma(pagibig));
+                 $("#jo_phic").val(formatComma(phic));
+                 $("#jo_gsis").val(formatComma(gsis));
+                 $("#jo_excess").val(formatComma(excess));
+
+                 $('#jo_remarks').val(remarks);
+
+                 var array_date = [];
+                 $("#jo_date_list").empty();
+                 $("#jo_absent_date_list").val("");
+
+                 for (var i = 0; i < absent_days.split(",").length; i++) {
+                      var item = absent_days.split(",")[i];
+                      if (item !== "") {
+                           var date_item = "<tr><td>";
+                           date_item += item;
+                           date_item += "</td><td><span class = 'glyphicon glyphicon-remove' style = 'color:red;cursor:pointer;' id='" + i + "' onclick='removeDateItem( " + i + " )'></span></td>";
+
+                           array_date.push(item);
+
+                           $("#jo_date_list").append(date_item);
+                           $("#jo_absent_date_list").val(array_date);
+                           $('#jo_absent_date').val("");
+                      }
+                 }
+
+                 $("#jo_date_range").val(startDate+"-"+endDate);
+                 ComputeDeductions();
+                 ComputeTotalNetPay();
+                 $("#jo_save").text("Update")
+              
             });
 
             $("body").on("click", ".box-footer-jo-payroll-list li", function (e) {

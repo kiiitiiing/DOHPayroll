@@ -38,6 +38,9 @@ namespace PayrollSystem.Models
 
           public HazardViewModel hazard { get; set; }
           public RataViewModel rata { get; set; }
+          public HazardViewModel subsistence { get; set; }
+          public HazardViewModel longevity { get; set; }
+          public HazardViewModel cellphone { get; set; }
 
           //public RegularPayrollModel() { }
 
@@ -87,6 +90,22 @@ namespace PayrollSystem.Models
           {
                return hazard;
           }
+          public void SetSubsistence(HazardViewModel subsistence)
+          {
+               this.subsistence = subsistence;
+          }
+          public HazardViewModel GetSubsistence()
+          {
+               return subsistence;
+          }
+          public void SetLongevity(HazardViewModel longevity)
+          {
+               this.longevity = longevity;
+          }
+          public HazardViewModel GetLongevity()
+          {
+               return longevity;
+          }
 
           public void SetRata(RataViewModel rata)
           {
@@ -95,6 +114,14 @@ namespace PayrollSystem.Models
           public RataViewModel GetRata()
           {
                return rata;
+          }
+          public void SetCellphone(HazardViewModel cellphone)
+          {
+               this.cellphone = cellphone;
+          }
+          public HazardViewModel GetCellphone()
+          {
+               return cellphone;
           }
      }
 }

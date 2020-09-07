@@ -1,135 +1,59 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="author" content="Asnaui O. Pangcatan">
-    <title>@ViewBag.Title</title>
+     <meta charset="utf-8">
+     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+     <meta name="viewport" content="width=device-width, initial-scale=1">
+     <meta name="author" content="Asnaui O. Pangcatan">
+     <title>@ViewBag.Title</title>
 
 
-    @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/modernizr")
+     @Styles.Render("~/Content/css")
+     @Scripts.Render("~/bundles/jquery")
+     @Scripts.Render("~/bundles/modernizr")
 
-    <style>
-        .remove-padding-top
-        {
-          padding-top:0px;
-          padding-bottom:0px;
+     <style>
+        .remove-padding-top {
+             padding-top: 0px;
+             padding-bottom: 0px;
         }
-         .box
-        {
-          border-radius:0px;
+
+        .box {
+             border-radius: 0px;
         }
-         .selected
-        {
-          background:rgb(215, 215, 215);
-          color:black;
+
+        .selected {
+             background: rgb(215, 215, 215);
+             color: black;
         }
-        .parent 
-        {
-          position: relative;
+
+        .parent {
+             position: relative;
         }
-        .child 
-        {
-          position: absolute;
-          top: 50%;
-          left: 50%;
-          transform: translate(-50%, -50%);
+
+        .child {
+             position: absolute;
+             top: 50%;
+             left: 50%;
+             transform: translate(-50%, -50%);
         }
-    </style>
-   
+     </style>
+
 </head>
 <body class="hold-transition skin-blue sidebar-mini remove-padding-top">
-    <div class="wrapper">
-        <header class="main-header">
-            
-            <a href="index2.html" class="logo">
-                
-                <span class="logo-mini"><b>PS</b></span>
-                
-                <span class="logo-lg"><b>Payroll System</b></span>
-            </a>
-            
-            <nav class="navbar navbar-static-top">
-                
-                <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
-                    <span class="sr-only">Toggle navigation</span>
-                </a>
-            </nav>
-        </header>
-    
-        <aside class="main-sidebar">
-        
-            <section class="sidebar">
-           
-                <div class="user-panel">
-                    <div class="pull-left image">
-                      <img src="@Url.Content("~/Images/doh.png")" class="img-circle" alt="User Image"> 
-                    </div>
-                    <div class="pull-left info">
-                        <p style="margin:auto">Alexander Pierce</p>
-                    </div>
-                </div>
-               
-                <ul class="sidebar-menu" data-widget="tree">
-                    <li class="header">MAIN NAVIGATION</li>
-                    <li class="treeview">
-                        <a href="#">
-                            <i class="fa fa-user"></i> <span>JOB ORDER</span>
-                            <span class="pull-right-container">
-                                <i class="fa fa-angle-left pull-right"></i>
-                            </span>
-                        </a>
-                        <ul class="treeview-menu menu-jo">
-                            <li class="active"><a href="@Url.Action("JobOrder","Home",new { id = 0})">ATM CARD</a></li>
-                            <li class="active"><a href="@Url.Action("JobOrder","Home",new { id = 1})">CASH CARD</a></li>
-                            <li class="active"><a href="@Url.Action("JobOrder","Home",new { id = 2})">W/O LBP CARD</a></li>
-                            <li class="active"><a href="@Url.Action("JobOrder","Home",new { id = 3})">UNDER VTF</a></li>
-                        </ul>
-                    </li>
-                    <li class="menu-regular">
-                        <a href="@Url.Action("Regular","Home")">
-                            <i class="fa fa-user"></i>
-                            <span>REGULAR</span>
-                        </a>
-                    </li>
-                    <li class="menu-report">
-                        <a href="@Url.Action("Index","Report")">
-                            <i class="glyphicon glyphicon-file"></i>
-                            <span>GENERATE REPORT</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <i class="glyphicon glyphicon-credit-card"></i>
-                            <span>CASHIER</span>
-                        </a>   
-                    </li>
-                    <li>
-                        <a href="#">
-                            <i class="glyphicon glyphicon-off"></i>
-                            <span>SIGNOUT</span>
-                        </a>
-                    </li>
-                </ul>
-            </section>
-          
-        </aside>
-     
-        <div class="content-wrapper" style="padding:10px;">
-            @RenderBody()
-        </div>
-        
- 
-        <div class="control-sidebar-bg"></div>
-    </div>
+     <div class="wrapper">
+          <!-- RENDER PARTIAL NAVBAR-->
+          @Html.Partial("_SideBar")
+          <div class="content-wrapper" style="padding:10px;">
+               @RenderBody()
+          </div>
+          <div class="control-sidebar-bg"></div>
+     </div>
 
 
-    @Scripts.Render("~/bundles/admin-lte/js")
-    @RenderSection("scripts", required: false)
-    <script>
+     @Scripts.Render("~/bundles/admin-lte/js")
+     @RenderSection("scripts", required: false)
+     <script>
         $(document).ready(function () {
             $(".textarea").wysihtml5();
 
@@ -151,7 +75,7 @@
             });
 
             $(".menu-regular").click(function (e) {
-                
+
             });
 
             $(".menu-report").click(function (e) {
@@ -247,7 +171,7 @@
             return true;
         }
 
-    </script>
+     </script>
 
 </body>
 </html>

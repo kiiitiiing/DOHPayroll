@@ -30,9 +30,10 @@ namespace PayrollSystem.Models
 
           public JobOrderPayrollModel() { }
 
-          public JobOrderPayrollModel(string UserID, string StartDate, string EndDate, string Adjustment, string WorkDays, string DaysAbsent, string Salary, string MinutesLate, string Coop,
+          public JobOrderPayrollModel(string Id,string UserID, string StartDate, string EndDate, string Adjustment, string WorkDays, string DaysAbsent, string Salary, string MinutesLate, string Coop,
               string Phic, string Disallowance, string Gsis, string Pagibig, string ExcessMobile, string Remarks, string Tax, string OtherAdjustment)
           {
+               this.Id = Id;
                this.Employee = new Employee();
                this.Employee.ID = UserID;
                this.StartDate = StartDate;

@@ -1,0 +1,126 @@
+﻿<input type="text" class="hidden" id="rata_date_range" />
+<input type="text" class="hidden" id="rata_userid" name="rata_userid" />
+<input type="text" class="hidden" id="rata_username" name="rata_username" />
+
+<div class="box-header with-border">
+     <h1 class="box-title"><b>Create Rata</b></h1>
+     <div class="box-tools pull-right">
+          <button class="btn btn-xs btn-danger remove_rata_benefits"><i class="glyphicon glyphicon-remove"></i></button>
+     </div>
+</div>
+<div class="box-body" id="benefits_container">
+     <div class="row">
+          <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
+               <div class="form-group">
+                    <label>Month</label>
+                    <select name="rata_month" id="rata_month" class="form-control" required>
+                         <option value="1">January</option>
+                         <option value="2">Februrary</option>
+                         <option value="3">March</option>
+                         <option value="4">April</option>
+                         <option value="5">May</option>
+                         <option value="6">June</option>
+                         <option value="7">July</option>
+                         <option value="8">August</option>
+                         <option value="9">September</option>
+                         <option value="10">October</option>
+                         <option value="11">November</option>
+                         <option value="12">December</option>
+                    </select>
+               </div>
+          </div>
+          <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
+               <div class="form-group">
+                    <label>Year</label>
+                    <select name="rata_year" id="rata_year" class="form-control" required>
+                         @for (int i = 2018; i <= DateTime.Now.Year; i++)
+                         {
+                              <option value="@i">@i</option>
+                         }
+                    </select>
+               </div>
+          </div>
+     </div>
+
+     <div class="row">
+          <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
+               <div class="form-group">
+                    <label>RA</label>
+                    <input type="text" name="rata_ra" id="rata_ra" class="form-control" value="0.00" required />
+               </div>
+          </div>
+          <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
+               <div class="form-group">
+                    <label>TA</label>
+                    <input type="text" name="rata_ta" id="rata_ta" class="form-control" value="0.00" required />
+               </div>
+          </div>
+     </div>
+
+     <div class="row">
+          <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
+               <div class="form-group">
+                    <label>Deduction / Adjustment</label>
+                    <input type="text" name="rata_deduction" id="rata_deduction" class="form-control" value="0.00" required />
+               </div>
+          </div>
+          <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
+               <div class="form-group">
+                    <label>Total RATA</label>
+                    <input type="text" name="rata_total" id="rata_total" class="form-control" value="0.00" required readonly />
+               </div>
+          </div>
+     </div>
+     <div class="row">
+          <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+               <div class="form-group">
+                    <label>Remarks</label>
+                    <textarea rows="7" id="rata_remarks" name="rata_remarks" class="form-control"></textarea>
+               </div>
+          </div>
+     </div>
+     <div class="row">
+          <div class="col-md-4 col-md-offset-4 col-sm-4 col-sm-offset-4 col-xs-4 col-xs-offset-4">
+               <button type="button" class="btn btn-primary form-control" id="rata_save" value="Save">Save</button>
+          </div>
+     </div>
+</div>   
+<script>
+     $(document).ready(function () {
+          $(".remove_rata_benefits").click(function () {
+               $("#rata_benefits_form").addClass("hide");
+          });
+          $(".remove_rata_list").click(function () {
+               $("#rata_benefits_list").addClass("hide");
+          });
+          $("#rata_ra,#rata_ta,#rata_deduction").change(function () {
+               $(this).val(formatComma(roundOff($(this).val())));
+               ComputeTotal();
+          });
+
+          $("#rata_save").click(function () {
+               var id = null;
+               var userid = $("#userid").val();
+               var fname = $("#username").val().split(' ')[0];
+               var lname = $("#username").val().split(' ')[1];
+               var ra = $("#rata_ra").val().replace(/,/g, '');
+               var ta = $("#rata_ta").val().replace(/,/g, '');
+               var deduction = $("#rata_deduction").val().replace(/,/g, '');
+               var remark = $("#rata_remarks").val();
+               var month = $("#rata_month").val();
+               var year = $("#rata_year").val();
+
+               insert_rata(id,userid,fname,lname,month,year,ra,ta,deduction,remark);
+          });
+          function ComputeTotal() {
+               var rata_ra = $("#rata_ra").val().replace(/,/g, '');
+               var rata_ta = $("#rata_ta").val().replace(/,/g, '');
+               var rata_deduction = $("#rata_deduction").val().replace(/,/g, '');
+               var total = parseFloat(rata_ra) + parseFloat(rata_ta) - parseFloat(rata_deduction);
+               $("#rata_total").val(formatComma(roundOff(total)));
+          }
+     });
+</script>
+
+
+

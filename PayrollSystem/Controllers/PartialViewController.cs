@@ -51,21 +51,62 @@ namespace PayrollSystem.Controllers
                return PartialView(list.ToPagedList(pageNumber, pageSize));
           }
 
-          public ActionResult JobOrderPayrollList(int? page, string empID, string firstname, string lastname, string middlename)
+          public ActionResult JobOrderPayrollList(int? page, string empID, string firstname, string lastname)
           {
                int pageSize = 10;
                int pageNumber = (page ?? 1);
 
-               List<JobOrderPayrollModel> list = PayrollDatabase.Instance.GetJobOrderPayrollByID(empID, firstname, lastname, middlename);
+               List<JobOrderPayrollModel> list = PayrollDatabase.Instance.GetJobOrderPayrollByID(empID, firstname, lastname);
                return PartialView(list.ToPagedList(pageNumber, pageSize));
           }
 
-          public ActionResult RegularPayrollList(int? page, string empID, string firstname, string lastname, string middlename)
+          public ActionResult RegularPayrollList(int? page, string empID, string firstname, string lastname)
           {
                int pageSize = 10;
                int pageNumber = (page ?? 1);
 
-               List<RegularPayrollModel> list = PayrollDatabase.Instance.GetRegularPayrollByID(empID, firstname, lastname, middlename);
+               List<RegularPayrollModel> list = PayrollDatabase.Instance.GetRegularPayrollByID(empID, firstname, lastname);
+               return PartialView(list.ToPagedList(pageNumber, pageSize));
+          }
+          public ActionResult HazardList(int? page, string empID, string firstname, string lastname)
+          {
+               int pageSize = 10;
+               int pageNumber = (page ?? 1);
+
+               List<HazardListViewModel> list = PayrollDatabase.Instance.GetHazardList(empID, firstname, lastname);
+               return PartialView(list.ToPagedList(pageNumber, pageSize));
+          }
+          public ActionResult RataList(int? page, string empID, string firstname, string lastname)
+          {
+               int pageSize = 10;
+               int pageNumber = (page ?? 1);
+
+               List<RataListViewModel> list = PayrollDatabase.Instance.GetRataList(empID, firstname, lastname);
+               return PartialView(list.ToPagedList(pageNumber, pageSize));
+          }
+          public ActionResult CellphoneList(int? page, string empID, string firstname, string lastname)
+          {
+               int pageSize = 10;
+               int pageNumber = (page ?? 1);
+
+               List<CellListViewModel> list = PayrollDatabase.Instance.GetCellList(empID, firstname, lastname);
+               return PartialView(list.ToPagedList(pageNumber, pageSize));
+          }
+
+          public ActionResult LongevityList(int? page, string empID, string firstname, string lastname)
+          {
+               int pageSize = 10;
+               int pageNumber = (page ?? 1);
+
+               List<LongevityListViewModel> list = PayrollDatabase.Instance.GetLongevityList(empID, firstname, lastname);
+               return PartialView(list.ToPagedList(pageNumber, pageSize));
+          }
+          public ActionResult SubsistenceList(int? page, string empID, string firstname, string lastname)
+          {
+               int pageSize = 10;
+               int pageNumber = (page ?? 1);
+
+               List<SubsistenceListViewModel> list = PayrollDatabase.Instance.GetSubsistenceList(empID, firstname, lastname);
                return PartialView(list.ToPagedList(pageNumber, pageSize));
           }
      }

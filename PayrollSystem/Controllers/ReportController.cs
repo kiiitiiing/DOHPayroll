@@ -107,11 +107,13 @@ namespace PayrollSystem.Controllers
 
                string file_path = Server.MapPath(Url.Content("~/Pdf/" + file_name));
 
-               bool ok = SalaryChargePDFView.RegularSalaryChargeSummary(month, year, salary_charge, file_path);
-               if (ok)
+               //List<RegularPayrollModel> list = PayrollDatabase.Instance.GenerateSummaryRegularBySalaryCharge(month, year, salary_charge);
+
+               List<SalaryChargeItem> list = PayrollDatabase.Instance.GenerateSalaryChargeSummary(month, year);
+               if (list.Count > 0)
                {
-                    TempData["Message"] = "Generated Successfully";
-                    PayrollDatabase.Instance.InsertPDF(from, to, document, disbursement, salary_charge, division, file_name);
+                    SalaryChargePDFView.RegularSalaryChargeSummary(month, year, salary_charge, file_path, list);
+                    TempData["Message"] = PayrollDatabase.Instance.InsertPDF(from, to, document, disbursement, salary_charge, division, file_name);
                }
                else
                {
@@ -165,7 +167,6 @@ namespace PayrollSystem.Controllers
                string title = DateUtility.GetMonthName(month, year) + " " + int.Parse(date_from.Split('/')[1]) + "-" + date_to.Split('/')[1] + ", " + year;
 
                string physical_file_path = Server.MapPath(Url.Content("~/Pdf/" + file_name));
-
 
                JoPayslipPDFView.JoPayslipContainer(physical_file_path, title, id, fullnames, designation, date_from, date_to);
 
