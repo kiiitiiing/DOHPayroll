@@ -5,7 +5,7 @@
 
 <!-- /.box-header -->
 
-<table class="table">
+<table class="table table-borderless">
      <tr>
           <th>ID NO</th>
           <th>FIRST NAME</th>
@@ -60,7 +60,7 @@
      }
 </table>
 <!-- /.box-body -->
-<div class="box-footer-jo-employee-list" style="margin-top:15px;">
+<div class="card-footer-jo-employee-list" style="margin-top:15px;">
      Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
 
      @Html.PagedListPager(Model, page => Url.Action("JobOrder",
@@ -119,11 +119,11 @@
                 $('#box_jo_payroll_list').removeClass("hide");
                 $(".parent-payroll-list").html("Loading......");
                 loadJoPayrollList(1, id, firstname, lastname, middlename);
-
+                $("#userid").val(id);
+                $("#job_status").val('job_order');
                 $("#jo_salary").val(formatComma(salary));
                 $("#jo_id").val(id);
                 $("#jo_name").val(fullname);
-
                 $("#jo_month").prop('disabled',false);
                 $("#jo_year").prop('disabled',false);
                 $("#jo_month_range").prop('disabled',false);

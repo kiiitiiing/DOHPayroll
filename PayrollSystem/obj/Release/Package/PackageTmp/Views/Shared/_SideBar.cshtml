@@ -1,74 +1,173 @@
-﻿<header class="main-header">
+﻿@*<header class="main-header">
 
-     <a href="" class="logo">
+    <a href="" class="logo">
 
-          <span class="logo-mini"><b>PS</b></span>
+        <span class="logo-mini"><b>PS</b></span>
 
-          <span class="logo-lg"><b>Payroll System</b></span>
-     </a>
+        <span class="logo-lg"><b>Payroll System</b></span>
+    </a>
 
-     <nav class="navbar navbar-static-top">
+    <nav class="navbar navbar-static-top">
 
-          <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
-               <span class="sr-only">Toggle navigation</span>
-          </a>
-     </nav>
+        <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
+            <span class="sr-only">Toggle navigation</span>
+        </a>
+    </nav>
 </header>
 
-<aside class="main-sidebar">
+<aside class="main-sidebar sidebar-dark-primary elevation-4">
 
-     <section class="sidebar">
+    <section class="sidebar">
+        <div class="user-panel">
+            <div class="pull-left image">
+                <img src="@Url.Content("~/Images/doh.png")" class="img-circle" alt="User Image">
+            </div>
+            <div class="pull-left info">
+                <p style="margin:auto">@User.Identity.Name</p>
+            </div>
+        </div>
 
-          <div class="user-panel">
-               <div class="pull-left image">
-                    <img src="@Url.Content("~/Images/doh.png")" class="img-circle" alt="User Image">
-               </div>
-               <div class="pull-left info">
-                    <p style="margin:auto">Alexander Pierce</p>
-               </div>
-          </div>
-
-          <ul class="sidebar-menu" data-widget="tree">
-               <li class="header">MAIN NAVIGATION</li>
-               <li class="treeview">
-                    <a href="#">
-                         <i class="fa fa-user"></i> <span>JOB ORDER</span>
-                         <span class="pull-right-container">
-                              <i class="fa fa-angle-left pull-right"></i>
-                         </span>
-                    </a>
-                    <ul class="treeview-menu menu-jo">
-                         <li class="active"><a href="@Url.Action("JobOrder","Home",new { id = 0})">ATM CARD</a></li>
-                         <li class="active"><a href="@Url.Action("JobOrder","Home",new { id = 1})">CASH CARD</a></li>
-                         <li class="active"><a href="@Url.Action("JobOrder","Home",new { id = 2})">W/O LBP CARD</a></li>
-                         <li class="active"><a href="@Url.Action("JobOrder","Home",new { id = 3})">UNDER VTF</a></li>
-                    </ul>
-               </li>
-               <li class="menu-regular">
-                    <a href="@Url.Action("Regular","Home")">
-                         <i class="fa fa-user"></i>
-                         <span>REGULAR</span>
-                    </a>
-               </li>
-               <li class="menu-report">
-                    <a href="@Url.Action("Index","Report")">
-                         <i class="glyphicon glyphicon-file"></i>
-                         <span>GENERATE REPORT</span>
-                    </a>
-               </li>
-               <li>
-                    <a href="#">
-                         <i class="glyphicon glyphicon-credit-card"></i>
-                         <span>CASHIER</span>
-                    </a>
-               </li>
-               <li>
-                    <a href="#">
-                         <i class="glyphicon glyphicon-off"></i>
-                         <span>SIGNOUT</span>
-                    </a>
-               </li>
-          </ul>
-     </section>
+        <ul class="sidebar-menu" data-widget="tree">
+            <li class="header">MAIN NAVIGATION</li>
+            <li class="treeview">
+                <a href="#">
+                    <i class="fa fa-user"></i> <span>JOB ORDER</span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu menu-jo">
+                    <li class="active"><a href="@Url.Action("JobOrder","Home",new { id = 0})">ATM CARD</a></li>
+                    <li class="active"><a href="@Url.Action("JobOrder","Home",new { id = 1})">CASH CARD</a></li>
+                    <li class="active"><a href="@Url.Action("JobOrder","Home",new { id = 2})">W/O LBP CARD</a></li>
+                    <li class="active"><a href="@Url.Action("JobOrder","Home",new { id = 3})">UNDER VTF</a></li>
+                </ul>
+            </li>
+            <li class="menu-regular">
+                <a href="@Url.Action("Regular","Home")">
+                    <i class="fa fa-user"></i>
+                    <span>REGULAR</span>
+                </a>
+            </li>
+            <li class="menu-report">
+                <a href="@Url.Action("Index","Report")">
+                    <i class="glyphicon glyphicon-file"></i>
+                    <span>GENERATE REPORT</span>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <i class="glyphicon glyphicon-credit-card"></i>
+                    <span>CASHIER</span>
+                </a>
+            </li>
+            <li>
+                <a href="@Url.Action("Signout","Login")">
+                    <i class="glyphicon glyphicon-off"></i>
+                    <span>SIGNOUT</span>
+                </a>
+            </li>
+        </ul>
+    </section>
 
 </aside>
+*@
+<nav class="main-header navbar navbar-expand">
+    <!-- Left navbar links -->
+    <ul class="navbar-nav">
+        <li class="nav-item">
+            <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+        </li>
+        <li class="nav-item d-none d-sm-inline-block">
+            <a href="@Url.Action("JobOrder","Home",new { id = 0})" class="nav-link">Payroll System</a>
+        </li>
+    </ul>
+</nav>
+
+<aside class="main-sidebar sidebar-dark-primary elevation-4">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <!-- Sidebar user panel (optional) -->
+            <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+                <div class="image">
+                    <img src="@Url.Content("~/Images/doh.png")" class="img-circle elevation-2" alt="User Image">
+                </div>
+                <div class="info">
+                    <a href="#" class="d-block" style="margin:auto">@User.Identity.Name</a>
+                </div>
+            </div>
+
+            <!-- Sidebar Menu -->
+            <nav class="mt-2">
+                <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                    <!-- Add icons to the links using the .nav-icon class
+                    with font-awesome or any other icon font library -->
+                    <li class="nav-item">
+                        <a href="#" class="nav-link active">
+                            <i class="nav-icon fa fa-user"></i>
+                            <p>
+                                JOB ORDER
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="@Url.Action("JobOrder","Home",new { id = 0})" class="nav-link">
+                                    <p>ATM CARD</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="@Url.Action("JobOrder","Home",new { id = 1})" class="nav-link">
+                                    <p>CASH CARD</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="@Url.Action("JobOrder","Home",new { id = 2})" class="nav-link">
+                                    <p>W/O LBP CARD</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="@Url.Action("JobOrder","Home",new { id = 3})" class="nav-link">
+                                    <p>UNDER VTF</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a href="@Url.Action("Regular","Home")" class="nav-link">
+                            <i class="nav-icon fa fa-user"></i>
+                            <p>
+                                REGULAR
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="@Url.Action("Index","Report")" class="nav-link">
+                            <i class="nav-icon far fa-file"></i>
+                            <p>
+                                GENERATE REPORT
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="@Url.Action("Regular","Home")" class="nav-link">
+                            <i class="nav-icon fas fa-credit-card"></i>
+                            <p>
+                                CASHIER
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="@Url.Action("Logout","Account")" class="nav-link">
+                            <i class="nav-icon fas fa-sign-out-alt"></i>
+                            <p>
+                                SIGN OUT
+                            </p>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            <!-- /.sidebar-menu -->
+        </div>
+        <!-- /.sidebar -->
+    </aside>

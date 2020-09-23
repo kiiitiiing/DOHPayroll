@@ -1,0 +1,38 @@
+﻿<form method="POST" action="@Url.Action("GenerateRemittance","Report")" id="remittance_form">
+    <div class="">
+        <table class="">
+            <tr>
+                <td style="width: 30%"><strong>Date</strong></td>
+                <td style="width: 10%">: </td>
+                <td style="width: 60%">
+                    <input type="text" name="date" placeholder="Choose Date" class="inline form-control remittance_date" style="border-radius:0px;background:#fff" readonly />
+                </td>
+            </tr>
+            <tr>
+                <td style="width: 30%"><strong>Remmitance</strong></td>
+                <td style="width: 10%"> :</td>
+                <td style="width: 60%">
+                    <select name="type" id="type" class="form-control fa-pull-left" style="border-radius:0px;" required>
+                        <option value="pagibig">Pag-ibig</option>
+                        <option value="phic">PhilHealth</option>
+                        <option value="coop">Coop</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td style="width: 30%"><strong>Job Status</strong></td>
+                <td style="width: 10%">: </td>
+                <td style="width: 60%">
+                    <select name="job_status" id="job_status" class="form-control fa-pull-left" style="border-radius:0px;" required>
+                        <option value="ALL">ALL</option>
+                        <option value="Job Order">Job Order</option>
+                        <option value="Parmanent">Parmanent</option>
+                    </select>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <button type="submit" name="submit" class="btn-lg btn-default center-block col-sm-12 btn_payroll_print" value="Search">
+        <span class="fas fa-print" aria-hidden="true"></span> Print
+    </button>
+</form>

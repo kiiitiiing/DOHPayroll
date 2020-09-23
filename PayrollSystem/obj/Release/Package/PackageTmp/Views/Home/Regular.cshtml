@@ -5,49 +5,51 @@
      ViewBag.Title = ViewBag.Action;
 }
 <style>
-   .box {
+   .card {
         border-radius: 0px;
    }
 </style>
 <h3 class="text-default">Regular - ATM</h3>
-<div class="box-tools pull-right">
-     <span><i class="glyphicon glyphicon-user"></i></span>
+<div class="card-tools pull-right">
+     <span><i class="fas fa-user"></i></span>
 </div>
-<div class="box box box-default">
-     <div class="navbar-form">
-          <div class="input-group add-on">
-               <input class="form-control" placeholder="Search" name="search" id="regular_search" type="text">
-               <div class="input-group-btn">
-                    <button class="btn btn-default regular_search" type="button"><i class="glyphicon glyphicon-search"></i></button>
-               </div>
-          </div>
-     </div>
-     <div class="box-body regular-employee-list">
+<div class="card card-default">
+    <div class="form-inline ml-3" style="margin-top: 8px; margin-bottom: 8px;">
+        <div class="input-group input-group-sm">
+            <input class="form-control form-control-navbar" name="search" placeholder="Search" value="@ViewBag.Search" id="regular_search" type="text" aria-label="Search">
+            <div class="input-group-append">
+                <button class="btn btn-default regular_search" type="button">
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="card-body regular-employee-list">
 
-     </div>
+    </div>
 </div>
 
 <div class="row">
      <div class="col-md-7">
-          <div class="box box box-default hide" id="regular_payroll_container">
-               <div class="box-header with-border">
-                    <h1 class="box-title"><b>Create Payroll</b></h1>
-                    <div class="box-tools pull-right">
-                         <button class="btn btn-xs btn-danger remove_regular_payroll"><i class="glyphicon glyphicon-remove"></i></button>
+          <div class="card card-default hide" id="regular_payroll_container">
+               <div class="card-header with-border">
+                    <h1 class="card-title"><b>Create Payroll</b></h1>
+                    <div class="card-tools pull-right">
+                         <button class="btn btn-xs btn-danger remove_regular_payroll"><i class="fas fa-times"></i></button>
                     </div>
                </div>
                @Html.Partial("Partial/_RegularFormPartial")
           </div>
      </div>
      <div class="col-md-5">
-          <div class="box box box-default hide" id="box_regular_payroll_list">
-               <div class="box-header with-border">
-                    <h1 class="box-title"><b>Payroll List</b></h1>
-                    <div class="box-tools pull-right">
-                         <button class="btn btn-xs btn-danger remove_regular_payroll_list"><i class="glyphicon glyphicon-remove"></i></button>
+          <div class="card card-default hide" id="box_regular_payroll_list">
+               <div class="card-header with-border">
+                    <h1 class="card-title"><b>Payroll List</b></h1>
+                    <div class="card-tools pull-right">
+                         <button class="btn btn-xs btn-danger remove_regular_payroll_list"><i class="fas fa-times"></i></button>
                     </div>
                </div>
-               <div class="box-body">
+               <div class="card-body">
                     <div class="parent-payroll-list">
 
                     </div>
@@ -58,19 +60,19 @@
 <!-- REGULAR BENEFITS --->
 <div class="row">
      <div class="col-md-7">
-          <div class="box box-default hide" id="hazard_benefits_form">
+          <div class="card card-default hide" id="hazard_benefits_form">
                @Html.Partial("Partial/_HazardFormPartial")
           </div>
      </div>
      <div class="col-md-5">
-          <div class="box box-default hide" id="hazard_benefits_list">
-               <div class="box-header with-border">
-                    <h1 class="box-title"><b>Hazard List</b></h1>
-                    <div class="box-tools pull-right">
-                         <button class="btn btn-xs btn-danger remove_hazard_list"><i class="glyphicon glyphicon-remove"></i></button>
+          <div class="card card-default hide" id="hazard_benefits_list">
+               <div class="card-header with-border">
+                    <h1 class="card-title"><b>Hazard List</b></h1>
+                    <div class="card-tools pull-right">
+                         <button class="btn btn-xs btn-danger remove_hazard_list"><i class="fas fa-times"></i></button>
                     </div>
                </div>
-               <div class="box-body" id="hazard_list">
+               <div class="card-body" id="hazard_list">
 
                </div>
           </div>
@@ -79,19 +81,19 @@
 
 <div class="row">
      <div class="col-md-7">
-          <div class="box box-default hide" id="rata_benefits_form">
+          <div class="card card-default hide" id="rata_benefits_form">
                @Html.Partial("Partial/_RataFormPartial")
           </div>
      </div>
      <div class="col-md-5">
-          <div class="box box-default hide" id="rata_benefits_list">
-               <div class="box-header with-border">
-                    <h1 class="box-title"><b>Rata List</b></h1>
-                    <div class="box-tools pull-right">
-                         <button class="btn btn-xs btn-danger remove_rata_list"><i class="glyphicon glyphicon-remove"></i></button>
+          <div class="card card-default hide" id="rata_benefits_list">
+               <div class="card-header with-border">
+                    <h1 class="card-title"><b>Rata List</b></h1>
+                    <div class="card-tools pull-right">
+                         <button class="btn btn-xs btn-danger remove_rata_list"><i class="fas fa-times"></i></button>
                     </div>
                </div>
-               <div class="box-body" id="rata_list">
+               <div class="card-body" id="rata_list">
                </div>
           </div>
      </div>
@@ -99,19 +101,19 @@
 
 <div class="row">
      <div class="col-md-7">
-          <div class="box box-default hide" id="cellphone_benefits_form">
+          <div class="card card-default hide" id="cellphone_benefits_form">
                @Html.Partial("Partial/_CellphoneFormPartial")
           </div>
      </div>
      <div class="col-md-5">
-          <div class="box box-default hide" id="cellphone_benefits_list">
-               <div class="box-header with-border">
-                    <h1 class="box-title"><b>Cellphone Allowance List</b></h1>
-                    <div class="box-tools pull-right">
-                         <button class="btn btn-xs btn-danger remove_cellphone_list"><i class="glyphicon glyphicon-remove"></i></button>
+          <div class="card card-default hide" id="cellphone_benefits_list">
+               <div class="card-header with-border">
+                    <h1 class="card-title"><b>Cellphone Allowance List</b></h1>
+                    <div class="card-tools pull-right">
+                         <button class="btn btn-xs btn-danger remove_cellphone_list"><i class="fas fa-times"></i></button>
                     </div>
                </div>
-               <div class="box-body" id="cellphone_list">
+               <div class="card-body" id="cellphone_list">
                    
                </div>
           </div>
@@ -120,19 +122,19 @@
 
 <div class="row">
      <div class="col-md-7">
-          <div class="box box-default hide" id="longevity_benefits_form">
+          <div class="card card-default hide" id="longevity_benefits_form">
                @Html.Partial("Partial/_LongevityFormPartial")
           </div>
      </div>
      <div class="col-md-5">
-          <div class="box box-default hide" id="longevity_benefits_list">
-               <div class="box-header with-border">
-                    <h1 class="box-title"><b>Longevity List</b></h1>
-                    <div class="box-tools pull-right">
-                         <button class="btn btn-xs btn-danger remove_longevity_list"><i class="glyphicon glyphicon-remove"></i></button>
+          <div class="card card-default hide" id="longevity_benefits_list">
+               <div class="card-header with-border">
+                    <h1 class="card-title"><b>Longevity List</b></h1>
+                    <div class="card-tools pull-right">
+                         <button class="btn btn-xs btn-danger remove_longevity_list"><i class="fas fa-times"></i></button>
                     </div>
                </div>
-               <div class="box-body" id="longevity_list">
+               <div class="card-body" id="longevity_list">
                    
                </div>
           </div>
@@ -141,19 +143,19 @@
 
 <div class="row">
      <div class="col-md-7">
-          <div class="box box-default hide" id="subsistence_benefits_form">
+          <div class="card card-default hide" id="subsistence_benefits_form">
                @Html.Partial("Partial/_SubsistenceFormPartial")
           </div>
      </div>
      <div class="col-md-5">
-          <div class="box box-default hide" id="subsistence_benefits_list">
-               <div class="box-header with-border">
-                    <h1 class="box-title"><b>Subsistence List</b></h1>
-                    <div class="box-tools pull-right">
-                         <button class="btn btn-xs btn-danger remove_subsistence_list"><i class="glyphicon glyphicon-remove"></i></button>
+          <div class="card card-default hide" id="subsistence_benefits_list">
+               <div class="card-header with-border">
+                    <h1 class="card-title"><b>Subsistence List</b></h1>
+                    <div class="card-tools pull-right">
+                         <button class="btn btn-xs btn-danger remove_subsistence_list"><i class="fas fa-times"></i></button>
                     </div>
                </div>
-               <div class="box-body" id="subsistence_list">
+               <div class="card-body" id="subsistence_list">
                    
                </div>
           </div>
@@ -162,13 +164,19 @@
 
 @section scripts{
 <script>
-   $(document).ready(function () {
-     loadRegularEmployee(1, "");
+    $(document).ready(function () {
+        loadRegularEmployee(1, "");
 
-    $(".regular_search").click(function () {
-      var search_value = $("#regular_search").val();
-      loadRegularEmployee(1, search_value);
-      });
+        $("#regular_search").keypress(function (e) {
+            var key = e.which;
+            if (key == 13) {
+                RegulartDoTask();
+            }
+        });
+
+        $(".regular_search").click(function () {
+            RegulartDoTask();
+            });
     });
 
    function setEnableDeductions(type, enable) {
@@ -224,8 +232,8 @@
                  var working_days = data;
                  $("#regular_working_days").val(working_days);
 
-                 ComputeDeductions();
-                 ComputeTotalNetPay();
+                 ComputeDeductions("Permanent");
+                ComputeTotalNetPay("Permanent");
 
                  $(".create_payroll_spinner").addClass("hidden");
                  $("#jo_create_payroll :input").attr("disabled", false);
@@ -647,8 +655,8 @@
 
                 $("#regular_absent_date_list").val(array_date);
 
-                ComputeDeductions();
-                ComputeTotalNetPay();
+                ComputeDeductions("Permanent");
+                ComputeTotalNetPay("Permanent");
 
             }
 
@@ -698,70 +706,5 @@
                       }
                  });
             }
-
-
-
-            function ComputeDeductions() {
-
-                var salary = $("#regular_salary").val().replace(/,/g, '');
-                var working_days = $("#regular_working_days").val().replace(/,/g, '');
-                var minutes_late = $("#regular_minutes_late").val().replace(/,/g, '');
-                var no_days_absent = ($("#regular_absent_date_list").val().length >= 4) ? $("#regular_absent_date_list").val().split(",").length : 0;
-                var pera = $("#regular_pera").val().replace(/,/g, '');
-                var deduction = "0.00";
-
-                deduction = ((+minutes_late + (480 * +no_days_absent)) * (((+salary / +working_days) / 8) / 60));
-
-                if (isNaN(deduction) || !isFinite(deduction)) {
-                    deduction = "0.00";
-                }
-
-                deduction = roundOff(deduction);
-                $("#regular_deduction").val(formatComma(deduction));
-
-
-                var net_amount = 0.00;
-                net_amount = ((parseFloat(salary)) + parseFloat(pera)) - deduction;
-                net_amount = roundOff(net_amount);
-
-                $("#regular_net_amount").val(formatComma(net_amount));
-
-            }
-
-            function ComputeTotalNetPay() {
-
-                var regular_tax = $("#regular_tax").val().replace(/,/g, '');
-                var regular_cfi = $("#regular_cfi").val().replace(/,/g, '');
-                var regular_gsis_premium = $("#regular_gsis_premium").val().replace(/,/g, '');
-                var regular_gsis_consoloan = $("#regular_gsis_consoloan").val().replace(/,/g, '');
-                var regular_gsis_policyloan = $("#regular_gsis_policyloan").val().replace(/,/g, '');
-                var regular_gsis_eml = $("#regular_gsis_eml").val().replace(/,/g, '');
-                var regular_gsis_uoli = $("#regular_gsis_uoli").val().replace(/,/g, '');
-                var regular_gsis_edu = $("#regular_gsis_edu").val().replace(/,/g, '');
-                var regular_gsis_help = $("#regular_gsis_help").val().replace(/,/g, '');
-                var regular_gsis_rel = $("#regular_gsis_rel").val().replace(/,/g, '');
-                var regular_pagibig_premium = $("#regular_pagibig_premium").val().replace(/,/g, '');
-                var regular_pagibig_loan = $("#regular_pagibig_loan").val().replace(/,/g, '');
-                var regular_pagibig_mp2 = $("#regular_pagibig_mp2").val().replace(/,/g, '');
-                var regular_philhealth = $("#regular_philhealth").val().replace(/,/g, '');
-                var regular_simc = $("#regular_simc").val().replace(/,/g, '');
-                var regular_coop = $("#regular_coop").val().replace(/,/g, '');
-                var regular_dbp = $("#regular_dbp").val().replace(/,/g, '');
-                var regular_disallowance = $("#regular_disallowance").val().replace(/,/g, '');
-
-                var regular_net_amount = $("#regular_net_amount").val().replace(/,/g, '');
-
-                var total_deductions = roundOff(parseFloat(regular_tax) + parseFloat(regular_cfi) + parseFloat(regular_gsis_premium) + parseFloat(regular_gsis_consoloan) + parseFloat(regular_gsis_policyloan) +
-                    parseFloat(regular_gsis_eml) + parseFloat(regular_gsis_uoli) + parseFloat(regular_gsis_edu) + parseFloat(regular_gsis_help) + parseFloat(regular_gsis_rel) + parseFloat(regular_pagibig_premium) +
-                    parseFloat(regular_pagibig_loan) + parseFloat(regular_pagibig_mp2) + parseFloat(regular_philhealth) + parseFloat(regular_simc) + parseFloat(regular_coop) + parseFloat(regular_dbp) +
-                    parseFloat(regular_disallowance));
-
-                var total_amount = roundOff(parseFloat(regular_net_amount)  - total_deductions);
-
-                $("#regular_total_deductions").val(formatComma(total_deductions));
-                $("#regular_total_amount").val(formatComma(total_amount));
-
-            }
-
      </script>
 }

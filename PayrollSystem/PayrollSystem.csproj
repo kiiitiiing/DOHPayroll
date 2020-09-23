@@ -261,6 +261,7 @@
     <Compile Include="CustomFunctions.cs" />
     <Compile Include="Database\DTSDatabase.cs" />
     <Compile Include="Database\DTRDatabase.cs" />
+    <Compile Include="Database\InitializeConnectionString.cs" />
     <Compile Include="Database\PayrollDatabase.cs" />
     <Compile Include="Database\PISDatabase.cs" />
     <Compile Include="Global.asax.cs">
@@ -668,6 +669,7 @@
     <Content Include="admin-lte\plugins\daterangepicker\bower.json" />
     <Content Include="admin-lte\plugins\daterangepicker\package.json" />
     <None Include="Properties\PublishProfiles\DOHPayroll.pubxml" />
+    <None Include="Properties\PublishProfiles\Payroll.pubxml" />
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />
     <Content Include="Scripts\bootstrap-datepicker.js" />
     <Content Include="Scripts\bootstrap-datepicker.min.js" />

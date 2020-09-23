@@ -1,61 +1,188 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-     <meta charset="utf-8">
-     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-     <meta name="viewport" content="width=device-width, initial-scale=1">
-     <meta name="author" content="Asnaui O. Pangcatan">
-     <title>@ViewBag.Title</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="Asnaui O. Pangcatan">
+    <title>@ViewBag.Title</title>
 
+    <link href="~/Content/Site.css" rel="stylesheet" />
+    <link href="~/admin-lte/css/adminlte.min.css" rel="stylesheet" />
+    <link href="/admin-lte/css/bootstrap-datepicker.min.css" rel="stylesheet" />
+    <link href="/admin-lte/css/jquery.toast.css" rel="stylesheet" />
+    <link href="/admin-lte/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="/admin-lte/css/skins/skin-blue.css" rel="stylesheet" />
+    <link href="~/admin-lte/plugins/fontawesome-free/css/all.min.css" rel="stylesheet" />
+    <link href="~/admin-lte/plugins/daterangepicker/daterangepicker-bs3.css" rel="stylesheet" />
 
-     @Styles.Render("~/Content/css")
-     @Scripts.Render("~/bundles/jquery")
-     @Scripts.Render("~/bundles/modernizr")
+    <script src="https://getbootstrap.com/docs/4.1/assets/js/vendor/popper.min.js"></script>
+    @* <script src="~/admin-lte/plugins/popper/popper.min.js"></script>*@
+    <script src="~/admin-lte/js/jquery.min.js"></script>
+    <script src="~/admin-lte/js/adminlte.min.js"></script>
+    <script src="~/admin-lte/js/jquery-ui.min.js"></script>
+    <script src="~/admin-lte/js/bootstrap-datepicker.min.js"></script>
+    <script src="~/admin-lte/js/jquery.toast.js"></script>
+    <script src="~/admin-lte/plugins/bootstrap/js/bootstrap.js"></script>
+    <script src="~/admin-lte/plugins/daterangepicker/moment.js"></script>
+    <script src="~/admin-lte/plugins/daterangepicker/daterangepicker.js"></script>
+    @*@Styles.Render("~/Content/css")
+        @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/modernizr")*@
 
-     <style>
+    <script>
+        function UpdateSalary(obj) {
+            var content = obj.parent().parent();
+            var userid = content.find('#userid').val();
+            var status = content.find('#job_status').val();
+            var tranch = content.find('#salary_tranche').val();
+            var grade = content.find('#salary_grade').val();
+            var step = content.find('#salary_step').val();
+            console.log(userid + ": " + tranch + " | " + grade + "-" + step);
+            if (tranch != "" && grade != "" && step != "") {
+                var url = '@Url.Action("UpdateSalary", "Home")';
+                console.log(url);
+                $.ajax({
+                    url: url,
+                    type: 'POST',
+                    data: {
+                        userid: userid,
+                        tranch: tranch,
+                        grade: grade,
+                        step: step
+                    },
+                    success: function (out) {
+                        if (status != "permanent") {
+                            $('#jo_salary').val(out);
+                            DoTask();
+                            ComputeDeductions("Job Order");
+                        }
+                        else {
+                            $('#regular_salary').val(out);
+                            RegulartDoTask();
+                            ComputeDeductions("Permanent");
+                        }
+                        $.toast({
+                            heading: 'Success',
+                            text: "Salary updated",
+                            icon: 'success'
+                        });
+                    }
+                });
+            }
+            else {
+                alert("Please input required fields.");
+            }
+        }
+    </script>
+    <style>
         .remove-padding-top {
-             padding-top: 0px;
-             padding-bottom: 0px;
+            padding-top: 0px;
+            padding-bottom: 0px;
         }
 
         .box {
-             border-radius: 0px;
+            border-radius: 0px;
         }
 
         .selected {
-             background: rgb(215, 215, 215);
-             color: black;
+            background: rgb(215, 215, 215);
+            color: black;
         }
 
         .parent {
-             position: relative;
+            position: relative;
         }
 
         .child {
-             position: absolute;
-             top: 50%;
-             left: 50%;
-             transform: translate(-50%, -50%);
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
         }
-     </style>
+    </style>
 
 </head>
-<body class="hold-transition skin-blue sidebar-mini remove-padding-top">
-     <div class="wrapper">
-          <!-- RENDER PARTIAL NAVBAR-->
-          @Html.Partial("_SideBar")
-          <div class="content-wrapper" style="padding:10px;">
-               @RenderBody()
-          </div>
-          <div class="control-sidebar-bg"></div>
-     </div>
+<body class="hold-transition sidebar-mini remove-padding-top sidebar-collapse">
+    <div class="wrapper">
+        <!-- RENDER PARTIAL NAVBAR-->
+        @Html.Partial("_SideBar")
+        <div class="content-wrapper" style="padding:10px;">
+            @RenderBody()
+        </div>
+        <div class="control-sidebar-bg"></div>
+    </div>
 
+    <div class="popover editable-container editable-popup fade " role="tooltip" id="waters" style="display: none;">
+        <div class="arrow" style="left: 50%;"></div>
+        <h3 class="popover-title" style="display: none;"></h3>
+        <div class="popover-content">
+            <div>
+                <div class="editableform-loading" style="display: none;">
+                    <i class="ace-icon fa fa-spinner fa-spin fa-2x light-blue"></i>
+                </div>
+                <form class="form-inline update_salary_form">
+                    <div class="control-group form-group">
+                        <div class="editable-input">
+                            <input type="hidden" id="userid" name="userid" />
+                            <input type="hidden" id="job_status" name="job_status" />
+                            <select name="salary_grade" id="salary_tranche" class="form-control" style="width: 100%; margin-top: 8px!important;" required="">
+                                <option value="">Select Tranche</option>
+                                <option value="Second">Second</option>
+                                <option value="Third">Third</option>
+                                <option value="Fourth">Fourth</option>
+                            </select>
+                            <br />
+                            <select name="salary_grade" id="salary_grade" class="form-control" style="width: 100%; margin-top: 8px!important;" required="">
+                                <option value="">Select Salary Grade</option>
+                                @for (int x = 1; x <= 33; x++)
+                                {
+                                    <option value="@x">@x</option>
+                                }
+                            </select>
+                            <br />
+                            <select name="salary_step" id="salary_step" class="form-control" style="width: 100%; margin-top: 8px!important;" required="">
+                                <option value="">Select Salary Step</option>
+                                @for (int x = 1; x <= 8; x++)
+                                {
+                                    <option value="@x">@x</option>
+                                }
+                            </select>
+                            <br />
+                        </div>
+                        <div class="editable-buttons" style="width: 100%; margin-top: 8px!important;">
+                            <button type="button" class="btn btn-info update_salary_submit" onclick="UpdateSalary($(this));">
+                                <i class="ace-icon fa fa-check"></i>
+                            </button>
+                            <button type="button" class="btn btn-danger update_salary-cancel" onclick="$('#jo_salary,#regular_salary').popover('hide');">
+                                <i class="ace-icon fa fa-times"></i>
+                            </button>
+                        </div>
+                        <div class="editable-error-block help-block" style="display: none;">
 
-     @Scripts.Render("~/bundles/admin-lte/js")
-     @RenderSection("scripts", required: false)
-     <script>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    @*@Scripts.Render("~/bundles/admin-lte/js")*@
+    @RenderSection("scripts", required: false)
+    <script>
         $(document).ready(function () {
-            $(".textarea").wysihtml5();
+            //$(".textarea").wysihtml5();
+
+            $("#jo_salary, #regular_salary").popover({
+                container: 'body',
+                title: 'Edit Salary',
+                html: true,
+                placement: 'top',
+                sanitize: false,
+                content: function () {
+                    return $("#waters").html();
+                }
+            });
 
             $('.input-data').keypress(function (event) {
                 return isNumber(event, this)
@@ -83,6 +210,145 @@
             });
         });
 
+
+        function ComputeDeductions(job_status) {
+            if (job_status == "Permanent") {
+                var salary = $("#regular_salary").val().replace(/,/g, '');
+                var working_days = $("#regular_working_days").val().replace(/,/g, '');
+                var minutes_late = $("#regular_minutes_late").val().replace(/,/g, '');
+                var no_days_absent = ($("#regular_absent_date_list").val().length >= 4) ? $("#regular_absent_date_list").val().split(",").length : 0;
+                var pera = $("#regular_pera").val().replace(/,/g, '');
+                var deduction = "0.00";
+
+                deduction = ((+minutes_late + (480 * +no_days_absent)) * (((+salary / +working_days) / 8) / 60));
+
+                if (isNaN(deduction) || !isFinite(deduction)) {
+                    deduction = "0.00";
+                }
+
+                deduction = roundOff(deduction);
+                $("#regular_deduction").val(formatComma(deduction));
+
+
+                var net_amount = 0.00;
+                net_amount = ((parseFloat(salary)) + parseFloat(pera)) - deduction;
+                net_amount = roundOff(net_amount);
+
+                $("#regular_net_amount").val(formatComma(net_amount));
+            }
+            else {
+                var salary = $("#jo_salary").val().replace(/,/g, '');
+                var working_days = $("#jo_working_days").val().replace(/,/g, '');
+                var minutes_late = $("#jo_minutes_late").val().replace(/,/g, '');
+                var no_days_absent = ($("#jo_absent_date_list").val().length >= 4) ? $("#jo_absent_date_list").val().split(",").length : 0;
+                var adjustment = $("#jo_adjustment").val().replace(/,/g, '');
+
+                var deduction = "0.00";
+
+                deduction = ((+minutes_late + (480 * +no_days_absent)) * (((+salary / +working_days) / 8) / 60));
+
+                if (isNaN(deduction) || !isFinite(deduction)) {
+                    deduction = "0.00";
+                }
+
+                deduction = roundOff(deduction);
+                $("#jo_deduction").val(formatComma(deduction));
+
+
+                var net_amount = 0.00;
+                net_amount = ((parseFloat(salary) / 2) + parseFloat(adjustment)) - deduction;
+                net_amount = roundOff(net_amount);
+
+                var net_pay = 0.00;
+                var tot_deduction = $("#jo_total_deductions").val();
+                net_pay = net_amount - tot_deduction;
+
+                $("#jo_net_amount").val(formatComma(net_amount));
+                $("#jo_total_amount").val(formatComma(net_pay));
+
+            }
+        }
+
+
+        function ComputeTotalNetPay(job_status) {
+            if (job_status == "Permanent") {
+                var regular_tax = $("#regular_tax").val().replace(/,/g, '');
+                var regular_cfi = $("#regular_cfi").val().replace(/,/g, '');
+                var regular_gsis_premium = $("#regular_gsis_premium").val().replace(/,/g, '');
+                var regular_gsis_consoloan = $("#regular_gsis_consoloan").val().replace(/,/g, '');
+                var regular_gsis_policyloan = $("#regular_gsis_policyloan").val().replace(/,/g, '');
+                var regular_gsis_eml = $("#regular_gsis_eml").val().replace(/,/g, '');
+                var regular_gsis_uoli = $("#regular_gsis_uoli").val().replace(/,/g, '');
+                var regular_gsis_edu = $("#regular_gsis_edu").val().replace(/,/g, '');
+                var regular_gsis_help = $("#regular_gsis_help").val().replace(/,/g, '');
+                var regular_gsis_rel = $("#regular_gsis_rel").val().replace(/,/g, '');
+                var regular_pagibig_premium = $("#regular_pagibig_premium").val().replace(/,/g, '');
+                var regular_pagibig_loan = $("#regular_pagibig_loan").val().replace(/,/g, '');
+                var regular_pagibig_mp2 = $("#regular_pagibig_mp2").val().replace(/,/g, '');
+                var regular_philhealth = $("#regular_philhealth").val().replace(/,/g, '');
+                var regular_simc = $("#regular_simc").val().replace(/,/g, '');
+                var regular_coop = $("#regular_coop").val().replace(/,/g, '');
+                var regular_dbp = $("#regular_dbp").val().replace(/,/g, '');
+                var regular_disallowance = $("#regular_disallowance").val().replace(/,/g, '');
+
+                var regular_net_amount = $("#regular_net_amount").val().replace(/,/g, '');
+
+                var total_deductions = roundOff(parseFloat(regular_tax) + parseFloat(regular_cfi) + parseFloat(regular_gsis_premium) + parseFloat(regular_gsis_consoloan) + parseFloat(regular_gsis_policyloan) +
+                    parseFloat(regular_gsis_eml) + parseFloat(regular_gsis_uoli) + parseFloat(regular_gsis_edu) + parseFloat(regular_gsis_help) + parseFloat(regular_gsis_rel) + parseFloat(regular_pagibig_premium) +
+                    parseFloat(regular_pagibig_loan) + parseFloat(regular_pagibig_mp2) + parseFloat(regular_philhealth) + parseFloat(regular_simc) + parseFloat(regular_coop) + parseFloat(regular_dbp) +
+                    parseFloat(regular_disallowance));
+
+                var total_amount = roundOff(parseFloat(regular_net_amount) - total_deductions);
+
+                $("#regular_total_deductions").val(formatComma(total_deductions));
+                $("#regular_total_amount").val(formatComma(total_amount));
+            }
+            else {
+                var jo_net_amount = $("#jo_net_amount").val().replace(/,/g, '');
+                var jo_ewt = $("#jo_ewt").val().replace(/,/g, '');
+                var jo_prof_tax = $("#jo_prof_tax").val().replace(/,/g, '');
+
+                var coop = $("#jo_coop").val().replace(/,/g, '');
+                var other_adjustment = $("#jo_other_adjustment").val().replace(/,/g, '');
+                var pagibig = $("#jo_pagibig").val().replace(/,/g, '');
+                var phic = $("#jo_phic").val().replace(/,/g, '');
+                var gsis = $("#jo_gsis").val().replace(/,/g, '');
+                var excess = $("#jo_excess").val().replace(/,/g, '');
+
+                var total_deductions = roundOff(parseFloat(jo_ewt) + parseFloat(jo_prof_tax) + parseFloat(coop) + parseFloat(pagibig) + parseFloat(phic) + parseFloat(gsis) + parseFloat(excess));
+                var total_amount = roundOff((parseFloat(other_adjustment) + parseFloat(jo_net_amount)) - total_deductions);
+
+                $("#jo_total_deductions").val(formatComma(total_deductions));
+                $("#jo_total_amount").val(formatComma(total_amount));
+            }
+        }
+
+        function RegulartDoTask() {
+            var search_value = $("#regular_search").val();
+            loadRegularEmployee(1, search_value);
+        }
+
+        function DoTask() {
+            var search_value = $("#search_value").val();
+            var title = $(".jo_title").text();
+            switch (title) {
+                case "Job Order - ATM":
+                    loadJoEmployee(0, 1, search_value);
+                    break;
+                case "Job Order - CASH CARD":
+                    loadJoEmployee(1, 1, search_value);
+                    break;
+                case "Job Order - W/O LBP CARD":
+                    loadJoEmployee(2, 1, search_value);
+                    break;
+                case "Job Order - UNDER VTF":
+                    loadJoEmployee(3, 1, search_value);
+                    break;
+                default:
+                    console.log(title);
+            }
+        }
+
         function getPageId() {
             var flag = $(".jo_title").text();
             switch (flag) {
@@ -100,13 +366,14 @@
 
         }
 
-        function loadJoEmployee(id,page,search) {
-
+         function loadJoEmployee(id, page, search) {
+            console.log(search);
             var url = "@Url.Action("JobOrderList", "PartialView")";
             $(".jo-employee-list").html("Loading employee ....");
             $.ajax({
                 url: url,
                 type: "POST",
+                async: true,
                 data: {
                     id: id,
                     page: page,
@@ -171,7 +438,7 @@
             return true;
         }
 
-     </script>
+    </script>
 
 </body>
 </html>

@@ -1,63 +1,63 @@
 ﻿<form method="POST" action="@Url.Action("CreateJoSummary","Report")" id="jo_summary_form">
-     <div class="table-responsive">
-          <table class="table">
-               <tr>
-                    <td class="col-sm-4"><strong>Date Range</strong></td>
-                    <td class="col-sm-1">: </td>
-                    <td class="col-sm-7">
-                         <input type="text" name="date" placeholder="Date Range" class="form-control summary_date" style="border-radius:0px;background:#fff" required readonly />
-                    </td>
-               </tr>
-               <tr>
-                    <td class="col-sm-4"><strong>Document</strong></td>
-                    <td class="col-sm-1"> :</td>
-                    <td class="col-sm-7">
-                         <select name="document" class="form-control pull-left" style="border-radius:0px;" required>
-                              <option value="ALL">ALL</option>
-                              <option value="PAGIBIG">Pag-Ibig</option>
-                              <option value="COOP">Coop</option>
-                              <option value="PHIC">PHIC</option>
-                              <option value="GSIS">GSIS</option>
-                              <option value="EXCESS">EXCESS</option>
-                         </select>
-                    </td>
-               </tr>
-               <tr>
-                    <td class="col-sm-4"><strong>Disbursement</strong></td>
-                    <td class="col-sm-1"> :</td>
-                    <td class="col-sm-7">
-                         <select name="disbursement" id="disbursement" class="form-control pull-left" style="border-radius:0px;" required>
-                              <option value="ATM">ATM</option>
-                              <option value="CASH_CARD">Cashcard</option>
-                              <option value="NO_CARD">W/O LBP Cards</option>
-                              <option value="UNDER_VTF">Under VTF</option>
-                         </select>
-                    </td>
-               </tr>
-               <tr>
-                    <td class="col-sm-4"><strong>Salary Charge</strong></td>
-                    <td class="col-sm-1"> :</td>
-                    <td class="col-sm-7">
+    <div>
+        <table class="">
+            <tr>
+                <td style="width: 30%"><strong>Date Range</strong></td>
+                <td style="width: 10%">: </td>
+                <td style="width: 60%">
+                    <input type="text" name="date" placeholder="Date Range" class="form-control summary_date" style="border-radius:0px;background:#fff" required readonly />
+                </td>
+            </tr>
+            <tr>
+                <td style="width: 30%"><strong>Document</strong></td>
+                <td style="width: 10%"> :</td>
+                <td style="width: 60%">
+                        <select name="document" class="form-control fa-pull-left" style="border-radius:0px; width: 100%;" required>
+                            <option value="ALL">ALL</option>
+                            <option value="PAGIBIG">Pag-Ibig</option>
+                            <option value="COOP">Coop</option>
+                            <option value="PHIC">PHIC</option>
+                            <option value="GSIS">GSIS</option>
+                            <option value="EXCESS">EXCESS</option>
+                        </select>
+                </td>
+            </tr>
+            <tr>
+                <td style="width: 30%"><strong>Disbursement</strong></td>
+                <td style="width: 10%"> :</td>
+                <td style="width: 60%">
+                        <select name="disbursement" id="disbursement" class="form-control fa-pull-left" style="border-radius:0px;" required>
+                            <option value="ATM">ATM</option>
+                            <option value="CASH_CARD">Cashcard</option>
+                            <option value="NO_CARD">W/O LBP Cards</option>
+                            <option value="UNDER_VTF">Under VTF</option>
+                        </select>
+                </td>
+            </tr>
+            <tr>
+                <td style="width: 30%"><strong>Salary Charge</strong></td>
+                <td style="width: 10%"> :</td>
+                <td style="width: 60%">
 
-                         <select name="salary_charge" class="form-control pull-left" style="border-radius:0px;" required>
-                              <option value="ALL">ALL</option>
-                              <option value="HEALTH PROMOTION">HEALTH PROMOTION</option>
-                              <option value="HEALTH EMERGENCY PREPAREDNESS AND RESPONSE (HEPR)">HEALTH EMERGENCY PREPAREDNESS AND RESPONSE (HEPR)</option>
-                              <option value="REGULATION OF REGIONAL HEALTH FACILITIES AND SERVICES">REGULATION OF REGIONAL HEALTH FACILITIES AND SERVICES</option>
-                              <option value="SAA 2018-01-0014">SAA 2018-01-0014</option>
-                              <option value="SAA 2018-02-0059">SAA 2018-02-0059</option>
-                              <option value="SUPPORT TO OPERATIONS (STO)">SUPPORT TO OPERATIONS (STO)</option>
-                              <option value="PUBLIC HEALTH MANAGEMENT (PHM)">PUBLIC HEALTH MANAGEMENT (PHM)</option>
-                              <option value="SAA 2018-02-0203">SAA 2018-02-0203</option>
-                              <option value="SAA 2018-04-0699">SAA 2018-04-0699</option>
-                              <option value="SAA 2018-02-0081">SAA 2018-02-0081</option>
+                    <select name="salary_charge" class="form-control fa-pull-left" style="border-radius:0px;" required>
+                        <option value="ALL">ALL</option>
+                        <option value="HEALTH PROMOTION">HEALTH PROMOTION</option>
+                        <option value="HEALTH EMERGENCY PREPAREDNESS AND RESPONSE (HEPR)">HEALTH EMERGENCY PREPAREDNESS AND RESPONSE (HEPR)</option>
+                        <option value="REGULATION OF REGIONAL HEALTH FACILITIES AND SERVICES">REGULATION OF REGIONAL HEALTH FACILITIES AND SERVICES</option>
+                        <option value="SAA 2018-01-0014">SAA 2018-01-0014</option>
+                        <option value="SAA 2018-02-0059">SAA 2018-02-0059</option>
+                        <option value="SUPPORT TO OPERATIONS (STO)">SUPPORT TO OPERATIONS (STO)</option>
+                        <option value="PUBLIC HEALTH MANAGEMENT (PHM)">PUBLIC HEALTH MANAGEMENT (PHM)</option>
+                        <option value="SAA 2018-02-0203">SAA 2018-02-0203</option>
+                        <option value="SAA 2018-04-0699">SAA 2018-04-0699</option>
+                        <option value="SAA 2018-02-0081">SAA 2018-02-0081</option>
 
-                         </select>
-                    </td>
-               </tr>
-          </table>
-     </div>
-     <button type="submit" class="btn-lg btn-default center-block col-sm-12 btn_payroll_print">
-          <span class="glyphicon glyphicon-print" aria-hidden="true"></span> Print
-     </button>
+                    </select>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <button type="submit" class="btn-lg btn-default center-block col-sm-12 btn_payroll_print">
+        <span class="fas fa-print" aria-hidden="true"></span> Print
+    </button>
 </form>

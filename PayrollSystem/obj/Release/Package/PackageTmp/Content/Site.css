@@ -15,10 +15,21 @@
 .dl-horizontal dt {
     white-space: normal;
 }
+table{
+    font-size: 14px !important;
+}
+
+td{
+    padding: 8px!important;
+}
 
 /* Set width on the form input elements since they're 100% wide by default */
 input,
 select,
 textarea {
     max-width: 280px;
+}
+
+.hide, .hidden {
+    display: none !important;
 }

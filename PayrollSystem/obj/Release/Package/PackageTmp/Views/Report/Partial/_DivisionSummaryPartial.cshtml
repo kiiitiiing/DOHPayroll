@@ -1,29 +1,29 @@
 ﻿<form method="POST" action="@Url.Action("CreateDivisionSummary","Report")" id="regular_division_form">
-     <div class="table-responsive">
-          <table class="table">
-               <tr>
-                    <td class="col-sm-4"><strong>Date</strong></td>
-                    <td class="col-sm-1">: </td>
-                    <td class="col-sm-7">
-                         <input type="text" name="date" placeholder="Choose Date" class="form-control regular_division_date" style="border-radius:0px;background:#fff" readonly />
-                    </td>
-               </tr>
-               <tr>
-                    <td class="col-sm-4"><strong>Division</strong></td>
-                    <td class="col-sm-1"> :</td>
-                    <td class="col-sm-7">
+    <div class="">
+             <table class="">
+                  <tr>
+                       <td style="width: 30%"4"><strong>Date</strong></td>
+                       <td style="width: 10%">: </td>
+                       <td style="width: 60%">
+                            <input type="text" name="date" placeholder="Choose Date" class="form-control regular_division_date" style="border-radius:0px;background:#fff" readonly />
+                       </td>
+                  </tr>
+                  <tr>
+                       <td style="width: 30%""><strong>Division</strong></td>
+                       <td style="width: 10%"> :</td>
+                       <td style="width: 60%">
 
-                         <select name="division" id="division" class="form-control pull-left" style="border-radius:0px;" required>
-                              <option value="3">Office of the RD / ARD</option>
-                              <option value="4">LHSD - Local Health Support Division</option>
-                              <option value="5">RLED - Regulatory and Licensing Enforcement Division</option>
-                              <option value="6">MSD - Management Support Division</option>
-                         </select>
-                    </td>
-               </tr>
-          </table>
-     </div>
-     <button type="submit" name="submit" class="btn-lg btn-default center-block col-sm-12 btn_payroll_print" value="Search">
-          <span class="glyphicon glyphicon-print" aria-hidden="true"></span> Print
-     </button>
+                            <select name="division" id="division" class="form-control fa-pull-left" style="border-radius:0px;" required>
+                                 <option value="3">Office of the RD / ARD</option>
+                                 <option value="4">LHSD - Local Health Support Division</option>
+                                 <option value="5">RLED - Regulatory and Licensing Enforcement Division</option>
+                                 <option value="6">MSD - Management Support Division</option>
+                            </select>
+                       </td>
+                  </tr>
+             </table>
+        </div>
+    <button type="submit" name="submit" class="btn-lg btn-default center-block col-sm-12 btn_payroll_print" value="Search">
+        <span class="fas fa-print" aria-hidden="true"></span> Print
+    </button>
 </form>

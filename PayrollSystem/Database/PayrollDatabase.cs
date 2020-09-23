@@ -26,20 +26,19 @@ namespace PayrollSystem.Database
                 if (instance == null)
                 {
                         instance = new PayrollDatabase();
-                        instance.Initialize();
+                        instance.Initialize(0);
                 }
                 return instance;
             }
         }
 
-        public void Initialize()
+        public void Initialize(int index)
         {
-        string server = "localhost";//"192.168.110.17";
-        string database = "payroll";
-        string uid = "root";// "doh7payroll";
-        string password = "admin";//"doh7payroll";
-        connectionString = "SERVER=" + server + ";" + "DATABASE=" + database + ";" + "UID=" + uid + ";" + "PASSWORD=" + password + "; pooling = false;SslMode=none;convert zero datetime=True";
-
+            string server = InitializeConnectionString.Servers[index];
+            string database = "payroll";
+            string uid = InitializeConnectionString.UIDs[index];
+            string password = InitializeConnectionString.Password[index];
+            connectionString = "SERVER=" + server + ";" + "DATABASE=" + database + ";" + "UID=" + uid + ";" + "PASSWORD=" + password + "; pooling = false;SslMode=none;convert zero datetime=True";
         }
         public bool InsertHazardPay(Hazard hazard)
         {

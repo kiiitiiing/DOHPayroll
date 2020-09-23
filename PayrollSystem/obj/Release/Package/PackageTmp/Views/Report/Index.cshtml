@@ -15,119 +15,140 @@
      @Html.Partial("Message/_MessagePartial")
 </div>
 
-<div class="col-md-3">
-     <div class="box box-solid box-primary">
-          <div class="box-header with-border">
-               <p class="box-title">Job Order</p>
-               <div class="box-tools pull-right">
-                    <span><i class="glyphicon glyphicon-stats"></i></span>
-               </div>
-          </div>
-          <div class="box-body">
-               @Html.Partial("Partial/_JoSummaryPartial")
-          </div>
-     </div>
+<div class="row">
+    <div class="col-md-3">
+        <div class="card card-solid card-primary">
+            <div class="card-header with-border">
+                <p class="card-title">Job Order</p>
+                <div class="card-tools fa-pull-right">
+                    <span><i class="fas fa-chart-bar"></i></span>
+                </div>
+            </div>
+            <div class="card-body">
+                @Html.Partial("Partial/_JoSummaryPartial")
+            </div>
+        </div>
 
-     <div class="box box-solid box-primary">
-          <div class="box-header with-border">
-               <p class="box-title">Regular - Salary Charge</p>
-               <div class="box-tools pull-right">
-                    <span><i class="glyphicon glyphicon-stats"></i></span>
-               </div>
-          </div>
-          <div class="box-body">
-               @Html.Partial("Partial/_SalarySummaryPartial")
-          </div>
-     </div>
+        <div class="card card-solid card-primary">
+            <div class="card-header with-border">
+                <p class="card-title">Regular - Salary Charge</p>
+                <div class="card-tools fa-pull-right">
+                    <span><i class="fas fa-chart-bar"></i></span>
+                </div>
+            </div>
+            <div class="card-body">
+                @Html.Partial("Partial/_SalarySummaryPartial")
+            </div>
+        </div>
 
-     <div class="box box-solid box-primary">
-          <div class="box-header with-border">
-               <p class="box-title">Regular - Division</p>
-               <div class="box-tools pull-right">
-                    <span><i class="glyphicon glyphicon-stats"></i></span>
-               </div>
-          </div>
-          <div class="box-body">
-               @Html.Partial("Partial/_DivisionSummaryPartial")
-          </div>
-     </div>
-</div>
-<div class="col-md-9">
-     <div class="box box-solid box-primary">
-          <div class="box-header with-border">
-               <p class="box-title">Report List</p>
-               <div class="box-tools pull-right">
+        <div class="card card-solid card-primary">
+            <div class="card-header with-border">
+                <p class="card-title">Regular - Division</p>
+                <div class="card-tools fa-pull-right">
+                    <span><i class="fas fa-chart-bar"></i></span>
+                </div>
+            </div>
+            <div class="card-body">
+                @Html.Partial("Partial/_DivisionSummaryPartial")
+            </div>
+        </div>
+
+        <div class="card card-solid card-primary">
+            <div class="card-header with-border">
+                <p class="card-title">Generate Reimittance</p>
+                <div class="card-tools fa-pull-right">
+                    <span><i class="fas fa-chart-bar"></i></span>
+                </div>
+            </div>
+            <div class="card-body">
+                @Html.Partial("Partial/_RemittanceSummaryPartial")
+            </div>
+        </div>
+    </div>
+    <div class="col-md-9">
+        <div class="card card-solid card-primary">
+            <div class="card-header with-border">
+                <p class="card-title">Report List</p>
+                <div class="card-tools pull-right">
                     <span><i class="glyphicon glyphicon-file"></i></span>
-               </div>
-          </div>
+                </div>
+            </div>
 
-          @using (Html.BeginForm("Index", "Report", FormMethod.Get, new { @class = "navbar-form" }))
-          {
-
-               <div class="input-group add-on">
-                    <input class="form-control" placeholder="Search" name="search" value="@ViewBag.Search" id="srch-term" type="text" />
-                    <div class="input-group-btn">
-                         <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+            @using (Html.BeginForm("Index", "Report", FormMethod.Get, new { @class = "navbar-form" }))
+            {
+                <div class="form-inline ml-3" style="margin-top: 8px; margin-bottom: 8px;">
+                    <div class="input-group input-group-sm">
+                        <input class="form-control form-control-navbar" name="search" placeholder="Search" value="@ViewBag.Search" id="srch" type="text" aria-label="Search">
+                        <div class="input-group-append">
+                            <button class="btn btn-default jo_search" type="submit">
+                                <i class="fas fa-search"></i>
+                            </button>
+                        </div>
                     </div>
-               </div>
-          }
-          <div class="box-body">
-               <table class="table table-striped">
+                </div>
+            }
+            <div class="card-body">
+                <table class="table table-striped">
                     <thead>
-                         <tr>
-                              <th>From</th>
-                              <th>To</th>
-                              <th>Document</th>
-                              <th>Disbursement</th>
-                              <th>Salary Charge</th>
-                              <th>Division</th>
-                              <th></th>
-                         </tr>
+                        <tr>
+                            <th>From</th>
+                            <th>To</th>
+                            <th>Document</th>
+                            <th>Disbursement</th>
+                            <th>Salary Charge</th>
+                            <th>Division</th>
+                            <th></th>
+                        </tr>
                     </thead>
                     <tbody>
-                         @foreach (var item in Model)
-                         {
-                              <tr>
-                                   <td width="150">
-                                        @Html.DisplayFor(modelItem => item.From)
-                                   </td>
-                                   <td width="150">
-                                        @Html.DisplayFor(modelItem => item.To)
-                                   </td>
-                                   <td width="150">
-                                        @Html.DisplayFor(modelItem => item.Document)
-                                   </td>
-                                   <td width="150">
-                                        @Html.DisplayFor(modelItem => item.Disbursement)
-                                   </td>
-                                   <td width="300">
-                                        @Html.DisplayFor(modelItem => item.SalaryCharge)
-                                   </td>
-                                   <td width="300">
-                                        @Html.DisplayFor(modelItem => item.Division)
-                                   </td>
-                                   <td width="300">
-                                        @using (Html.BeginForm("DeletePDF", "Report", FormMethod.Post))
-                                        {
-                                             <button type="submit" name="id" value="@item.ID" class="btn btn-xs btn-danger td-button"><i class="glyphicon glyphicon-trash"></i></button>
-                                        }
-                                        @using (Html.BeginForm("ViewPDF", "Report", FormMethod.Post))
-                                        {
-                                             <button type="submit" name="pdf" formtarget="_blank" value="@item.FilePath" class="btn btn-xs btn-primary td-button"><i class="glyphicon glyphicon-book"></i></button>
-                                        }
-                                   </td>
-                              </tr>
-                         }
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td width="150">
+                                    @Html.DisplayFor(modelItem => item.From)
+                                </td>
+                                <td width="150">
+                                    @Html.DisplayFor(modelItem => item.To)
+                                </td>
+                                <td width="150">
+                                    @Html.DisplayFor(modelItem => item.Document)
+                                </td>
+                                <td width="150">
+                                    @Html.DisplayFor(modelItem => item.Disbursement)
+                                </td>
+                                <td width="300">
+                                    @Html.DisplayFor(modelItem => item.SalaryCharge)
+                                </td>
+                                <td width="300">
+                                    @Html.DisplayFor(modelItem => item.Division)
+                                </td>
+                                <td width="300">
+                                    @using (Html.BeginForm("DeletePDF", "Report", FormMethod.Post))
+                                    {
+                                        <button type="submit" name="id" value="@item.ID" class="btn btn-xs btn-danger td-button">
+                                            <i class="fas fa-trash-alt"></i>
+                                        </button>
+                                    }
+                                    @using (Html.BeginForm("ViewPDF", "Report", FormMethod.Post))
+                                    {
+                                        <button type="submit" name="pdf" formtarget="_blank" value="@item.FilePath" class="btn btn-xs btn-primary td-button">
+                                            <i class="fas fa-file-pdf"></i>
+                                        </button>
+                                    }
+                                </td>
+                            </tr>
+                        }
                     </tbody>
-               </table>
-          </div>
-          <div class="box-footer">
-               Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+                </table>
+            </div>
+            <div class="card-footer">
+                Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
 
-               @Html.PagedListPager(Model, page => Url.Action("JobOrder",
- new { page, search = ViewBag.Search }))
-          </div>
-     </div>
+                @Html.PagedListPager(Model, page => Url.Action("JobOrder",
+  new { page, search = ViewBag.Search }))
+            </div>
+        </div>
+    </div>
 </div>
 @section scripts{
      <script>
@@ -137,9 +158,28 @@
             format: "mm-yyyy",
             viewMode: "months",
             minViewMode: "months"
+         });
+        $('.remittance_date').datepicker({
+            multidate: true,
+            multidateSeparator: "-",
+            autoClose: true,
+            viewMode: "months",
+            format: "mm/yyyy",
+            minViewMode: "months"
+        }).on("changeDate", function (event) {
+            var dates = event.dates, elem = $('.remittance_date');
+            if (elem.data("selecteddates") == dates.join(",")) return; //To prevernt recursive call, that lead to lead the maximum stack in the browser.
+            if (dates.length > 2) dates = dates.splice(dates.length - 1);
+            dates.sort(function (a, b) { return new Date(a).getTime() - new Date(b).getTime() });
+            elem.data("selecteddates", dates.join(",")).datepicker('setDates', dates);
         });
 
-        $('.summary_date').datepicker({
+
+        $('.summary_date').daterangepicker({
+            opens: 'right'
+        });
+
+        @*$('.summary_date').datepicker({
             multidate: true,
             multidateSeparator: "-",
             autoClose: true,
@@ -149,7 +189,7 @@
             if (dates.length > 2) dates = dates.splice(dates.length - 1);
             dates.sort(function (a, b) { return new Date(a).getTime() - new Date(b).getTime() });
             elem.data("selecteddates", dates.join(",")).datepicker('setDates', dates);
-        });
+        });*@
 
         $("#jo_summary_form").submit(function (e) {
 
@@ -177,6 +217,15 @@
                   alert("Please indiciate the inclusive dates");
                   return;
              }
+        }); remittance_form
+
+        $("#remittance_form").submit(function (e) {
+            var date = $(".remittance_date").val();
+            if (date === "") {
+                e.preventDefault();
+                alert("Please indiciate the inclusive dates");
+                return;
+            }
         });
 
 
