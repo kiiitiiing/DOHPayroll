@@ -12,7 +12,6 @@ namespace PayrollSystem.Models
 {
      public class JoPayslipPDFView
      {
-
           public static void JoPayslipContainer(string physical_file_path, string title, string id, string fullname, string designation, string date_from, string date_to)
           {
                Document doc = new Document();

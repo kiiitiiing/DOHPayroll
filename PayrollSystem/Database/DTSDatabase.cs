@@ -32,11 +32,11 @@ namespace PayrollSystem.Database
 
           public void Initialize()
           {
-               string server = "192.168.110.17";
-               string database = "dts";
-               string uid = "doh7payroll";
-               string password = "doh7payroll";
-               connectionString = "SERVER=" + server + ";" + "DATABASE=" + database + ";" + "UID=" + uid + ";" + "PASSWORD=" + password + "; pooling = false; SslMode=none; convert zero datetime=True";
+            string server = "localhost"; //"192.168.110.17";
+            string database = "dts";
+            string uid = "root";// "doh7payroll";
+            string password = "admin";//"doh7payroll";
+            connectionString = "SERVER=" + server + ";" + "DATABASE=" + database + ";" + "UID=" + uid + ";" + "PASSWORD=" + password + "; pooling = false; SslMode=none; convert zero datetime=True";
           }
 
 

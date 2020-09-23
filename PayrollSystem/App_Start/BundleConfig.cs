@@ -21,7 +21,7 @@ namespace PayrollSystem
             bundles.Add(new StyleBundle("~/Content/css").Include(
                        "~/Content/bootstrap.min.css",
                        "~/Content/site.css",
-                       "~/admin-lte/css/AdminLTE.css",
+                       "~/admin-lte/css/adminlte.css",
                        "~/admin-lte/css/bootstrap-datepicker.min.css",
                        "~/admin-lte/css/jquery.toast.css",
                        "~/admin-lte/css/font-awesome.min.css",
@@ -38,7 +38,8 @@ namespace PayrollSystem
             "~/admin-lte/js/jquery.slimscroll.min.js",
             "~/admin-lte/js/adminlte.min.js",
             "~/admin-lte/plugins/fastclick/fastclick.js",
-            "~/admin-lte/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"
+            "~/admin-lte/plugins/popper/popper.js",
+            "~/admin-lte/plugins/bootstrap/js/bootstrap.min.js"
             ));
 
         }

@@ -1,19 +1,23 @@
 ﻿@if (ViewBag.Message != null)
 {
-     if (!ViewBag.Message.Equals("Nothing to generate"))
-     {
-          <div class="alert alert-success center" role="alert">
-               <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-               <span class="sr-only">Error:</span>
-               @ViewBag.Message
-          </div>
-     }
-     else
-     {
-          <div class="alert alert-danger center" role="alert">
-               <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-               <span class="sr-only">Error:</span>
-               @ViewBag.Message
-          </div>
-     }
+    if (!ViewBag.Message.Equals("Nothing to generate"))
+    {
+<script>
+            $.toast({
+                heading: 'Success',
+                text: "@ViewBag.Message",
+                icon: 'success'
+            });
+</script>
+    }
+    else
+    {
+<script>
+            $.toast({
+                heading: 'Failed',
+                text: "@ViewBag.Message",
+                icon: 'fail'
+            });
+</script>
+    }
 }

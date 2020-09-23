@@ -193,9 +193,13 @@
                 var dbp = $(this).closest('tr').find('td:eq(18)').text().trim();
                 var disallowance = $(this).closest('tr').find('td:eq(19)').text().trim();
 
+                var sumting = $('.editable-input').find('#userid');
+
                 $(".selected").removeClass("selected");
                 $("." + id).addClass("selected");
-                $("#userid").val(id);
+                
+                sumting.val(id);
+                $("#job_status").val('permanent');
                 $("#username").val(fullname);
 
                 $('#regular_payroll_container').removeClass("hide");

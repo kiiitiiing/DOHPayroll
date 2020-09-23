@@ -49,9 +49,8 @@ namespace PayrollSystem.Models
     public class LoginViewModel
     {
         [Required]
-        [Display(Name = "Email")]
-        [EmailAddress]
-        public string Email { get; set; }
+        [Display(Name = "User ID")]
+        public string UserID { get; set; }
 
         [Required]
         [DataType(DataType.Password)]

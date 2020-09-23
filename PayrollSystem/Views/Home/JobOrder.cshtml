@@ -5,30 +5,32 @@
      ViewBag.Title = ViewBag.Action;
 }
 <h3 class="text-default jo_title">@ViewBag.Action</h3>
-<div class="box-tools pull-right">
-     <span><i class="glyphicon glyphicon-user"></i></span>
+<div class="card-tools pull-right">
+     <span><i class="fas fa-user"></i></span>
 </div>
-<div class="box box box-default">
-     <div class="navbar-form">
-          <div class="input-group add-on">
-               <input class="form-control" placeholder="Search" name="search" value="@ViewBag.Search" id="search_value" type="text">
-               <div class="input-group-btn">
-                    <button class="btn btn-default jo_search" type="button"><i class="glyphicon glyphicon-search"></i></button>
-               </div>
-          </div>
-     </div>
-     <div class="box-body jo-employee-list">
+<div class="card card-default">
+    <div class="form-inline ml-3" style="margin-top: 8px; margin-bottom: 8px;">
+        <div class="input-group input-group-sm" >
+            <input class="form-control form-control-navbar" name="search" placeholder="Search" value="@ViewBag.Search" id="search_value" type="text" aria-label="Search">
+            <div class="input-group-append">
+                <button class="btn btn-default jo_search" type="button">
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+     <div class="card-body jo-employee-list">
      </div>
 </div>
 
 <div class="row">
      <div class="col-md-6">
           <!--RENDER CREATE PAYROLL PARTIAL -->
-          <div class="box box box-default hide" id="box_create_payroll">
-               <div class="box-header with-border">
-                    <h1 class="box-title"><b>Create Payroll</b></h1>
-                    <div class="box-tools pull-right">
-                         <button class="btn btn-xs btn-danger remove_create_jo_payroll"><i class="glyphicon glyphicon-remove"></i></button>
+          <div class="card card-default hide" id="box_create_payroll">
+               <div class="card-header with-border">
+                    <h1 class="card-title"><b>Create Payroll</b></h1>
+                    <div class="card-tools pull-right">
+                         <button class="btn btn-xs btn-danger remove_create_jo_payroll"><i class="fas fa-times"></i></button>
                     </div>
                </div>
                @Html.Partial("Partial/_JoFormPartial")
@@ -36,14 +38,14 @@
 
      </div>
      <div class="col-md-6">
-          <div class="box box box-default hide" id="box_jo_payroll_list">
-               <div class="box-header with-border">
-                    <h1 class="box-title"><b>Payroll List</b></h1>
-                    <div class="box-tools pull-right">
-                         <button class="btn btn-xs btn-danger remove_payroll_list"><i class="glyphicon glyphicon-remove"></i></button>
+          <div class="card card-default hide" id="box_jo_payroll_list">
+               <div class="card-header with-border">
+                    <h1 class="card-title"><b>Payroll List</b></h1>
+                    <div class="card-tools pull-right">
+                         <button class="btn btn-xs btn-danger remove_payroll_list"><i class="fas fa-times"></i></button>
                     </div>
                </div>
-               <div class="box-body">
+               <div class="card-body">
                     <div class="parent-payroll-list">
 
                     </div>
@@ -57,33 +59,32 @@
 
         loadJoEmployee(getPageId(), 1, "");
 
-        $(".jo_search").click(function () {
-            var search_value = $("#search_value").val();
-            var title = $(".jo_title").text();
-            switch (title) {
-                case "Job Order - ATM CARD":
-                    loadJoEmployee(0, 1, search_value);
-                    break;
-                case "Job Order - CASH CARD":
-                    loadJoEmployee(1, 1, search_value);
-                    break;
-                case "Job Order - W/O LBP CARD":
-                    loadJoEmployee(2, 1, search_value);
-                    break;
-                case "Job Order - UNDER VTF":
-                    loadJoEmployee(3, 1, search_value);
-                    break;
+        $("#search_value").keypress(function (e) {
+            var key = e.which;
+            if (key == 13) {
+                DoTask();
             }
         });
 
+        $(".jo_search").click(function () {
+            DoTask();
+        });
+
+        $('#update_salary_submit').click(function (e) {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+
+        });
+
+
         $("#jo_working_days, #jo_minutes_late").change(function () {
-            ComputeDeductions();
+            ComputeDeductions("Job Order");
         });
 
         $("#jo_ewt,#jo_prof_tax,#jo_coop,#jo_other_adjustment,#jo_pagibig,#jo_phic,#jo_gsis,#jo_excess,#jo_adjustment").change(function () {
             $(this).val(formatComma(roundOff($(this).val())));
-            ComputeDeductions();
-            ComputeTotalNetPay();
+            ComputeDeductions("Job Order");
+            ComputeTotalNetPay("Job Order");
         });
 
         $("#jo_save").click(function () {
@@ -98,72 +99,20 @@
                 return;
             }
 
-            var id = $("#jo_payroll_id").val();
-            var jo_id = $("#jo_id").val();
-            var fullname = $("#jo_name").val();
-            var start_date = $("#jo_date_range").val().split('-')[0];
-            var end_date = $("#jo_date_range").val().split('-')[1];
-            var adjustment = $("#jo_adjustment").val();
-            var working_days = $("#jo_working_days").val();
-            var absent_date_list = $("#jo_absent_date_list").val();
-            var salary = $("#jo_salary").val();
-            var minutes_late = $("#jo_minutes_late").val();
-            var prof_tax = $("#jo_prof_tax").val();
-            var jo_ewt = $("#jo_ewt").val();
-            var coop = $("#jo_coop").val();
-            var other_adjustment = $("#jo_other_adjustment").val();
-            var pagibig = $("#jo_pagibig").val();
-            var excess = $("#jo_excess").val();
-            var phic = $("#jo_phic").val();
-            var gsis = $("#jo_gsis").val();
-            var remarks = $("#jo_remarks").val();
+            var jo_total = parseInt($('#jo_total_amount').val());
 
-            var type = $("#jo_save").text();
-
-            var url = "@Url.Action("InsertJoPayroll", "Home")";
-            $.ajax({
-                url: url,
-                type: "POST",
-                data: {
-                    id: id,
-                    jo_id: jo_id,
-                    start_date: start_date,
-                    end_date: end_date,
-                    adjustment: removeComma(adjustment),
-                    working_days: working_days,
-                    absent_date_list: absent_date_list,
-                    salary: removeComma(salary),
-                    minutes_late: minutes_late,
-                    prof_tax: removeComma(prof_tax),
-                    jo_ewt: removeComma(jo_ewt),
-                    coop: removeComma(coop),
-                    other_adjustment: removeComma(other_adjustment),
-                    pagibig: removeComma(pagibig),
-                    excess: removeComma(excess),
-                    phic: removeComma(phic),
-                    gsis: removeComma(gsis),
-                    remarks: remarks,
-                    type:type
-                },
-                success: function (flag) {
-                     var message = "New payroll added"
-                     if ($("#jo_save").text() == "Update") {
-                          message = "Payroll updated";
-                     }
-                    $.toast({
-                        heading: 'Success',
-                        text: message,
-                        icon: 'success'
-                    });
-                    clearJoForm();
-                    var firstname = fullname.split(" ")[0];
-                    var middlename = fullname.split(" ")[1];
-                    var lastname = fullname.split(" ")[2];
-                    loadJoPayrollList(1,jo_id, firstname, lastname, middlename);
-                  //  alert(flag);
+            if (jo_total < 5000) {
+                console.log('ehere?');
+                if (confirm("Payroll net pay is less than 5000. Continue?")) {
+                    PostPayroll();
                 }
-            });
-
+                else {
+                    return;
+                }
+            }
+            else {
+                PostPayroll();
+            }
         });
 
 
@@ -173,19 +122,19 @@
 
             var icon = $("#" + type + "_icon");
 
-            if (icon.hasClass("glyphicon-pencil")) {
+            if (icon.hasClass("fas fa-pencil-alt")) {
 
                 $("#jo_" + type + "").attr("readonly", false);
                 $("#jo_" + type + "_payment").attr("readonly", false);
                 $("#jo_" + type + "_paid").attr("readonly", false);
 
-                $("#" + type + "_icon").removeClass("glyphicon-pencil");
-                $("#" + type + "_icon").addClass("glyphicon-check");
+                $("#" + type + "_icon").removeClass("fas fa-pencil-alt");
+                $("#" + type + "_icon").addClass("far fa-check-square");
                 return;
 
             }
 
-            if (icon.hasClass("glyphicon-check") || icon.hasClass("glyphicon-repeat")) {
+            if (icon.hasClass("far fa-check-square") || icon.hasClass("fas fa-redo")) {
 
                 var url = "@Url.Action("UpdateRemittance", "Home")";
                 var amount = $("#jo_" + type + "").val().replace(/,/g, '');
@@ -193,8 +142,8 @@
                 var paid = $("#jo_" + type + "_paid").val().replace(/,/g, '');
                 var emp_id = $("#jo_id").val();
 
-                $("#" + type + "_icon").removeClass("glyphicon-check");
-                $("#" + type + "_icon").removeClass("glyphicon-repeat");
+                $("#" + type + "_icon").removeClass("far fa-check-square");
+                $("#" + type + "_icon").removeClass("fas fa-redo");
                 $("#" + type + "_icon").addClass("fa fa-spinner fa-spin");
 
                 $.ajax({
@@ -224,7 +173,7 @@
                             $("#edit_" + type + "").addClass("btn-success");
 
                             $("#" + type + "_icon").removeClass("fa fa-spinner fa-spin");
-                            $("#" + type + "_icon").addClass("glyphicon-pencil");
+                            $("#" + type + "_icon").addClass("fas fa-pencil-alt");
                         } else {
                             $.toast({
                                 heading: 'Error',
@@ -235,7 +184,7 @@
                             $("#edit_" + type + "").addClass("btn-danger");
 
                             $("#" + type + "_icon").removeClass("fa fa-spinner fa-spin");
-                            $("#" + type + "_icon").addClass("glyphicon-repeat");
+                            $("#" + type + "_icon").addClass("fas fa-redo");
                         }
                     }
                 });
@@ -295,40 +244,109 @@
 
         var date_item = "<tr><td>";
         date_item += item;
-        date_item += "</td><td><span class = 'glyphicon glyphicon-remove' id='" + tr_id + "' style = 'color:red;cursor:pointer;' onclick='removeDateItem( " + tr_id + " )'></span></td></tr>";
+        date_item += "</td><td><span class = 'fas fa-times' id='" + tr_id + "' style = 'color:red;cursor:pointer;' onclick='removeDateItem( " + tr_id + " )'></span></td></tr>";
 
         array_date.push(item);
 
         $("#jo_date_list").append(date_item);
         $("#jo_absent_date_list").val(array_date);
         $("#jo_absent_date").val("");
-        ComputeDeductions();
-        ComputeTotalNetPay();
+        ComputeDeductions("Job Order");
+        ComputeTotalNetPay("Job Order");
     });
 
     });
 
+    function PostPayroll() {
+        var id = $("#jo_payroll_id").val();
+        var jo_id = $("#jo_id").val();
+        var fullname = $("#jo_name").val();
+        var start_date = $("#jo_date_range").val().split('-')[0];
+        var end_date = $("#jo_date_range").val().split('-')[1];
+        var adjustment = $("#jo_adjustment").val();
+        var working_days = $("#jo_working_days").val();
+        var absent_date_list = $("#jo_absent_date_list").val();
+        var salary = $("#jo_salary").val();
+        var minutes_late = $("#jo_minutes_late").val();
+        var prof_tax = $("#jo_prof_tax").val();
+        var jo_ewt = $("#jo_ewt").val();
+        var coop = $("#jo_coop").val();
+        var other_adjustment = $("#jo_other_adjustment").val();
+        var pagibig = $("#jo_pagibig").val();
+        var excess = $("#jo_excess").val();
+        var phic = $("#jo_phic").val();
+        var gsis = $("#jo_gsis").val();
+        var remarks = $("#jo_remarks").val();
 
+        var type = $("#jo_save").text();
 
-   function loadJoPayrollList(page,empID,firstname,lastname) {
-
-                var url = "@Url.Action("JobOrderPayrollList", "PartialView")";
-                $(".parent-payroll-list").html("Loading data ...");
-                $.ajax({
-                    url: url,
-                    type: "POST",
-                    data: {
-                        page: page,
-                        empID:empID,
-                        firstname: firstname,
-                        lastname: lastname,
-                        middlename:""
-                    },
-                    success: function (html) {
-                        $(".parent-payroll-list").html(html);
+        var url = "@Url.Action("InsertJoPayroll", "Home")";
+        $.ajax({
+            url: url,
+            type: "POST",
+            data: {
+                id: id,
+                jo_id: jo_id,
+                start_date: start_date,
+                end_date: end_date,
+                adjustment: removeComma(adjustment),
+                working_days: working_days,
+                absent_date_list: absent_date_list,
+                salary: removeComma(salary),
+                minutes_late: minutes_late,
+                prof_tax: removeComma(prof_tax),
+                jo_ewt: removeComma(jo_ewt),
+                coop: removeComma(coop),
+                other_adjustment: removeComma(other_adjustment),
+                pagibig: removeComma(pagibig),
+                excess: removeComma(excess),
+                phic: removeComma(phic),
+                gsis: removeComma(gsis),
+                remarks: remarks,
+                type:type
+            },
+            success: function (flag) {
+                    var message = "New payroll added"
+                    if ($("#jo_save").text() == "Update") {
+                        message = "Payroll updated";
                     }
+                $.toast({
+                    heading: 'Success',
+                    text: message,
+                    icon: 'success'
                 });
+                clearJoForm();
+                var firstname = fullname.split(" ")[0];
+                var middlename = fullname.split(" ")[1];
+                var lastname = fullname.split(" ")[2];
+                loadJoPayrollList(1,jo_id, firstname, lastname, middlename);
+                //  alert(flag);
             }
+        });
+    }
+
+    function loadJoPayrollList(page, empID, firstname, lastname) {
+        var url = "@Url.Action("JobOrderPayrollList", "PartialView")";
+        $(".parent-payroll-list").html("Loading data ...");
+        $.ajax({
+            url: url,
+            type: "POST",
+            data: {
+                page: page,
+                empID:empID,
+                firstname: firstname,
+                lastname: lastname,
+                middlename:""
+            },
+            success: function (html) {
+                $(".parent-payroll-list").html(html);
+            },
+            error: function (a, b, c) {
+                alert('error');
+            }
+
+            });
+        }
 
     function getLateAndAbsences(id, from, to)
     {
@@ -363,7 +381,7 @@
                     if (item !== "") {
                         var date_item = "<tr><td>";
                         date_item += item;
-                        date_item += "</td><td><span class = 'glyphicon glyphicon-remove' style = 'color:red;cursor:pointer;' id='" + i + "' onclick='removeDateItem( " + i + " )'></span></td>";
+                        date_item += "</td><td><span class = 'fas fa-times' style = 'color:red;cursor:pointer;' id='" + i + "' onclick='removeDateItem( " + i + " )'></span></td>";
 
                         array_date.push(item);
 
@@ -375,8 +393,8 @@
                 $("#jo_minutes_late").val(minutes_late);
                 $("#jo_working_days").val(working_days);
 
-                ComputeDeductions();
-                ComputeTotalNetPay();
+                ComputeDeductions("Job Order");
+                ComputeTotalNetPay("Job Order");
 
                 $(".create_payroll_spinner").addClass("hidden");
                 $("#jo_create_payroll :input").attr("disabled", false);
@@ -402,51 +420,7 @@
 
     }
 
-    function ComputeTotalNetPay() {
-        var jo_net_amount = $("#jo_net_amount").val().replace(/,/g, '');
-        var jo_ewt = $("#jo_ewt").val().replace(/,/g, '');
-        var jo_prof_tax = $("#jo_prof_tax").val().replace(/,/g, '');
 
-        var coop = $("#jo_coop").val().replace(/,/g, '');
-        var other_adjustment = $("#jo_other_adjustment").val().replace(/,/g, '');
-        var pagibig = $("#jo_pagibig").val().replace(/,/g, '');
-        var phic = $("#jo_phic").val().replace(/,/g, '');
-        var gsis = $("#jo_gsis").val().replace(/,/g, '');
-        var excess = $("#jo_excess").val().replace(/,/g, '');
-
-        var total_deductions = roundOff(parseFloat(jo_ewt) + parseFloat(jo_prof_tax) + parseFloat(coop) + parseFloat(pagibig) + parseFloat(phic) + parseFloat(gsis) + parseFloat(excess));
-        var total_amount = roundOff((parseFloat(other_adjustment) + parseFloat(jo_net_amount)) - total_deductions);
-
-        $("#jo_total_deductions").val(formatComma(total_deductions));
-        $("#jo_total_amount").val(formatComma(total_amount));
-    }
-
-    function ComputeDeductions() {
-
-        var salary = $("#jo_salary").val().replace(/,/g, '');
-        var working_days = $("#jo_working_days").val().replace(/,/g, '');
-        var minutes_late = $("#jo_minutes_late").val().replace(/,/g, '');
-        var no_days_absent = ($("#jo_absent_date_list").val().length >= 4) ? $("#jo_absent_date_list").val().split(",").length : 0;
-        var adjustment = $("#jo_adjustment").val().replace(/,/g, '');
-
-        var deduction = "0.00";
-
-        deduction = ((+minutes_late + (480 * +no_days_absent)) * (((+salary / +working_days) / 8) / 60));
-
-        if (isNaN(deduction) || !isFinite(deduction)) {
-            deduction = "0.00";
-        }
-
-        deduction = roundOff(deduction);
-        $("#jo_deduction").val(formatComma(deduction));
-
-
-        var net_amount = 0.00;
-        net_amount = ((parseFloat(salary) / 2) + parseFloat(adjustment)) - deduction;
-        net_amount = roundOff(net_amount);
-
-        $("#jo_net_amount").val(formatComma(net_amount));
-    }
 
     function removeDateItem(id) {
 
@@ -468,8 +442,8 @@
 
         $("#jo_absent_date_list").val(array_date);
 
-        ComputeDeductions();
-        ComputeTotalNetPay();
+        ComputeDeductions("Job Order");
+        ComputeTotalNetPay("Job Order");
     }
     function setLoansReadOnly(enable) {
 
@@ -479,8 +453,8 @@
               $("#jo_" + array[i] + "_payment").attr("readonly", true);
               $("#jo_" + array[i] + "_paid").attr("readonly", true);
 
-              $("#" + array[i] + "_icon").removeClass("glyphicon-check");
-              $("#" + array[i] + "_icon").addClass("glyphicon-pencil");
+              $("#" + array[i] + "_icon").removeClass("far fa-check-square");
+              $("#" + array[i] + "_icon").addClass("fas fa-pencil-alt");
          }
     }
 </script>
