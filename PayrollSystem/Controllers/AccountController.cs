@@ -29,6 +29,11 @@ namespace PayrollSystem.Controllers
                 return RedirectToAction("JobOrder", "Home", new { id = 0 });
         }
 
+        public ActionResult ModalLoading()
+        {
+            return PartialView();
+        }
+
         //
         // POST: /Account/Login
         [HttpPost]

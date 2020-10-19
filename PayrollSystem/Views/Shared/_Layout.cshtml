@@ -9,10 +9,10 @@
 
     <link href="~/Content/Site.css" rel="stylesheet" />
     <link href="~/admin-lte/css/adminlte.min.css" rel="stylesheet" />
-    <link href="/admin-lte/css/bootstrap-datepicker.min.css" rel="stylesheet" />
-    <link href="/admin-lte/css/jquery.toast.css" rel="stylesheet" />
-    <link href="/admin-lte/css/font-awesome.min.css" rel="stylesheet" />
-    <link href="/admin-lte/css/skins/skin-blue.css" rel="stylesheet" />
+    <link href="~/admin-lte/css/bootstrap-datepicker.min.css" rel="stylesheet" />
+    <link href="~/admin-lte/css/jquery.toast.css" rel="stylesheet" />
+    <link href="~/admin-lte/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="~/admin-lte/css/skins/skin-blue.css" rel="stylesheet" />
     <link href="~/admin-lte/plugins/fontawesome-free/css/all.min.css" rel="stylesheet" />
     <link href="~/admin-lte/plugins/daterangepicker/daterangepicker-bs3.css" rel="stylesheet" />
 
@@ -167,9 +167,81 @@
         </div>
     </div>
 
+    <div id="all_modals">
+        <div class="modal fade" id="small_modal">
+            <div class="modal-dialog modal-sm" role="dialog" id="small_content">
+                <div class="overlay d-flex justify-content-center align-items-center">
+                    <i class="fas fa-2x fa-sync fa-spin"></i>
+                </div>
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <br />
+                    </div>
+                    <div class="modal-body">
+                        <br />
+                        <br />
+                        <br />
+                    </div>
+                    <div class="modal-footer">
+                        <br />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="large_modal">
+            <div class="modal-dialog modal-lg" role="dialog" id="large_content">
+                <div class="overlay d-flex justify-content-center align-items-center">
+                    <i class="fas fa-2x fa-sync fa-spin"></i>
+                </div>
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <br />
+                    </div>
+                    <div class="modal-body">
+                        <br />
+                        <br />
+                        <br />
+                    </div>
+                    <div class="modal-footer">
+                        <br />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="xlarge_modal">
+            <div class="modal-dialog modal-xl" role="dialog" id="xlarge_content">
+                <div class="overlay d-flex justify-content-center align-items-center">
+                    <i class="fas fa-2x fa-sync fa-spin"></i>
+                </div>
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <br />
+                    </div>
+                    <div class="modal-body">
+                        <br />
+                        <br />
+                        <br />
+                    </div>
+                    <div class="modal-footer">
+                        <br />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     @*@Scripts.Render("~/bundles/admin-lte/js")*@
     @RenderSection("scripts", required: false)
-    <script>
+    @Html.Partial("_ScriptsPartial")
+<script>
+        if (sessionStorage.getItem('onReload') == 'generate_payroll_content') {
+            sessionStorage.setItem('onReload', '');
+            $.toast({
+                heading: 'Success',
+                text: "Generated Successfully",
+                icon: 'success'
+            });
+        }
         $(document).ready(function () {
             //$(".textarea").wysihtml5();
 
@@ -285,6 +357,7 @@
                 var regular_pagibig_premium = $("#regular_pagibig_premium").val().replace(/,/g, '');
                 var regular_pagibig_loan = $("#regular_pagibig_loan").val().replace(/,/g, '');
                 var regular_pagibig_mp2 = $("#regular_pagibig_mp2").val().replace(/,/g, '');
+                var regular_pagibig_calamity = $("#regular_pagibig_calamity").val().replace(/,/g, '');
                 var regular_philhealth = $("#regular_philhealth").val().replace(/,/g, '');
                 var regular_simc = $("#regular_simc").val().replace(/,/g, '');
                 var regular_coop = $("#regular_coop").val().replace(/,/g, '');
@@ -295,7 +368,7 @@
 
                 var total_deductions = roundOff(parseFloat(regular_tax) + parseFloat(regular_cfi) + parseFloat(regular_gsis_premium) + parseFloat(regular_gsis_consoloan) + parseFloat(regular_gsis_policyloan) +
                     parseFloat(regular_gsis_eml) + parseFloat(regular_gsis_uoli) + parseFloat(regular_gsis_edu) + parseFloat(regular_gsis_help) + parseFloat(regular_gsis_rel) + parseFloat(regular_pagibig_premium) +
-                    parseFloat(regular_pagibig_loan) + parseFloat(regular_pagibig_mp2) + parseFloat(regular_philhealth) + parseFloat(regular_simc) + parseFloat(regular_coop) + parseFloat(regular_dbp) +
+                    parseFloat(regular_pagibig_loan) + parseFloat(regular_pagibig_mp2) + parseFloat(regular_pagibig_calamity) + parseFloat(regular_philhealth) + parseFloat(regular_simc) + parseFloat(regular_coop) + parseFloat(regular_dbp) +
                     parseFloat(regular_disallowance));
 
                 var total_amount = roundOff(parseFloat(regular_net_amount) - total_deductions);
@@ -313,7 +386,7 @@
                 var pagibig = $("#jo_pagibig").val().replace(/,/g, '');
                 var phic = $("#jo_phic").val().replace(/,/g, '');
                 var gsis = $("#jo_gsis").val().replace(/,/g, '');
-                var excess = $("#jo_excess").val().replace(/,/g, '');
+                var excess = $("#jo_pagibig_loan").val().replace(/,/g, '');
 
                 var total_deductions = roundOff(parseFloat(jo_ewt) + parseFloat(jo_prof_tax) + parseFloat(coop) + parseFloat(pagibig) + parseFloat(phic) + parseFloat(gsis) + parseFloat(excess));
                 var total_amount = roundOff((parseFloat(other_adjustment) + parseFloat(jo_net_amount)) - total_deductions);
@@ -438,7 +511,7 @@
             return true;
         }
 
-    </script>
+</script>
 
 </body>
 </html>

@@ -273,6 +273,8 @@
     <Compile Include="Models\Entity\Cellphone.cs" />
     <Compile Include="Models\Entity\Rata.cs" />
     <Compile Include="Models\PDF\JobOrderRemittance\LoansPDFView.cs" />
+    <Compile Include="Models\ViewModel\DeductionModel.cs" />
+    <Compile Include="Models\ViewModel\JOGetLogsModel.cs" />
     <Compile Include="Models\ViewModel\LoansModel.cs" />
     <Compile Include="Models\PDF\JobOrderRemittance\JoPagIbigRemittancePDFView.cs" />
     <Compile Include="Models\PDF\JobOrderRemittance\JoPhicRemittanceItem.cs" />
@@ -746,6 +748,9 @@
     <Content Include="Views\Report\Partial\_RemittanceSummaryPartial.cshtml" />
     <Content Include="Views\Account\Index.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\Shared\_ScriptsPartial.cshtml" />
+    <Content Include="Views\Home\GeneratePayroll.cshtml" />
+    <Content Include="Views\Account\ModalLoading.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

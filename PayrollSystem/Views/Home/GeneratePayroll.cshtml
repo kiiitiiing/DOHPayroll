@@ -1,0 +1,120 @@
+﻿@model List<PayrollSystem.Models.DeductionModel>
+
+@{
+    var phic = Model.FirstOrDefault(x => x.Name == "phic");
+    var phic_reg = Model.FirstOrDefault(x => x.Name == "phic_reg");
+    var pagibig = Model.FirstOrDefault(x => x.Name == "pagibig_contribution");
+    var gsis = Model.FirstOrDefault(x => x.Name == "gsis_life_ret");
+    var tax = Model.FirstOrDefault(x => x.Name == "withholding_tax");
+}
+
+<div class="modal-content" id="generate_payroll_content">
+    <div class="modal-header">
+        <h4>
+            <i class="fas fa-file-pdf"></i>
+            GENERATE PAYROLL
+        </h4>
+    </div>
+    <div class="modal-body">
+        <form action="@Url.Action("GenerateRegularPayroll","Report")" method="post">
+            <input type="hidden" name="status" value="@ViewBag.Status" />
+            @if (phic != null)
+            {
+                var amt = phic.Amount != 0 ? phic.Amount : 0;
+                <input type="hidden" name="type" value="@ViewBag.Type" />
+                <div class="row">
+                    <div class="col-md-6">
+                        <label>Phil-Health: </label>
+                    </div>
+                    <div class="col-md-6">
+                        <input class="form-control" name="phic" id="phic" value="@amt" />
+                    </div>
+                </div>
+            }
+            @if (phic_reg != null)
+            {
+                var amt = phic_reg.Amount != 0 ? phic_reg.Amount : 0;
+                <div class="row">
+                    <div class="col-md-6">
+                        <label>Phil-Health: </label>
+                    </div>
+                    <div class="col-md-6">
+                        <input class="form-control" name="phic" id="phic" value="@amt" />
+                    </div>
+                </div>
+            }
+            @if (pagibig != null)
+            {
+                var amt = pagibig.Amount != 0 ? pagibig.Amount : 0;
+                <div class="row">
+                    <div class="col-md-6">
+                        <label>Pagibig Contribution: </label>
+                    </div>
+                    <div class="col-md-6">
+                        <input class="form-control" name="pagibig" id="pagibig" value="@amt" />
+                    </div>
+                </div>
+            }
+            @if (gsis != null)
+            {
+                var amt = gsis.Amount != 0 ? gsis.Amount : 0;
+                <div class="row">
+                    <div class="col-md-6">
+                        <label>GSIS Life & Ret: </label>
+                    </div>
+                    <div class="col-md-6">
+                        <input class="form-control" name="gsis" id="gsis" value="@amt" />
+                    </div>
+                </div>
+            }
+            @if (tax != null)
+            {
+                var amt = tax.Amount != 0 ? tax.Amount : 0;
+                <div class="row">
+                    <div class="col-md-6">
+                        <label>Withholding Tax: </label>
+                    </div>
+                    <div class="col-md-6">
+                        <input class="form-control" name="tax" id="tax" value="@amt" />
+                    </div>
+                </div>
+            }
+            <div class="row">
+                <div class="col-md-12">
+                    <input type="text" name="date" placeholder="Choose Date" class="form-control generate_payroll" style="border-radius:0px;background:#fff" required readonly />
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer" style="display: inline-block !important;">
+        <button class="btn btn-sm btn-danger fa-pull-left" type="button" data-dismiss="modal">
+            Close
+        </button>
+        <button class="btn btn-sm btn-success fa-pull-right" data-action="small_modal" data-save="modal">
+            Submit
+        </button>
+    </div>
+</div>
+
+@if (ViewBag.Status == "regular")
+{
+    <script>
+        $(function () {
+            $(".generate_payroll").datepicker({
+                format: "mm-yyyy",
+                viewMode: "months",
+                minViewMode: "months"
+            });
+        })
+    </script>
+}
+else
+{
+    <script>
+        $(function () {
+            $('.generate_payroll').daterangepicker({
+                opens: 'right'
+            });
+        })
+    </script>
+}

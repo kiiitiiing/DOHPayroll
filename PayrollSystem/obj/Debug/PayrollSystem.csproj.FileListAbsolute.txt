@@ -194,8 +194,8 @@ D:\Systems\DOHPayroll\PayrollSystem\bin\Microsoft.Owin.Security.OAuth.xml
 D:\Systems\DOHPayroll\PayrollSystem\bin\Microsoft.Owin.Security.Google.xml
 D:\Systems\DOHPayroll\PayrollSystem\bin\Microsoft.Owin.Security.Twitter.xml
 D:\Systems\DOHPayroll\PayrollSystem\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
-D:\Systems\DOHPayroll\PayrollSystem\obj\Debug\PayrollSystem.csprojAssemblyReference.cache
 D:\Systems\DOHPayroll\PayrollSystem\obj\Debug\PayrollSystem.csproj.CoreCompileInputs.cache
 D:\Systems\DOHPayroll\PayrollSystem\obj\Debug\PayrollSystem.csproj.CopyComplete
 D:\Systems\DOHPayroll\PayrollSystem\obj\Debug\PayrollSystem.dll
 D:\Systems\DOHPayroll\PayrollSystem\obj\Debug\PayrollSystem.pdb
+D:\Systems\DOHPayroll\PayrollSystem\obj\Debug\PayrollSystem.csprojAssemblyReference.cache

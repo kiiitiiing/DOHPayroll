@@ -9,19 +9,31 @@
         border-radius: 0px;
    }
 </style>
-<h3 class="text-default">Regular - ATM</h3>
-<div class="card-tools pull-right">
-     <span><i class="fas fa-user"></i></span>
-</div>
+<h3 class="text-default title_page">Regular - ATM</h3>
 <div class="card card-default">
-    <div class="form-inline ml-3" style="margin-top: 8px; margin-bottom: 8px;">
-        <div class="input-group input-group-sm">
-            <input class="form-control form-control-navbar" name="search" placeholder="Search" value="@ViewBag.Search" id="regular_search" type="text" aria-label="Search">
-            <div class="input-group-append">
-                <button class="btn btn-default regular_search" type="button">
-                    <i class="fas fa-search"></i>
-                </button>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-inline ml-3" style="margin-top: 8px; margin-bottom: 8px;">
+                <div class="input-group input-group-sm">
+                    <input class="form-control form-control-navbar" name="search" placeholder="Search" value="@ViewBag.Search" id="regular_search" type="text" aria-label="Search">
+                    <div class="input-group-append">
+                        <button class="btn btn-default regular_search" type="button">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                </div>
             </div>
+        </div>
+        <div class="col-md-6">
+            <button class="btn btn-success fa-pull-right" style="margin-top: 8px; margin-bottom: 8px; margin-right: 8px;"
+                    data-toggle="ajax-modal"
+                    data-target="#small_modal"
+                    data-action="#small_content"
+                    data-url="@Url.Action("GeneratePayroll","Home", new { job_status = "regular"})"
+                    onclick="OpenModal($(this));">
+                <i class="fas fa-file-pdf"></i>&nbsp;
+                GENERATE PAYROLL
+            </button>
         </div>
     </div>
     <div class="card-body regular-employee-list">
@@ -72,7 +84,7 @@
                          <button class="btn btn-xs btn-danger remove_hazard_list"><i class="fas fa-times"></i></button>
                     </div>
                </div>
-               <div class="card-body" id="hazard_list">
+               <div class="card-body" id="hazard_list" >
 
                </div>
           </div>
@@ -185,526 +197,531 @@
        $("#regular_" + type + "_paid").attr("readonly", enable);
    }
 
-   function setEnableDeductions(enable) {
+    function setEnableDeductions(enable) {
 
-     var array_type = [];
-     array_type.push($("#edit_cfi").val());
-     array_type.push($("#edit_gsis_consoloan").val());
-     array_type.push($("#edit_policyloan").val());
-     array_type.push($("#edit_gsis_eml").val());
-     array_type.push($("#edit_gsis_uoli").val());
-     array_type.push($("#edit_gsis_edu").val());
-     array_type.push($("#edit_gsis_help").val());
-     array_type.push($("#edit_rel").val());
-     array_type.push($("#edit_pagibig_loan").val());
-     array_type.push($("#edit_pagibig_mp2").val());
-     array_type.push($("#edit_simc").val());
-     array_type.push($("#edit_coop").val());
-     array_type.push($("#edit_dbp").val());
-     array_type.push($("#edit_disallowance").val());
+        var array_type = [];
+        array_type.push($("#edit_cfi").val());
+        array_type.push($("#edit_gsis_consoloan").val());
+        array_type.push($("#edit_policyloan").val());
+        array_type.push($("#edit_gsis_eml").val());
+        array_type.push($("#edit_gsis_uoli").val());
+        array_type.push($("#edit_gsis_edu").val());
+        array_type.push($("#edit_gsis_help").val());
+        array_type.push($("#edit_rel").val());
+        array_type.push($("#edit_pagibig_loan").val());
+        array_type.push($("#edit_pagibig_mp2").val());
+        array_type.push($("#edit_pagibig_calamity").val());
+        array_type.push($("#edit_simc").val());
+        array_type.push($("#edit_coop").val());
+        array_type.push($("#edit_dbp").val());
+        array_type.push($("#edit_disallowance").val());
 
-     for(var type in array_type){
-        $("#regular_" + type + "").attr("readonly", enable);
-        $("#regular_" + type + "_payment").attr("readonly", enable);
-        $("#regular_" + type + "_paid").attr("readonly", enable);
-     }
-   }
+        for(var type in array_type){
+            $("#regular_" + type + "").attr("readonly", enable);
+            $("#regular_" + type + "_payment").attr("readonly", enable);
+            $("#regular_" + type + "_paid").attr("readonly", enable);
+        }
+    }
 
-   function getLateAndAbsences(id, from, to){
+    function getLateAndAbsences(id, from, to){
 
-     $("#jo_create_payroll :input").attr("disabled", true);
-     $(".create_payroll_spinner").removeClass("hidden");
+        $("#jo_create_payroll :input").attr("disabled", true);
+        $(".create_payroll_spinner").removeClass("hidden");
 
-     var url = "@Url.Action("GetWorkingDays", "Home")";
-     $.ajax({
+        var url = "@Url.Action("GetMinsV2", "Home")";
+        $.ajax({
             url: url,
             type: 'POST',
-            data:
-               {
-                 "from":from,
-                 "to": to
-                },
+            data: {
+                "id": id,
+                "from": from,
+                "to": to,
+                "job_status": "regular"
+            },
             success: function (data) {
-                 var array_date = [];
-                 $("#jo_date_list").empty();
-                 $("#jo_absent_date_list").val("");
+                var array_date = [];
+                $("#jo_date_list").empty();
+                $("#jo_absent_date_list").val("");
 
-                 var working_days = data;
-                 $("#regular_working_days").val(working_days);
-
-                 ComputeDeductions("Permanent");
-                ComputeTotalNetPay("Permanent");
-
-                 $(".create_payroll_spinner").addClass("hidden");
-                 $("#jo_create_payroll :input").attr("disabled", false);
-                  }
-      });
-    }
-        function loadRataList(page,empID,firstname,lastname) {
-
-             var url = "@Url.Action("RataList", "PartialView")";
-             $("#rata_list").html("Loading data ...");
-             $.ajax({
-                  url: url,
-                  type: "POST",
-                  data: {
-                       page: page,
-                       empID:empID,
-                       firstname: firstname,
-                       lastname: lastname
-                  },
-                  success: function (html) {
-                       $("#rata_list").html(html);
-                  }
-             });
-        }
-
-          function loadRegularPayrollList(page,empID,firstname,lastname) {
-
-               var url = "@Url.Action("RegularPayrollList", "PartialView")";
-               $(".parent-payroll-list").html("Loading data ...");
-               $.ajax({
-                    url: url,
-                    type: "POST",
-                    data: {
-                         page: page,
-                         empID:empID,
-                         firstname: firstname,
-                         lastname: lastname,
-                         middlename:""
-                    },
-                    success: function (html) {
-                         $(".parent-payroll-list").html(html);
-                    }
-               });
-          }
-
-        function loadHazardList(page,empID,firstname,lastname) {
-
-             var url = "@Url.Action("HazardList", "PartialView")";
-             $("#hazard_list").html("Loading data ...");
-             $.ajax({
-                  url: url,
-                  type: "POST",
-                  data: {
-                       page: page,
-                       empID:empID,
-                       firstname: firstname,
-                       lastname: lastname
-                  },
-                  success: function (html) {
-                       $("#hazard_list").html(html);
-                  }
-             });
-        }
-     function loadCellList(page,empID,firstname,lastname) {
-
-          var url = "@Url.Action("CellphoneList", "PartialView")";
-          $("#cellphone_list").html("Loading data ...");
-          $.ajax({
-               url: url,
-               type: "POST",
-               data: {
-                    page: page,
-                    empID:empID,
-                    firstname: firstname,
-                    lastname: lastname
-               },
-               success: function (html) {
-                    $("#cellphone_list").html(html);
-               }
-          });
-     }
-     function loadLongevityList(page,empID,firstname,lastname) {
-
-          var url = "@Url.Action("LongevityList", "PartialView")";
-          $("#longevity_list").html("Loading data ...");
-          $.ajax({
-               url: url,
-               type: "POST",
-               data: {
-                    page: page,
-                    empID:empID,
-                    firstname: firstname,
-                    lastname: lastname
-               },
-               success: function (html) {
-                    $("#longevity_list").html(html);
-               }
-          });
-     }
-     function loadSubsistenceList(page,empID,firstname,lastname) {
-
-          var url = "@Url.Action("SubsistenceList", "PartialView")";
-          $("#subsistence_list").html("Loading data ...");
-          $.ajax({
-               url: url,
-               type: "POST",
-               data: {
-                    page: page,
-                    empID:empID,
-                    firstname: firstname,
-                    lastname: lastname
-               },
-               success: function (html) {
-                    $("#subsistence_list").html(html);
-               }
-          });
-     }
-
-     function removeSubsistenceList(id,userid,fname,lname) {
-          var url = "@Url.Action("DeleteSubsistence", "Home")";
-          $.ajax({
-               url: url,
-               type: "POST",
-               data: {
-                    id:id
-               },
-               success: function (html) {
-                    $.toast({
-                         heading: 'Delete',
-                         text: 'Subsistence Allowance benefit: '+id+', deleted successfully.',
-                         icon: 'warning'
-                    });
-                    loadSubsistenceList(1,userid,fname,lname);
-               }
-          });
-     }
-
-     function removeLongevityList(id,userid,fname,lname) {
-          var url = "@Url.Action("DeleteLongevity", "Home")";
-          $.ajax({
-               url: url,
-               type: "POST",
-               data: {
-                    id:id
-               },
-               success: function (html) {
-                    $.toast({
-                         heading: 'Delete',
-                         text: 'Longevity Allowance benefit: '+id+', deleted successfully.',
-                         icon: 'warning'
-                    });
-                    loadLongevityList(1,userid,fname,lname);
-               }
-          });
-     }
-
-     function removeCellList(id,userid,fname,lname) {
-          var url = "@Url.Action("DeleteCell", "Home")";
-          $.ajax({
-               url: url,
-               type: "POST",
-               data: {
-                    id:id
-               },
-               success: function (html) {
-                    $.toast({
-                         heading: 'Delete',
-                         text: 'Cellphone Allowance benefit: '+id+', deleted successfully.',
-                         icon: 'warning'
-                    });
-                    loadCellList(1,userid,fname,lname);
-               }
-          });
-     }
-
-          function removeRataList(id,userid,fname,lname) {
-               var url = "@Url.Action("DeleteRata", "Home")";
-               $.ajax({
-                    url: url,
-                    type: "POST",
-                    data: {
-                         id:id
-                    },
-                    success: function (html) {
-                         $.toast({
-                              heading: 'Delete',
-                              text: 'Rata benefit: '+id+', deleted successfully.',
-                              icon: 'warning'
-                         });
-                         loadRataList(1,userid,fname,lname);
-                    }
-               });
-          }
-
-          function removeHazardList(id,userid,fname,lname) {
-               var url = "@Url.Action("DeleteHazard", "Home")";
-               $.ajax({
-                    url: url,
-                    type: "POST",
-                    data: {
-                       id:id
-                    },
-                    success: function (html) {
-                         $.toast({
-                              heading: 'Delete',
-                              text: 'Hazard benefit: '+id+', deleted successfully.',
-                              icon: 'warning'
-                         });
-                         loadHazardList(1,userid,fname,lname);
-                    }
-               });
-          }
-
-     function insert_payroll(userid,fullname, month, year, salary, pera, working_days, minutes_late, absent_date_list, tax, cfi, gsis_premium, gsis_consoloan, gsis_policyloan, gsis_eml,
-          gsis_uoli, gsis_edu, gsis_help, gsis_rel, pagibig_premium, pagibig_loan, pagibig_mp2, philhealth, simc, hwmpc, dbp, disallowance) {
-          var url = "@Url.Action("InsertRegularPayroll", "Home")";
-          $.ajax({
-               url: url,
-               type: "POST",
-               data: {
-                    userid: userid,
-                    month: month,
-                    year: year,
-                    salary: removeComma(salary),
-                    pera: removeComma(pera),
-                    working_days: working_days,
-                    minutes_late: minutes_late,
-                    absent_date_list: absent_date_list,
-                    tax: removeComma(tax),
-                    cfi: removeComma(cfi),
-                    gsis_premium: removeComma(gsis_premium),
-                    gsis_consoloan: removeComma(gsis_consoloan),
-                    gsis_policyloan: removeComma(gsis_policyloan),
-                    gsis_eml: removeComma(gsis_eml),
-                    gsis_uoli: removeComma(gsis_uoli),
-                    gsis_edu: removeComma(gsis_edu),
-                    gsis_help: removeComma(gsis_help),
-                    gsis_rel: removeComma(gsis_rel),
-                    pagibig_premium: removeComma(pagibig_premium),
-                    pagibig_loan: removeComma(pagibig_loan),
-                    pagibig_mp2: removeComma(pagibig_mp2),
-                    philhealth: removeComma(philhealth),
-                    simc: removeComma(simc),
-                    hwmpc: removeComma(hwmpc),
-                    dbp: removeComma(dbp),
-                    disallowance: removeComma(disallowance)
-               },
-               success: function (flag) {
-                    $.toast({
-                         heading: 'Success',
-                         text: 'New payroll added',
-                         icon: 'success'
-                    });
-                    clearRegularForm();
-                    var firstname = fullname.split(" ")[0];
-                    var lastname = fullname.split(" ")[2];
-                    loadRegularPayrollList(1,userid, firstname, lastname);
-               }
-          });
-     }
-
-          function insert_hazard(id,userid,pay,hwmpc,mortuary,digitel,month,year,days_leave,days_oo,fname,lname){
-               var url = "@Url.Action("InsertHazard", "Home")";
-               $.ajax({
-                    url: url,
-                    type: 'POST',
-                    data:
-                        {
-                             "id": id,
-                             "userid": userid,
-                             "pay": pay,
-                             "hwmpc": hwmpc,
-                             "mortuary": mortuary,
-                             "digitel": digitel,
-                             "month": month,
-                             "year": year,
-                             "days_leave": days_leave,
-                             "days_oo": days_oo
-                        },
-                    success: function (data) {
-                         $.toast({
-                              heading: 'Success',
-                              text: 'Hazard benefit, added successfully.',
-                              icon: 'success'
-                         });
-                         loadHazardList(1,userid,fname,lname);
-                    }
-               });
-          }
-
-          function insert_rata(id,userid,fname,lname,month,year,ra,ta,deduction,remark){
-               var url = "@Url.Action("InsertRata", "Home")";
-               $.ajax({
-                    url: url,
-                    type: 'POST',
-                    data:
-                        {
-                             "id": id,
-                             "userid": userid,
-                             "month": month,
-                             "year": year,
-                             "ra": ra,
-                             "ta": ta,
-                             "deduction": deduction,
-                             "remark": remark
-                        },
-                    success: function (data) {
-                         $.toast({
-                              heading: 'Success',
-                              text: 'Rata benefit, added successfully.',
-                              icon: 'success'
-                         });
-                         loadRataList(1,userid,fname,lname);
-                    }
-               });
-          }
-
-     function insert_subsistence(id, userid, fname, lname, month, year, subsistence_allowance,laundry_allowance,absences,hwmpc,no_days,remarks) {
-          var url = "@Url.Action("InsertSubsistence", "Home")";
-          $.ajax({
-               url: url,
-               type: 'POST',
-               data:
-                   {
-                        "id": id,
-                        "userid": userid,
-                        "month": month,
-                        "year": year,
-                        "subsistence_allowance": subsistence_allowance,
-                        "laundry_allowance": laundry_allowance,
-                        "absences": absences,
-                        "hwmpc": hwmpc,
-                        "no_days": no_days,
-                        "remarks": remarks
-                   },
-               success: function (data) {
-                    $.toast({
-                         heading: 'Success',
-                         text: 'Subsistence benefit, added successfully.',
-                         icon: 'success'
-                    });
-                    loadSubsistenceList(1,userid,fname,lname);
-               }
-          });
-     }
-
-     function insert_cell(id,userid,fname,lname,month,year,amount,less,remark){
-          var url = "@Url.Action("InsertCell", "Home")";
-          $.ajax({
-               url: url,
-               type: 'POST',
-               data:
-                   {
-                        "id": id,
-                        "userid": userid,
-                        "month": month,
-                        "year": year,
-                        "amount": amount,
-                        "less": less,
-                        "remark": remark
-                   },
-               success: function (data) {
-                    $.toast({
-                         heading: 'Success',
-                         text: 'Cellphone allowance benefit, added successfully.',
-                         icon: 'success'
-                    });
-                    loadCellList(1,userid,fname,lname);
-               }
-          });
-     }
-     function insert_longevity(id, userid, fname, lname, month, year, salary1, salary2, salary3, salary4, salary5,disallowance) {
-          var url = "@Url.Action("InsertLongevity", "Home")";
-          $.ajax({
-               url: url,
-               type: 'POST',
-               data:
-                   {
-                        "id": id,
-                        "userid": userid,
-                        "month": month,
-                        "year": year,
-                        "salary1": salary1,
-                        "salary2": salary2,
-                        "salary3": salary3,
-                        "salary4": salary4,
-                        "salary5": salary5,
-                        "disallowance": disallowance
-                   },
-               success: function (data) {
-                    $.toast({
-                         heading: 'Success',
-                         text: 'Longevity allowance benefit, added successfully.',
-                         icon: 'success'
-                    });
-                    loadLongevityList(1,userid,fname,lname);
-               }
-          });
-     }
-
-        function removeItem(id) {
-            alert('hd');
-
-                var tr = $("#" + id).closest('tr');
-                var value = tr.find('td:eq(0)').text();
-
-                tr.remove();
-
-                var array_date = $("#regular_absent_date_list").val().split(',');
-
-
-                for (var i = array_date.length - 1; i >= 0; i--) {
-
-                    if (array_date[i] === value) {
-                        array_date.splice(i, 1);
-                        break;
-                    }
-                }
-
-                $("#regular_absent_date_list").val(array_date);
+                var minutes_late = data.split(" ")[0];
+                var working_days = data.split(" ")[1];
+                var no_days_absent = data.split(" ")[2];
+                $("#regular_working_days").val(working_days);
+                $("#regular_minutes_late").val(minutes_late);
 
                 ComputeDeductions("Permanent");
                 ComputeTotalNetPay("Permanent");
 
+                $(".create_payroll_spinner").addClass("hidden");
+                $("#jo_create_payroll :input").attr("disabled", false);
             }
+        });
+    }
+    function loadRataList(page,empID,firstname,lastname) {
 
-            function clearRegularForm() {
-                $("#regular_pera").val("0.00");
-                $("#regular_minutes_late").val("0");
-                $("#regular_absent_date_list").val("");
-                $("#regular_date_list").empty();
-                $("#regular_deduction").val("0.00");
-                $("#regular_net_amount").val("0.00");
-                $("#regular_total_deduction").val("0.00");
-                $("#regular_total_amount").val("0.00");
-
+        var url = "@Url.Action("RataList", "PartialView")";
+        $("#rata_list").html("Loading data ...");
+        $.ajax({
+            url: url,
+            type: "POST",
+            data: {
+                page: page,
+                empID:empID,
+                firstname: firstname,
+                lastname: lastname
+            },
+            success: function (html) {
+                $("#rata_list").html(html);
             }
+        });
+    }
 
-            function deletePayrollByID(id,empID,firstname,lastname) {
+    function loadRegularPayrollList(page,empID,firstname,lastname) {
 
-                 var url = "@Url.Action("DeleteRegularPayroll", "Home")";
-
-                 $.ajax({
-                      url: url,
-                      type: "POST",
-                      data: {
-                           id: id
-                      },
-                      success: function (flag) {
-                           if (flag) {
-                                $.toast({
-                                     heading: 'Success',
-                                     text: 'Payroll ID: '+id+' deleted.',
-                                     icon: 'success'
-                                });
-
-                                var empID = $("#emp_id").val();
-                                var firstname = $("#fullname").val().split(" ")[0];
-                                var lastname = $("#fullname").val().split(" ")[2];
-
-                                loadRegularPayrollList(1, empID, firstname, lastname);
-                           } else {
-                                $.toast({
-                                     heading: 'Error',
-                                     text: 'Something went wrong, please contact system administrator',
-                                     icon: 'error'
-                                });
-                           }
-
-                      }
-                 });
+        var url = "@Url.Action("RegularPayrollList", "PartialView")";
+        $(".parent-payroll-list").html("Loading data ...");
+        $.ajax({
+            url: url,
+            type: "POST",
+            data: {
+                page: page,
+                empID:empID,
+                firstname: firstname,
+                lastname: lastname,
+                middlename:""
+            },
+            success: function (html) {
+                $(".parent-payroll-list").html(html);
             }
+        });
+    }
+
+    function loadHazardList(page,empID,firstname,lastname) {
+
+        var url = "@Url.Action("HazardList", "PartialView")";
+        $("#hazard_list").html("Loading data ...");
+        $.ajax({
+            url: url,
+            type: "POST",
+            data: {
+                page: page,
+                empID:empID,
+                firstname: firstname,
+                lastname: lastname
+            },
+            success: function (html) {
+                $("#hazard_list").html(html);
+            }
+        });
+    }
+    function loadCellList(page,empID,firstname,lastname) {
+
+    var url = "@Url.Action("CellphoneList", "PartialView")";
+    $("#cellphone_list").html("Loading data ...");
+    $.ajax({
+        url: url,
+        type: "POST",
+        data: {
+            page: page,
+            empID:empID,
+            firstname: firstname,
+            lastname: lastname
+        },
+        success: function (html) {
+            $("#cellphone_list").html(html);
+        }
+    });
+    }
+    function loadLongevityList(page,empID,firstname,lastname) {
+
+    var url = "@Url.Action("LongevityList", "PartialView")";
+    $("#longevity_list").html("Loading data ...");
+    $.ajax({
+        url: url,
+        type: "POST",
+        data: {
+            page: page,
+            empID:empID,
+            firstname: firstname,
+            lastname: lastname
+        },
+        success: function (html) {
+            $("#longevity_list").html(html);
+        }
+    });
+    }
+    function loadSubsistenceList(page,empID,firstname,lastname) {
+
+    var url = "@Url.Action("SubsistenceList", "PartialView")";
+    $("#subsistence_list").html("Loading data ...");
+    $.ajax({
+        url: url,
+        type: "POST",
+        data: {
+            page: page,
+            empID:empID,
+            firstname: firstname,
+            lastname: lastname
+        },
+        success: function (html) {
+            $("#subsistence_list").html(html);
+        }
+    });
+    }
+
+    function removeSubsistenceList(id,userid,fname,lname) {
+    var url = "@Url.Action("DeleteSubsistence", "Home")";
+    $.ajax({
+        url: url,
+        type: "POST",
+        data: {
+            id:id
+        },
+        success: function (html) {
+            $.toast({
+                heading: 'Delete',
+                text: 'Subsistence Allowance benefit: '+id+', deleted successfully.',
+                icon: 'warning'
+            });
+            loadSubsistenceList(1,userid,fname,lname);
+        }
+    });
+    }
+
+    function removeLongevityList(id,userid,fname,lname) {
+    var url = "@Url.Action("DeleteLongevity", "Home")";
+    $.ajax({
+        url: url,
+        type: "POST",
+        data: {
+            id:id
+        },
+        success: function (html) {
+            $.toast({
+                heading: 'Delete',
+                text: 'Longevity Allowance benefit: '+id+', deleted successfully.',
+                icon: 'warning'
+            });
+            loadLongevityList(1,userid,fname,lname);
+        }
+    });
+    }
+
+    function removeCellList(id,userid,fname,lname) {
+    var url = "@Url.Action("DeleteCell", "Home")";
+    $.ajax({
+        url: url,
+        type: "POST",
+        data: {
+            id:id
+        },
+        success: function (html) {
+            $.toast({
+                heading: 'Delete',
+                text: 'Cellphone Allowance benefit: '+id+', deleted successfully.',
+                icon: 'warning'
+            });
+            loadCellList(1,userid,fname,lname);
+        }
+    });
+    }
+
+    function removeRataList(id,userid,fname,lname) {
+        var url = "@Url.Action("DeleteRata", "Home")";
+        $.ajax({
+            url: url,
+            type: "POST",
+            data: {
+                    id:id
+            },
+            success: function (html) {
+                $.toast({
+                    heading: 'Delete',
+                    text: 'Rata benefit: '+id+', deleted successfully.',
+                    icon: 'warning'
+                });
+                loadRataList(1,userid,fname,lname);
+            }
+        });
+    }
+
+    function removeHazardList(id,userid,fname,lname) {
+        var url = "@Url.Action("DeleteHazard", "Home")";
+        $.ajax({
+            url: url,
+            type: "POST",
+            data: {
+                id:id
+            },
+            success: function (html) {
+                $.toast({
+                    heading: 'Delete',
+                    text: 'Hazard benefit: '+id+', deleted successfully.',
+                    icon: 'warning'
+                });
+                loadHazardList(1,userid,fname,lname);
+            }
+        });
+    }
+
+    function insert_payroll(userid,fullname, month, year, salary, pera, working_days, minutes_late, absent_date_list, tax, cfi, gsis_premium, gsis_consoloan, gsis_policyloan, gsis_eml,
+    gsis_uoli, gsis_edu, gsis_help, gsis_rel, pagibig_premium, pagibig_loan, pagibig_mp2, pagibig_calamity, philhealth, simc, hwmpc, dbp, disallowance) {
+    var url = "@Url.Action("InsertRegularPayroll", "Home")";
+    $.ajax({
+        url: url,
+        type: "POST",
+        data: {
+            userid: userid,
+            month: month,
+            year: year,
+            salary: removeComma(salary),
+            pera: removeComma(pera),
+            working_days: working_days,
+            minutes_late: minutes_late,
+            absent_date_list: absent_date_list,
+            tax: removeComma(tax),
+            cfi: removeComma(cfi),
+            gsis_premium: removeComma(gsis_premium),
+            gsis_consoloan: removeComma(gsis_consoloan),
+            gsis_policyloan: removeComma(gsis_policyloan),
+            gsis_eml: removeComma(gsis_eml),
+            gsis_uoli: removeComma(gsis_uoli),
+            gsis_edu: removeComma(gsis_edu),
+            gsis_help: removeComma(gsis_help),
+            gsis_rel: removeComma(gsis_rel),
+            pagibig_premium: removeComma(pagibig_premium),
+            pagibig_loan: removeComma(pagibig_loan),
+            pagibig_mp2: removeComma(pagibig_mp2),
+            philhealth: removeComma(philhealth),
+            simc: removeComma(simc),
+            hwmpc: removeComma(hwmpc),
+            dbp: removeComma(dbp),
+            disallowance: removeComma(disallowance)
+        },
+        success: function (flag) {
+            $.toast({
+                    heading: 'Success',
+                    text: 'New payroll added',
+                    icon: 'success'
+            });
+            clearRegularForm();
+            var firstname = fullname.split(" ")[0];
+            var lastname = fullname.split(" ")[2];
+            loadRegularPayrollList(1,userid, firstname, lastname);
+        }
+    });
+    }
+
+    function insert_hazard(id,userid,pay,hwmpc,mortuary,digitel,month,year,days_leave,days_oo,fname,lname){
+        var url = "@Url.Action("InsertHazard", "Home")";
+        $.ajax({
+            url: url,
+            type: 'POST',
+            data:
+                {
+                        "id": id,
+                        "userid": userid,
+                        "pay": pay,
+                        "hwmpc": hwmpc,
+                        "mortuary": mortuary,
+                        "digitel": digitel,
+                        "month": month,
+                        "year": year,
+                        "days_leave": days_leave,
+                        "days_oo": days_oo
+                },
+            success: function (data) {
+                    $.toast({
+                        heading: 'Success',
+                        text: 'Hazard benefit, added successfully.',
+                        icon: 'success'
+                    });
+                    loadHazardList(1,userid,fname,lname);
+            }
+        });
+    }
+
+    function insert_rata(id,userid,fname,lname,month,year,ra,ta,deduction,remark){
+        var url = "@Url.Action("InsertRata", "Home")";
+        $.ajax({
+            url: url,
+            type: 'POST',
+            data:
+                {
+                        "id": id,
+                        "userid": userid,
+                        "month": month,
+                        "year": year,
+                        "ra": ra,
+                        "ta": ta,
+                        "deduction": deduction,
+                        "remark": remark
+                },
+            success: function (data) {
+                    $.toast({
+                        heading: 'Success',
+                        text: 'Rata benefit, added successfully.',
+                        icon: 'success'
+                    });
+                    loadRataList(1,userid,fname,lname);
+            }
+        });
+    }
+
+    function insert_subsistence(id, userid, fname, lname, month, year, subsistence_allowance,laundry_allowance,absences,hwmpc,no_days,remarks) {
+    var url = "@Url.Action("InsertSubsistence", "Home")";
+    $.ajax({
+        url: url,
+        type: 'POST',
+        data:
+            {
+                "id": id,
+                "userid": userid,
+                "month": month,
+                "year": year,
+                "subsistence_allowance": subsistence_allowance,
+                "laundry_allowance": laundry_allowance,
+                "absences": absences,
+                "hwmpc": hwmpc,
+                "no_days": no_days,
+                "remarks": remarks
+            },
+        success: function (data) {
+            $.toast({
+                    heading: 'Success',
+                    text: 'Subsistence benefit, added successfully.',
+                    icon: 'success'
+            });
+            loadSubsistenceList(1,userid,fname,lname);
+        }
+    });
+    }
+
+    function insert_cell(id,userid,fname,lname,month,year,amount,less,remark){
+    var url = "@Url.Action("InsertCell", "Home")";
+    $.ajax({
+        url: url,
+        type: 'POST',
+        data:
+            {
+                "id": id,
+                "userid": userid,
+                "month": month,
+                "year": year,
+                "amount": amount,
+                "less": less,
+                "remark": remark
+            },
+        success: function (data) {
+            $.toast({
+                    heading: 'Success',
+                    text: 'Cellphone allowance benefit, added successfully.',
+                    icon: 'success'
+            });
+            loadCellList(1,userid,fname,lname);
+        }
+    });
+    }
+    function insert_longevity(id, userid, fname, lname, month, year, salary1, salary2, salary3, salary4, salary5,disallowance) {
+    var url = "@Url.Action("InsertLongevity", "Home")";
+    $.ajax({
+        url: url,
+        type: 'POST',
+        data:
+            {
+                "id": id,
+                "userid": userid,
+                "month": month,
+                "year": year,
+                "salary1": salary1,
+                "salary2": salary2,
+                "salary3": salary3,
+                "salary4": salary4,
+                "salary5": salary5,
+                "disallowance": disallowance
+            },
+        success: function (data) {
+            $.toast({
+                    heading: 'Success',
+                    text: 'Longevity allowance benefit, added successfully.',
+                    icon: 'success'
+            });
+            loadLongevityList(1,userid,fname,lname);
+        }
+    });
+    }
+
+    function removeItem(id) {
+    alert('hd');
+
+        var tr = $("#" + id).closest('tr');
+        var value = tr.find('td:eq(0)').text();
+
+        tr.remove();
+
+        var array_date = $("#regular_absent_date_list").val().split(',');
+
+
+        for (var i = array_date.length - 1; i >= 0; i--) {
+
+            if (array_date[i] === value) {
+                array_date.splice(i, 1);
+                break;
+            }
+        }
+
+        $("#regular_absent_date_list").val(array_date);
+
+        ComputeDeductions("Permanent");
+        ComputeTotalNetPay("Permanent");
+
+    }
+
+    function clearRegularForm() {
+        $("#regular_pera").val("0.00");
+        $("#regular_minutes_late").val("0");
+        $("#regular_absent_date_list").val("");
+        $("#regular_date_list").empty();
+        $("#regular_deduction").val("0.00");
+        $("#regular_net_amount").val("0.00");
+        $("#regular_total_deduction").val("0.00");
+        $("#regular_total_amount").val("0.00");
+
+    }
+
+    function deletePayrollByID(id,empID,firstname,lastname) {
+
+            var url = "@Url.Action("DeleteRegularPayroll", "Home")";
+
+            $.ajax({
+                url: url,
+                type: "POST",
+                data: {
+                    id: id
+                },
+                success: function (flag) {
+                    if (flag) {
+                        $.toast({
+                                heading: 'Success',
+                                text: 'Payroll ID: '+id+' deleted.',
+                                icon: 'success'
+                        });
+
+                        var empID = $("#emp_id").val();
+                        var firstname = $("#fullname").val().split(" ")[0];
+                        var lastname = $("#fullname").val().split(" ")[2];
+
+                        loadRegularPayrollList(1, empID, firstname, lastname);
+                    } else {
+                        $.toast({
+                                heading: 'Error',
+                                text: 'Something went wrong, please contact system administrator',
+                                icon: 'error'
+                        });
+                    }
+
+                }
+            });
+    }
      </script>
 }

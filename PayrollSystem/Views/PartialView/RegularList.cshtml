@@ -8,92 +8,95 @@
 <input type="text" class="hidden" id="username" name="username" />
 
 <table class="table table-striped">
-     <tr>
-          <th>ID NO</th>
-          <th>FIRST NAME</th>
-          <th>MIDDLE NAME</th>
-          <th>LASTNAME</th>
-          <th>DESIGNATION</th>
-          <th>SALARY</th>
-          <th></th>
-     </tr>
+    <tr>
+        <th>ID NO</th>
+        <th>FIRST NAME</th>
+        <th>MIDDLE NAME</th>
+        <th>LASTNAME</th>
+        <th>DESIGNATION</th>
+        <th>SALARY</th>
+        <th></th>
+    </tr>
 
-     @foreach (var item in Model)
-     {
-          <tr>
-               <td class="@item.ID">
-                    @Html.DisplayFor(modelItem => item.ID)
-               </td>
-               <td class="@item.ID">
-                    @Html.DisplayFor(modelItem => item.Firstname)
-               </td>
-               <td class="@item.ID">
-                    @Html.DisplayFor(modelItem => item.Middlename)
-               </td>
-               <td class="@item.ID">
-                    @Html.DisplayFor(modelItem => item.Lastname)
-               </td>
-               <td class="@item.ID">
-                    @Html.DisplayFor(modelItem => item.Designation)
-               </td>
-               <td class="@item.ID">
-                    @Html.DisplayFor(modelItem => item.Salary)
-               </td>
-               <td class="hidden">
-                    @item.CfiFormat()
-               </td>
-               <td class="hidden">
-                    @item.GsisConsoLoanFormat()
-               </td>
-               <td class="hidden">
-                    @item.GsisPolicyLoanFormat()
-               </td>
-               <td class="hidden">
-                    @item.GsisEmlLoanFormat()
-               </td>
-               <td class="hidden">
-                    @item.GsisUoliLoanFormat()
-               </td>
-               <td class="hidden">
-                    @item.GsisEduLoanFormat()
-               </td>
-               <td class="hidden">
-                    @item.GsisHelpLoanFormat()
-               </td>
-               <td class="hidden">
-                    @item.RelFormat()
-               </td>
-               <td class="hidden">
-                    @item.PagibigLoanFormat()
-               </td>
-               <td class="hidden">
-                    @item.PagibigMp2Format()
-               </td>
-               <td class="hidden">
-                    @item.SimcFormat()
-               </td>
-               <td class="hidden">
-                    @item.HwmpcFormat()
-               </td>
-               <td class="hidden">
-                    @item.DbpFormat()
-               </td>
-               <td class="hidden">
-                    @item.DisallowancesFormat()
-               </td>
-               <td class="hidden">
-                    @item.GetTax()
-               </td>
-               <td>
-                    <button class="btn btn-xs btn-success create_regular_payroll">Payroll</button>
-                    <button class="btn btn-xs btn-success create_hazard_benefits" value="hazard">Hazard</button>
-                    <button class="btn btn-xs btn-success create_rata_benefits" value="rata">Rata</button>
-                    <button class="btn btn-xs btn-success create_cellphone_benefits" value="cellphone">Cellphone</button>
-                    <button class="btn btn-xs btn-success create_longevity_benefits" value="longevity">Longevity</button>
-                    <button class="btn btn-xs btn-success create_subsistence_benefits" value="subsistence">Subsistence</button>
-               </td>
-          </tr>
-     }
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td class="@item.ID">
+                @Html.DisplayFor(modelItem => item.ID)
+            </td>
+            <td class="@item.ID">
+                @Html.DisplayFor(modelItem => item.Firstname)
+            </td>
+            <td class="@item.ID">
+                @Html.DisplayFor(modelItem => item.Middlename)
+            </td>
+            <td class="@item.ID">
+                @Html.DisplayFor(modelItem => item.Lastname)
+            </td>
+            <td class="@item.ID">
+                @Html.DisplayFor(modelItem => item.Designation)
+            </td>
+            <td class="@item.ID">
+                @Html.DisplayFor(modelItem => item.Salary)
+            </td>
+            <td class="hidden">
+                @item.CfiFormat()
+            </td>
+            <td class="hidden">
+                @item.GsisConsoLoanFormat()
+            </td>
+            <td class="hidden">
+                @item.GsisPolicyLoanFormat()
+            </td>
+            <td class="hidden">
+                @item.GsisEmlLoanFormat()
+            </td>
+            <td class="hidden">
+                @item.GsisUoliLoanFormat()
+            </td>
+            <td class="hidden">
+                @item.GsisEduLoanFormat()
+            </td>
+            <td class="hidden">
+                @item.GsisHelpLoanFormat()
+            </td>
+            <td class="hidden">
+                @item.RelFormat()
+            </td>
+            <td class="hidden">
+                @item.PagibigLoanFormat()
+            </td>
+            <td class="hidden">
+                @item.PagibigMp2Format()
+            </td>
+            <td class="hidden">
+                @item.SimcFormat()
+            </td>
+            <td class="hidden">
+                @item.HwmpcFormat()
+            </td>
+            <td class="hidden">
+                @item.DbpFormat()
+            </td>
+            <td class="hidden">
+                @item.DisallowancesFormat()
+            </td>
+            <td class="hidden">
+                @item.GetTax()
+            </td>
+            <td class="hidden">
+                @item.PagibigCalamityFormat()
+            </td>
+            <td>
+                <button class="btn btn-xs btn-success create_regular_payroll">Payroll</button>
+                <button class="btn btn-xs btn-success create_hazard_benefits" value="hazard">Hazard</button>
+                <button class="btn btn-xs btn-success create_rata_benefits" value="rata">Rata</button>
+                <button class="btn btn-xs btn-success create_cellphone_benefits" value="cellphone">Cellphone</button>
+                <button class="btn btn-xs btn-success create_longevity_benefits" value="longevity">Longevity</button>
+                <button class="btn btn-xs btn-success create_subsistence_benefits" value="subsistence">Subsistence</button>
+            </td>
+        </tr>
+    }
 </table>
 
 <!-- /.box-body -->
@@ -169,7 +172,6 @@
              });
             
             $('.create_regular_payroll').click(function () {
-
                 var id = $(this).closest('tr').find('td:eq(0)').text().trim();
                 var firstname = $(this).closest('tr').find('td:eq(1)').text().trim();
                 var middlename = $(this).closest('tr').find('td:eq(2)').text().trim();
@@ -177,7 +179,6 @@
                 var fullname = firstname + " " + middlename + " " + lastname;
                 var salary = $(this).closest('tr').find('td:eq(5)').text().trim();
                 var tax = $(this).closest('tr').find('td:eq(20)').text().trim();
-
                 var cfi = $(this).closest('tr').find('td:eq(6)').text().trim();
                 var gsis_consoloan = $(this).closest('tr').find('td:eq(7)').text().trim();
                 var gsis_policyloan = $(this).closest('tr').find('td:eq(8)').text().trim();
@@ -192,7 +193,7 @@
                 var hwmpc = $(this).closest('tr').find('td:eq(17)').text().trim();
                 var dbp = $(this).closest('tr').find('td:eq(18)').text().trim();
                 var disallowance = $(this).closest('tr').find('td:eq(19)').text().trim();
-
+                var calamity = $(this).closest('tr').find('td:eq(21)').text().trim();
                 var sumting = $('.editable-input').find('#userid');
 
                 $(".selected").removeClass("selected");
@@ -241,6 +242,9 @@
                 $("#regular_pagibig_mp2").val(formatComma(pagibig_mp2.split('/')[0]));
                 $("#regular_pagibig_mp2_payment").val(pagibig_mp2.split('/')[1]);
                 $("#regular_pagibig_mp2_paid").val(pagibig_mp2.split('/')[2]);
+                $("#regular_pagibig_calamity").val(formatComma(calamity.split('/')[0]));
+                $("#regular_pagibig_calamity_payment").val(calamity.split('/')[1]);
+                $("#regular_pagibig_calamity_paid").val(calamity.split('/')[2]);
                 $("#regular_simc").val(formatComma(simc.split('/')[0]));
                 $("#regular_simc_payment").val(simc.split('/')[1]);
                 $("#regular_simc_paid").val(simc.split('/')[2]);

@@ -4,19 +4,31 @@
 @{
      ViewBag.Title = ViewBag.Action;
 }
-<h3 class="text-default jo_title">@ViewBag.Action</h3>
-<div class="card-tools pull-right">
-     <span><i class="fas fa-user"></i></span>
-</div>
+<h3 class="text-default jo_title title_page">@ViewBag.Action</h3>
 <div class="card card-default">
-    <div class="form-inline ml-3" style="margin-top: 8px; margin-bottom: 8px;">
-        <div class="input-group input-group-sm" >
-            <input class="form-control form-control-navbar" name="search" placeholder="Search" value="@ViewBag.Search" id="search_value" type="text" aria-label="Search">
-            <div class="input-group-append">
-                <button class="btn btn-default jo_search" type="button">
-                    <i class="fas fa-search"></i>
-                </button>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-inline ml-3" style="margin-top: 8px; margin-bottom: 8px;">
+                <div class="input-group input-group-sm">
+                    <input class="form-control form-control-navbar" name="search" placeholder="Search" value="@ViewBag.Search" id="search_value" type="text" aria-label="Search">
+                    <div class="input-group-append">
+                        <button class="btn btn-default jo_search" type="button">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                </div>
             </div>
+        </div>
+        <div class="col-md-6">
+            <button class="btn btn-success fa-pull-right" style="margin-top: 8px; margin-bottom: 8px; margin-right: 8px;"
+                    data-toggle="ajax-modal"
+                    data-target="#small_modal"
+                    data-action="#small_content"
+                    data-url="@Url.Action("GeneratePayroll","Home", new { job_status = "jo", type = ViewBag.Type})"
+                    onclick="OpenModal($(this));">
+                <i class="fas fa-file-pdf"></i>&nbsp;
+                GENERATE PAYROLL
+            </button>
         </div>
     </div>
      <div class="card-body jo-employee-list">
@@ -81,7 +93,7 @@
             ComputeDeductions("Job Order");
         });
 
-        $("#jo_ewt,#jo_prof_tax,#jo_coop,#jo_other_adjustment,#jo_pagibig,#jo_phic,#jo_gsis,#jo_excess,#jo_adjustment").change(function () {
+        $("#jo_ewt,#jo_prof_tax,#jo_coop,#jo_other_adjustment,#jo_pagibig,#jo_phic,#jo_gsis,#jo_pagibig_loan,#jo_adjustment").change(function () {
             $(this).val(formatComma(roundOff($(this).val())));
             ComputeDeductions("Job Order");
             ComputeTotalNetPay("Job Order");
@@ -115,12 +127,12 @@
         });
 
 
-        $("#edit_coop,#edit_pagibig,#edit_phic,#edit_gsis,#edit_excess").click(function () {
+        $("#edit_coop,#edit_pagibig,#edit_phic,#edit_gsis,#edit_pagibig_loan").click(function () {
 
             var type = $(this).val();
 
             var icon = $("#" + type + "_icon");
-
+            console.log(icon);
             if (icon.hasClass("fas fa-pencil-alt")) {
 
                 $("#jo_" + type + "").attr("readonly", false);
@@ -215,6 +227,8 @@
                             getLateAndAbsences(id, from, to);
                             break;
                     }
+
+                    $('#jo_absent_date').setStartDate(choosen_month + '-01-' + choosen_year);
                 }
 
             });
@@ -272,7 +286,7 @@
         var coop = $("#jo_coop").val();
         var other_adjustment = $("#jo_other_adjustment").val();
         var pagibig = $("#jo_pagibig").val();
-        var excess = $("#jo_excess").val();
+        var excess = $("#jo_pagibig_loan").val();
         var phic = $("#jo_phic").val();
         var gsis = $("#jo_gsis").val();
         var remarks = $("#jo_remarks").val();
@@ -352,20 +366,20 @@
         $("#jo_create_payroll :input").attr("disabled", true);
         $(".create_payroll_spinner").removeClass("hidden");
 
-        var url = "@Url.Action("GetMins","Home")";
+        var url = "@Url.Action("GetMinsV2","Home")";
         $.ajax({
             url: url,
             type: 'POST',
-            data:
-                {
-                    "id": id,
-                    "from":from,
-                    "am_in": "08:00:00",
-                    "am_out": "12:00:00",
-                    "pm_in": "13:00:00",
-                    "pm_out": "17:00:00",
-                    "to": to
-                },
+            data:{
+                "id": id,
+                "from":from,
+                @*"am_in": "08:00:00",
+                "am_out": "12:00:00",
+                "pm_in": "13:00:00",
+                "pm_out": "17:00:00",*@
+                "to": to,
+                "job_status": "jo"
+            },
             success: function (data) {
                 var array_date = [];
                 $("#jo_date_list").empty();
@@ -446,7 +460,7 @@
     }
     function setLoansReadOnly(enable) {
 
-         var array = ["coop", "pagibig", "phic", "gsis", "excess"];
+         var array = ["coop", "pagibig", "phic", "gsis", "pagibig_loan"];
          for (var i = 0; i < array.length; i++) {
               $("#jo_" + array[i] + "").attr("readonly", true);
               $("#jo_" + array[i] + "_payment").attr("readonly", true);

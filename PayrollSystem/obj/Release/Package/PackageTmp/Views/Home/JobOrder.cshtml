@@ -99,10 +99,9 @@
                 return;
             }
 
-            var jo_total = parseInt($('#jo_total_amount').val());
-
+            var jo_total = parseFloat($('#jo_total_amount').val().replace(/,/g, ''));
+            console.log(jo_total);
             if (jo_total < 5000) {
-                console.log('ehere?');
                 if (confirm("Payroll net pay is less than 5000. Continue?")) {
                     PostPayroll();
                 }

@@ -14,6 +14,7 @@ using PayrollSystem.Models.PDF.JobOrderRemittance;
 
 namespace PayrollSystem.Controllers
 {
+    [Authorize(Roles = "admin")]
     public class ReportController : Controller
     {
 
@@ -32,6 +33,47 @@ namespace PayrollSystem.Controllers
                 ViewBag.Message = TempData["Message"];
             }
             return View(list.ToPagedList(pageNumber, pageSize));
+        }
+
+        public async Task<ActionResult> GenerateRegularPayroll(string status, string type, double phic, double? pagibig, double? gsis, double? tax, string date)
+        {
+            bool success = false;
+            if(status == "regular")
+            {
+                int month = int.Parse(date.Split('-')[0]);
+                int year = int.Parse(date.Split('-')[1]);
+                success = await PayrollDatabase.Instance.InsertAllRegularPayroll(phic, pagibig.Value, gsis.Value, tax.Value, month, year);
+                TempData["Message"] = success ? "Generated Successfully" : "Nothing to generate";
+
+                return RedirectToAction("Regular", "Home");
+            }
+            else
+            {
+                int index = 0;
+                string start_date = date.Split('-')[0].Trim();
+                string end_date = date.Split('-')[1].Trim();
+                success = await PayrollDatabase.Instance.InsertAllJoPayroll(status, phic, type, start_date, end_date);
+                TempData["Message"] = success ? "Generated Successfully" : "Nothing to generate";
+                switch(type)
+                {
+                    case "ATM":
+                        index = 0;
+                        break;
+                    case "CASH_CARD":
+                        index = 1;
+                        break;
+                    case "NO_CARD":
+                        index = 2;
+                        break;
+                    case "UNDER_VTF":
+                        index = 3;
+                        break;
+                    default:
+                        index = 0;
+                        break;
+                }
+                return RedirectToAction("JobOrder", "Home", new { id = index });
+            }
         }
 
         public ActionResult DeletePDF(string id)

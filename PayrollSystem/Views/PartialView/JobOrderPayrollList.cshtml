@@ -77,19 +77,19 @@
                <td>
                     @using (Html.BeginForm("CreateJoPayslip", "Report", FormMethod.Post))
                     {
-                         <input type="hidden" name="fullnames" id="fullnames" value="@(item.Employee.Firstname+" "+item.Employee.Middlename+" "+item.Employee.Lastname)" />
-                         <input type="hidden" name="designation" value="@item.Employee.Designation" />
-                         <input type="hidden" name="date_from" value="@item.StartDate" />
-                         <input type="hidden" name="date_to" value="@item.EndDate" />
-                         <button type="button" class="btn btn-xs btn-danger remove-payroll-list" value="@item.Id">
-                             <i class="far fa-trash-alt"></i>
-                   </button>
-                         <button type="button" class="btn btn-xs btn-success edit-payroll-list" value="@item.Id">
-                             <i class="far fa-edit"></i>
-                   </button>
-                         <button type="submit" name="id" id="emp_id" formtarget="_blank" class="btn btn-xs btn-primary td-button" value="@item.Employee.ID">
-                             <i class="far fa-file-pdf"></i>
-                   </button>
+                        <input type="hidden" name="fullnames" id="fullnames" value="@(item.Employee.Firstname+" "+item.Employee.Middlename+" "+item.Employee.Lastname)" />
+                        <input type="hidden" name="designation" value="@item.Employee.Designation" />
+                        <input type="hidden" name="date_from" value="@item.StartDate" />
+                        <input type="hidden" name="date_to" value="@item.EndDate" />
+                        <button type="button" class="btn btn-xs btn-danger remove-payroll-list" value="@item.Id">
+                            <i class="far fa-trash-alt"></i>
+                        </button>
+                        <button type="button" class="btn btn-xs btn-success edit-payroll-list" value="@item.Id">
+                            <i class="far fa-edit"></i>
+                        </button>
+                        <button type="submit" name="id" id="emp_id" formtarget="_blank" class="btn btn-xs btn-primary td-button" value="@item.Employee.ID">
+                            <i class="far fa-file-pdf"></i>
+                        </button>
                     }
                </td>
           </tr>
@@ -103,173 +103,170 @@
 
 <script>
 
-        $(document).ready(function () {
+    $(document).ready(function () {
 
-            $(".remove-payroll-list").click(function () {
+        $(".remove-payroll-list").click(function () {
 
-                var empID = $(this).closest('tr').find('td:eq(0)').text().trim();
-                var firstname = $(this).closest('tr').find('td:eq(1)').text().trim();
-                var lastname = $(this).closest('tr').find('td:eq(3)').text().trim();
+            var empID = $(this).closest('tr').find('td:eq(0)').text().trim();
+            var firstname = $(this).closest('tr').find('td:eq(1)').text().trim();
+            var lastname = $(this).closest('tr').find('td:eq(3)').text().trim();
 
-                deletePayrollByID($(this).val(),empID,firstname,lastname);
-            });
-
-            $(".edit-payroll-list").click(function () {
-
-
-                 var empID = $(this).closest('tr').find('td:eq(0)').text().trim();
-                 var startDate = $(this).closest('tr').find('td:eq(3)').text().trim();
-                 var endDate = $(this).closest('tr').find('td:eq(4)').text().trim();
-                 var id = $(this).closest('tr').find('td:eq(5)').text().trim();
-                 var adjustment = $(this).closest('tr').find('td:eq(6)').text().trim();
-                 var salary = $(this).closest('tr').find('td:eq(7)').text().trim();
-                 var working_days = $(this).closest('tr').find('td:eq(8)').text().trim();
-                 var mins_late = $(this).closest('tr').find('td:eq(9)').text().trim();
-                 var absent_days = $(this).closest('tr').find('td:eq(10)').text().trim();
-                 var ewt = $(this).closest('tr').find('td:eq(11)').text().trim();
-                 var prof_tax = $(this).closest('tr').find('td:eq(12)').text().trim();
-
-                 var coop = $(this).closest('tr').find('td:eq(13)').text().trim();
-                 var other_adjustment = $(this).closest('tr').find('td:eq(14)').text().trim();
-                 var pagibig = $(this).closest('tr').find('td:eq(15)').text().trim();
-                 var phic = $(this).closest('tr').find('td:eq(16)').text().trim();
-                 var gsis = $(this).closest('tr').find('td:eq(17)').text().trim();
-                 var excess = $(this).closest('tr').find('td:eq(18)').text().trim();
-
-                 var remarks = $(this).closest('tr').find('td:eq(19)').text().trim();
-
-                 var month = parseInt(startDate.split('/')[0]);
-                 var year = parseInt(startDate.split('/')[2]);
-                 var option = (parseInt(startDate.split('/')[1]) == 1)?1:2;
-
-                 
-
-                 $("#jo_id").val(empID);
-                 $("#jo_payroll_id").val(id);
-                 
-                 $("#jo_month").val(month);
-                 $("#jo_month").prop('disabled',true);
-
-                 $("#jo_year").val(year);
-                 $("#jo_year").prop('disabled',true);
-
-                 $("#jo_month_range").val(option);
-                 $("#jo_month_range").prop('disabled',true);
-
-                 $("#jo_adjustment").val(formatComma(adjustment));
-                 $("#jo_salary").val(formatComma(salary));
-                 $("#jo_working_days").val(working_days);
-                 $("#jo_minutes_late").val(mins_late);
-
-                 $("#jo_ewt").val(formatComma(ewt));
-                 $("#jo_prof_tax").val(formatComma(prof_tax));
-
-                 $("#jo_coop").val(formatComma(coop));
-                 $("#jo_other_adjustment").val(formatComma(other_adjustment));
-                 $("#jo_pagibig").val(formatComma(pagibig));
-                 $("#jo_phic").val(formatComma(phic));
-                 $("#jo_gsis").val(formatComma(gsis));
-                 $("#jo_excess").val(formatComma(excess));
-
-                 $('#jo_remarks').val(remarks);
-
-                 var array_date = [];
-                 $("#jo_date_list").empty();
-                 $("#jo_absent_date_list").val("");
-
-                 for (var i = 0; i < absent_days.split(",").length; i++) {
-                      var item = absent_days.split(",")[i];
-                      if (item !== "") {
-                           var date_item = "<tr><td>";
-                           date_item += item;
-                           date_item += "</td><td><span class = 'glyphicon glyphicon-remove' style = 'color:red;cursor:pointer;' id='" + i + "' onclick='removeDateItem( " + i + " )'></span></td>";
-
-                           array_date.push(item);
-
-                           $("#jo_date_list").append(date_item);
-                           $("#jo_absent_date_list").val(array_date);
-                           $('#jo_absent_date').val("");
-                      }
-                 }
-
-                 $("#jo_date_range").val(startDate+"-"+endDate);
-                 ComputeDeductions();
-                 ComputeTotalNetPay();
-                 $("#jo_save").text("Update")
-              
-            });
-
-            $("body").on("click", ".box-footer-jo-payroll-list li", function (e) {
-                e.preventDefault();
-
-                var page = $(this).text();
-                if (page === "»") page = @Model.PageCount;
-                if (page === "«") page = 1;
-
-                var empID = $("#emp_id").val();
-                var firstname = $("#fullnames").val().split(" ")[0];
-                var lastname = $("#fullnames").val().split(" ")[2];
-
-                loadJoPayrollList(page, empID, firstname, lastname);
-            });
-
+            deletePayrollByID($(this).val(),empID,firstname,lastname);
         });
 
-        function loadJoPayrollList(page,empID,firstname,lastname) {
+        $(".edit-payroll-list").click(function () {
+            var empID = $(this).closest('tr').find('td:eq(0)').text().trim();
+            var startDate = $(this).closest('tr').find('td:eq(3)').text().trim();
+            var endDate = $(this).closest('tr').find('td:eq(4)').text().trim();
+            var id = $(this).closest('tr').find('td:eq(5)').text().trim();
+            var adjustment = $(this).closest('tr').find('td:eq(6)').text().trim();
+            var salary = $(this).closest('tr').find('td:eq(7)').text().trim();
+            var working_days = $(this).closest('tr').find('td:eq(8)').text().trim();
+            var mins_late = $(this).closest('tr').find('td:eq(9)').text().trim();
+            var absent_days = $(this).closest('tr').find('td:eq(10)').text().trim();
+            var ewt = $(this).closest('tr').find('td:eq(11)').text().trim();
+            var prof_tax = $(this).closest('tr').find('td:eq(12)').text().trim();
 
-            var url = "@Url.Action("JobOrderPayrollList", "PartialView")";
-            $(".parent-payroll-list").html("Loading data ...");
+            var coop = $(this).closest('tr').find('td:eq(13)').text().trim();
+            var other_adjustment = $(this).closest('tr').find('td:eq(14)').text().trim();
+            var pagibig = $(this).closest('tr').find('td:eq(15)').text().trim();
+            var phic = $(this).closest('tr').find('td:eq(16)').text().trim();
+            var gsis = $(this).closest('tr').find('td:eq(17)').text().trim();
+            var excess = $(this).closest('tr').find('td:eq(18)').text().trim();
 
-            $.ajax({
-                url: url,
-                type: "POST",
-                data: {
-                    page: page,
-                    empID:empID,
-                    firstname: firstname,
-                    lastname: lastname,
-                    middlename:""
-                },
-                success: function (html) {
-                    $(".parent-payroll-list").html(html);
+            var remarks = $(this).closest('tr').find('td:eq(19)').text().trim();
+
+            var month = parseInt(startDate.split('/')[0]);
+            var year = parseInt(startDate.split('/')[2]);
+            var option = (parseInt(startDate.split('/')[1]) == 1)?1:2;
+                 
+
+            $("#jo_id").val(empID);
+            $("#jo_payroll_id").val(id);
+                 
+            $("#jo_month").val(month);
+            $("#jo_month").prop('disabled',true);
+
+            $("#jo_year").val(year);
+            $("#jo_year").prop('disabled',true);
+
+            $("#jo_month_range").val(option);
+            $("#jo_month_range").prop('disabled',true);
+
+            $("#jo_adjustment").val(formatComma(adjustment));
+            $("#jo_salary").val(formatComma(salary));
+            $("#jo_working_days").val(working_days);
+            $("#jo_minutes_late").val(mins_late);
+
+            $("#jo_ewt").val(formatComma(ewt));
+            $("#jo_prof_tax").val(formatComma(prof_tax));
+
+            $("#jo_coop").val(formatComma(coop));
+            $("#jo_other_adjustment").val(formatComma(other_adjustment));
+            $("#jo_pagibig").val(formatComma(pagibig));
+            $("#jo_phic").val(formatComma(phic));
+            $("#jo_gsis").val(formatComma(gsis));
+            $("#jo_pagibig_loan").val(formatComma(excess));
+
+            $('#jo_remarks').val(remarks);
+
+            var array_date = [];
+            $("#jo_date_list").empty();
+            $("#jo_absent_date_list").val("");
+
+            for (var i = 0; i < absent_days.split(",").length; i++) {
+                var item = absent_days.split(",")[i];
+                if (item !== "") {
+                    var date_item = "<tr><td>";
+                    date_item += item;
+                    date_item += "</td><td><span class = 'glyphicon glyphicon-remove' style = 'color:red;cursor:pointer;' id='" + i + "' onclick='removeDateItem( " + i + " )'></span></td>";
+
+                    array_date.push(item);
+
+                    $("#jo_date_list").append(date_item);
+                    $("#jo_absent_date_list").val(array_date);
+                    $('#jo_absent_date').val("");
                 }
-            });
-        }
+            }
 
-        function deletePayrollByID(id,empID,firstname,lastname) {
+            $("#jo_date_range").val(startDate+"-"+endDate);
+            ComputeDeductions();
+            ComputeTotalNetPay();
+            $("#jo_save").text("Update")
+              
+        });
 
-            var url = "@Url.Action("DeleteJoPayroll", "Home")";
+        $("body").on("click", ".box-footer-jo-payroll-list li", function (e) {
+            e.preventDefault();
 
-            $.ajax({
-                url: url,
-                type: "POST",
-                data: {
-                    id: id
-                },
-                success: function (flag) {
-                    if (flag) {
-                        $.toast({
-                            heading: 'Success',
-                            text: 'Payroll ID: '+id+' deleted.',
-                            icon: 'success'
-                        });
-                        var empID = $("#emp_id").val();
-                        var firstname = $("#fullnames").val().split(" ")[0];
-                        var lastname = $("#fullnames").val().split(" ")[2];
+            var page = $(this).text();
+            if (page === "»") page = @Model.PageCount;
+            if (page === "«") page = 1;
 
-                        loadJoPayrollList(1, empID, firstname, lastname);
+            var empID = $("#emp_id").val();
+            var firstname = $("#fullnames").val().split(" ")[0];
+            var lastname = $("#fullnames").val().split(" ")[2];
 
-                    } else {
-                        $.toast({
-                            heading: 'Error',
-                            text: 'Something went wrong, please contact system administrator',
-                            icon: 'error'
-                        });
-                    }
+            loadJoPayrollList(page, empID, firstname, lastname);
+        });
 
+    });
+
+    function loadJoPayrollList(page,empID,firstname,lastname) {
+
+        var url = "@Url.Action("JobOrderPayrollList", "PartialView")";
+        $(".parent-payroll-list").html("Loading data ...");
+
+        $.ajax({
+            url: url,
+            type: "POST",
+            data: {
+                page: page,
+                empID:empID,
+                firstname: firstname,
+                lastname: lastname,
+                middlename:""
+            },
+            success: function (html) {
+                $(".parent-payroll-list").html(html);
+            }
+        });
+    }
+
+    function deletePayrollByID(id,empID,firstname,lastname) {
+
+        var url = "@Url.Action("DeleteJoPayroll", "Home")";
+
+        $.ajax({
+            url: url,
+            type: "POST",
+            data: {
+                id: id
+            },
+            success: function (flag) {
+                if (flag) {
+                    $.toast({
+                        heading: 'Success',
+                        text: 'Payroll ID: '+id+' deleted.',
+                        icon: 'success'
+                    });
+                    var empID = $("#emp_id").val();
+                    var firstname = $("#fullnames").val().split(" ")[0];
+                    var lastname = $("#fullnames").val().split(" ")[2];
+
+                    loadJoPayrollList(1, empID, firstname, lastname);
+
+                } else {
+                    $.toast({
+                        heading: 'Error',
+                        text: 'Something went wrong, please contact system administrator',
+                        icon: 'error'
+                    });
                 }
-            });
-        }
+
+            }
+        });
+    }
 
 
 </script>

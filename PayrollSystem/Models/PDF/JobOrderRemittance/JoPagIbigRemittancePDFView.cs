@@ -195,70 +195,70 @@ namespace PayrollSystem.Models.PDF.JobOrderRemittance
                 Table.AddCell(new PdfPCell(new Phrase(item.First().PagIbigNo, new Font(FontFactory.GetFont("HELVETICA", 11, Font.NORMAL, new BaseColor(0, 0, 0)))))
                 {
                     Border = PdfPCell.RIGHT_BORDER | PdfPCell.BOTTOM_BORDER | PdfPCell.TOP_BORDER | PdfPCell.LEFT_BORDER,
-                    HorizontalAlignment = Element.ALIGN_CENTER,
+                    HorizontalAlignment = Element.ALIGN_LEFT,
                     VerticalAlignment = Element.ALIGN_CENTER
                 });
                 Table.AddCell(new PdfPCell(new Phrase(item.First().AccountNo, new Font(FontFactory.GetFont("HELVETICA", 11, Font.NORMAL, new BaseColor(0, 0, 0)))))
                 {
                     Border = PdfPCell.RIGHT_BORDER | PdfPCell.BOTTOM_BORDER | PdfPCell.TOP_BORDER | PdfPCell.LEFT_BORDER,
-                    HorizontalAlignment = Element.ALIGN_CENTER,
+                    HorizontalAlignment = Element.ALIGN_LEFT,
                     VerticalAlignment = Element.ALIGN_CENTER
                 });
                 Table.AddCell(new PdfPCell(new Phrase(item.First().Membership, new Font(FontFactory.GetFont("HELVETICA", 11, Font.NORMAL, new BaseColor(0, 0, 0)))))
                 {
                     Border = PdfPCell.RIGHT_BORDER | PdfPCell.BOTTOM_BORDER | PdfPCell.TOP_BORDER | PdfPCell.LEFT_BORDER,
-                    HorizontalAlignment = Element.ALIGN_CENTER,
+                    HorizontalAlignment = Element.ALIGN_LEFT,
                     VerticalAlignment = Element.ALIGN_CENTER
                 });
                 Table.AddCell(new PdfPCell(new Phrase(item.First().LastName, new Font(FontFactory.GetFont("HELVETICA", 11, Font.NORMAL, new BaseColor(0, 0, 0)))))
                 {
                     Border = PdfPCell.RIGHT_BORDER | PdfPCell.BOTTOM_BORDER | PdfPCell.TOP_BORDER | PdfPCell.LEFT_BORDER,
-                    HorizontalAlignment = Element.ALIGN_CENTER,
+                    HorizontalAlignment = Element.ALIGN_LEFT,
                     VerticalAlignment = Element.ALIGN_CENTER
                 });
                 Table.AddCell(new PdfPCell(new Phrase(item.First().FirstName, new Font(FontFactory.GetFont("HELVETICA", 11, Font.NORMAL, new BaseColor(0, 0, 0)))))
                 {
                     Border = PdfPCell.RIGHT_BORDER | PdfPCell.BOTTOM_BORDER | PdfPCell.TOP_BORDER | PdfPCell.LEFT_BORDER,
-                    HorizontalAlignment = Element.ALIGN_CENTER,
+                    HorizontalAlignment = Element.ALIGN_LEFT,
                     VerticalAlignment = Element.ALIGN_CENTER
                 });
                 Table.AddCell(new PdfPCell(new Phrase(item.First().NameExtension, new Font(FontFactory.GetFont("HELVETICA", 11, Font.NORMAL, new BaseColor(0, 0, 0)))))
                 {
                     Border = PdfPCell.RIGHT_BORDER | PdfPCell.BOTTOM_BORDER | PdfPCell.TOP_BORDER | PdfPCell.LEFT_BORDER,
-                    HorizontalAlignment = Element.ALIGN_CENTER,
+                    HorizontalAlignment = Element.ALIGN_LEFT,
                     VerticalAlignment = Element.ALIGN_CENTER
                 });
                 Table.AddCell(new PdfPCell(new Phrase(item.First().MiddleName, new Font(FontFactory.GetFont("HELVETICA", 11, Font.NORMAL, new BaseColor(0, 0, 0)))))
                 {
                     Border = PdfPCell.RIGHT_BORDER | PdfPCell.BOTTOM_BORDER | PdfPCell.TOP_BORDER | PdfPCell.LEFT_BORDER,
-                    HorizontalAlignment = Element.ALIGN_CENTER,
+                    HorizontalAlignment = Element.ALIGN_LEFT,
                     VerticalAlignment = Element.ALIGN_CENTER
                 });
                 Table.AddCell(new PdfPCell(new Phrase(item.First().PerCov, new Font(FontFactory.GetFont("HELVETICA", 11, Font.NORMAL, new BaseColor(0, 0, 0)))))
                 {
                     Border = PdfPCell.RIGHT_BORDER | PdfPCell.BOTTOM_BORDER | PdfPCell.TOP_BORDER | PdfPCell.LEFT_BORDER,
-                    HorizontalAlignment = Element.ALIGN_CENTER,
+                    HorizontalAlignment = Element.ALIGN_LEFT,
                     VerticalAlignment = Element.ALIGN_CENTER
                 });
 
                 Table.AddCell(new PdfPCell(new Phrase(item.Sum(x=>x.EEShare).ToString("0.00"), new Font(FontFactory.GetFont("HELVETICA", 11, Font.NORMAL, new BaseColor(0, 0, 0)))))
                 {
                     Border = PdfPCell.RIGHT_BORDER | PdfPCell.BOTTOM_BORDER | PdfPCell.TOP_BORDER | PdfPCell.LEFT_BORDER,
-                    HorizontalAlignment = Element.ALIGN_CENTER,
+                    HorizontalAlignment = Element.ALIGN_LEFT,
                     VerticalAlignment = Element.ALIGN_CENTER
                 });
 
                 Table.AddCell(new PdfPCell(new Phrase(item.Sum(x=>x.ERShare).ToString("0.00"), new Font(FontFactory.GetFont("HELVETICA", 11, Font.NORMAL, new BaseColor(0, 0, 0)))))
                 {
                     Border = PdfPCell.RIGHT_BORDER | PdfPCell.BOTTOM_BORDER | PdfPCell.TOP_BORDER | PdfPCell.LEFT_BORDER,
-                    HorizontalAlignment = Element.ALIGN_CENTER,
+                    HorizontalAlignment = Element.ALIGN_LEFT,
                     VerticalAlignment = Element.ALIGN_CENTER
                 });
 
                 Table.AddCell(new PdfPCell(new Phrase(item.First().Remarks, new Font(FontFactory.GetFont("HELVETICA", 11, Font.NORMAL, new BaseColor(0, 0, 0)))))
                 {
                     Border = PdfPCell.RIGHT_BORDER | PdfPCell.BOTTOM_BORDER | PdfPCell.TOP_BORDER | PdfPCell.LEFT_BORDER,
-                    HorizontalAlignment = Element.ALIGN_CENTER,
+                    HorizontalAlignment = Element.ALIGN_LEFT,
                     VerticalAlignment = Element.ALIGN_CENTER
                 });
             }
@@ -278,7 +278,7 @@ namespace PayrollSystem.Models.PDF.JobOrderRemittance
             Table.AddCell(new PdfPCell(new Phrase("TOTAL", new Font(FontFactory.GetFont("HELVETICA", 11, Font.BOLDITALIC, new BaseColor(0, 0, 0)))))
             {
                 Border = PdfPCell.RIGHT_BORDER | PdfPCell.BOTTOM_BORDER | PdfPCell.TOP_BORDER | PdfPCell.LEFT_BORDER,
-                HorizontalAlignment = Element.ALIGN_CENTER,
+                HorizontalAlignment = Element.ALIGN_LEFT,
                 VerticalAlignment = Element.ALIGN_CENTER
             });
             Table.AddCell(new PdfPCell(new Phrase("", new Font(FontFactory.GetFont("HELVETICA", 11, Font.NORMAL, new BaseColor(0, 0, 0)))))
@@ -292,7 +292,7 @@ namespace PayrollSystem.Models.PDF.JobOrderRemittance
             Table.AddCell(new PdfPCell(new Phrase("TOTAL", new Font(FontFactory.GetFont("HELVETICA", 11, Font.BOLDITALIC, new BaseColor(255, 0, 0)))))
             {
                 Border = PdfPCell.RIGHT_BORDER | PdfPCell.BOTTOM_BORDER | PdfPCell.TOP_BORDER | PdfPCell.LEFT_BORDER,
-                HorizontalAlignment = Element.ALIGN_CENTER,
+                HorizontalAlignment = Element.ALIGN_LEFT,
                 VerticalAlignment = Element.ALIGN_CENTER
             });
             Table.AddCell(new PdfPCell(new Phrase("", new Font(FontFactory.GetFont("HELVETICA", 11, Font.NORMAL, new BaseColor(0, 0, 0)))))
@@ -302,7 +302,7 @@ namespace PayrollSystem.Models.PDF.JobOrderRemittance
             Table.AddCell(new PdfPCell(new Phrase(list.Sum(x=>x.EEShare).ToString("0.00"), new Font(FontFactory.GetFont("HELVETICA", 11, Font.BOLDITALIC, new BaseColor(255, 0, 0)))))
             {
                 Border = PdfPCell.RIGHT_BORDER | PdfPCell.BOTTOM_BORDER | PdfPCell.TOP_BORDER | PdfPCell.LEFT_BORDER,
-                HorizontalAlignment = Element.ALIGN_CENTER,
+                HorizontalAlignment = Element.ALIGN_LEFT,
                 VerticalAlignment = Element.ALIGN_CENTER
             });
             Table.AddCell(new PdfPCell(new Phrase("", new Font(FontFactory.GetFont("HELVETICA", 11, Font.NORMAL, new BaseColor(0, 0, 0)))))

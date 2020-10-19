@@ -68,6 +68,14 @@ namespace PayrollSystem.Controllers
             List<RegularPayrollModel> list = PayrollDatabase.Instance.GetRegularPayrollByID(empID, firstname, lastname);
             return PartialView(list.ToPagedList(pageNumber, pageSize));
         }
+
+        [HttpPost]
+        public ActionResult GetRegularPayroll(string id)
+        {
+            var payroll = PayrollDatabase.Instance.GetRegularPayroll(id);
+            return Json(payroll);
+        }
+
         public ActionResult HazardList(int? page, string empID, string firstname, string lastname)
         {
             int pageSize = 10;

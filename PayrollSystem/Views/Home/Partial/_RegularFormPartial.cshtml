@@ -405,41 +405,72 @@
           </div>
      </div>
      <div class="row">
-          <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
-               <table>
-                    <tr>
-                         <td>
-                              <div class="form-group">
-                                   <label>Pagibig - MP2</label>
-                                   <input type="text" class="form-control input-data" id="regular_pagibig_mp2" name="regular_pagibig_mp2" required readonly />
-                              </div>
-                         </td>
-                         <td>
-                              <div class="form-group">
-                                   <label>No. Payment</label>
-                                   <input type="text" class="form-control" id="regular_pagibig_mp2_payment" name="regular_pagibig_mp2_payment" required readonly />
-                              </div>
-                         </td>
-                         <td>
-                              <div class="form-group">
-                                   <label>No. Paid</label>
-                                   <div class="input-group add-on">
-                                        <input type="text" class="form-control input-data" id="regular_pagibig_mp2_paid" name="regular_pagibig_mp2_paid" required readonly />
-                                        <div class="input-group-btn">
-                                             <button class="btn btn-success" id="edit_pagibig_mp2" value="pagibig_mp2" type="button"><i id="pagibig_mp2_icon" class="fas fa-pencil-alt"></i></button>
-                                        </div>
-                                   </div>
-                              </div>
-                         </td>
-                    </tr>
-               </table>
-          </div>
-          <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
-               <div class="form-group">
-                    <label>Philhealth</label>
-                    <input type="text" class="form-control input-data" id="regular_philhealth" name="regular_philhealth" value="0.00" required />
-               </div>
-          </div>
+         <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
+             <table>
+                 <tr>
+                     <td>
+                         <div class="form-group">
+                             <label>Pagibig - MP2</label>
+                             <input type="text" class="form-control input-data" id="regular_pagibig_mp2" name="regular_pagibig_mp2" required readonly />
+                         </div>
+                     </td>
+                     <td>
+                         <div class="form-group">
+                             <label>No. Payment</label>
+                             <input type="text" class="form-control" id="regular_pagibig_mp2_payment" name="regular_pagibig_mp2_payment" required readonly />
+                         </div>
+                     </td>
+                     <td>
+                         <div class="form-group">
+                             <label>No. Paid</label>
+                             <div class="input-group add-on">
+                                 <input type="text" class="form-control input-data" id="regular_pagibig_mp2_paid" name="regular_pagibig_mp2_paid" required readonly />
+                                 <div class="input-group-btn">
+                                     <button class="btn btn-success" id="edit_pagibig_mp2" value="pagibig_mp2" type="button"><i id="pagibig_mp2_icon" class="fas fa-pencil-alt"></i></button>
+                                 </div>
+                             </div>
+                         </div>
+                     </td>
+                 </tr>
+             </table>
+         </div>
+         <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
+             <table>
+                 <tr>
+                     <td>
+                         <div class="form-group">
+                             <label>Pagibig Calamity</label>
+                             <input type="text" class="form-control input-data" id="regular_pagibig_calamity" name="regular_pagibig_calamity" required readonly />
+                         </div>
+                     </td>
+                     <td>
+                         <div class="form-group">
+                             <label>No. Payment</label>
+                             <input type="text" class="form-control" id="regular_pagibig_calamity_payment" name="regular_pagibig_calamity_payment" required readonly />
+                         </div>
+                     </td>
+                     <td>
+                         <div class="form-group">
+                             <label>No. Paid</label>
+                             <div class="input-group add-on">
+                                 <input type="text" class="form-control input-data" id="regular_pagibig_calamity_paid" name="regular_pagibig_calamity_paid" required readonly />
+                                 <div class="input-group-btn">
+                                     <button class="btn btn-success" id="edit_pagibig_calamity" value="pagibig_calamity" type="button"><i id="pagibig_calamity_icon" class="fas fa-pencil-alt"></i></button>
+                                 </div>
+                             </div>
+                         </div>
+                     </td>
+                 </tr>
+             </table>
+         </div>
+     </div>
+     <div class="row">
+         <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
+             <div class="form-group">
+                 <label>Philhealth</label>
+                 <input type="text" class="form-control input-data" id="regular_philhealth" name="regular_philhealth" value="0.00" required />
+             </div>
+         </div>
      </div>
      <div class="row">
           <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
@@ -583,260 +614,261 @@
 </div>
  </div>
 <script>
-     $(document).ready(function () {
-          $('.remove_regular_payroll').click(function () {
-               $('#regular_payroll_container').addClass("hide");
-          });
+    $(document).ready(function () {
+        $('.remove_regular_payroll').click(function () {
+            $('#regular_payroll_container').addClass("hide");
+        });
 
-          $('.remove_regular_payroll_list').click(function () {
-               $('#box_regular_payroll_list').addClass("hide");
-          });
+        $('.remove_regular_payroll_list').click(function () {
+            $('#box_regular_payroll_list').addClass("hide");
+        });
 
-          $().change(function () {
-          });
+        $().change(function () {
+        });
 
-          $("#regular_save").click(function () {
-               var choosen_month = $("#regular_month").val();
-               var choosen_year = $("#regular_year").val();
-               if (choosen_month <= 9) choosen_month = "0" + choosen_month;
+        $("#regular_save").click(function () {
+            var choosen_month = $("#regular_month").val();
+            var choosen_year = $("#regular_year").val();
+            if (choosen_month <= 9) choosen_month = "0" + choosen_month;
 
-               if (choosen_month == "00" && choosen_year == "0") {
-                    alert("Please specify the dates");
-                    return;
-               }
+            if (choosen_month == "00" && choosen_year == "0") {
+                alert("Please specify the dates");
+                return;
+            }
 
-               var userid = $("#regular_id").val();
-               var fullname = $("#regular_name").val();
-               var month = $("#regular_month").val();
-               var year = $("#regular_year").val();
-               var salary = $("#regular_salary").val();
-               var pera = $("#regular_pera").val();
-               var working_days = $("#regular_working_days").val();
-               var minutes_late = $("#regular_minutes_late").val();
-               var absent_date_list = $("#regular_absent_date_list").val();
+            var userid = $("#regular_id").val();
+            var fullname = $("#regular_name").val();
+            var month = $("#regular_month").val();
+            var year = $("#regular_year").val();
+            var salary = $("#regular_salary").val();
+            var pera = $("#regular_pera").val();
+            var working_days = $("#regular_working_days").val();
+            var minutes_late = $("#regular_minutes_late").val();
+            var absent_date_list = $("#regular_absent_date_list").val();
 
-               var tax = $("#regular_tax").val();
-               var cfi = $("#regular_cfi").val();
-               var gsis_premium = $("#regular_gsis_premium").val();
-               var gsis_consoloan = $("#regular_gsis_consoloan").val();
-               var gsis_policyloan= $("#regular_gsis_policyloan").val();
-               var gsis_eml = $("#regular_gsis_eml").val();
-               var gsis_uoli = $("#regular_gsis_uoli").val();
-               var gsis_edu = $("#regular_gsis_edu").val();
-               var gsis_help = $("#regular_gsis_help").val();
-               var gsis_rel = $("#regular_gsis_rel").val();
-               var pagibig_premium = $("#regular_pagibig_premium").val();
-               var pagibig_loan = $("#regular_pagibig_loan").val();
-               var pagibig_mp2 = $("#regular_pagibig_mp2").val();
-               var philhealth = $("#regular_philhealth").val();
-               var simc = $("#regular_simc").val();
-               var hwmpc = $("#regular_coop").val();
-               var dbp = $("#regular_dbp").val();
-               var disallowance = $("#regular_disallowance").val();
+            var tax = $("#regular_tax").val();
+            var cfi = $("#regular_cfi").val();
+            var gsis_premium = $("#regular_gsis_premium").val();
+            var gsis_consoloan = $("#regular_gsis_consoloan").val();
+            var gsis_policyloan= $("#regular_gsis_policyloan").val();
+            var gsis_eml = $("#regular_gsis_eml").val();
+            var gsis_uoli = $("#regular_gsis_uoli").val();
+            var gsis_edu = $("#regular_gsis_edu").val();
+            var gsis_help = $("#regular_gsis_help").val();
+            var gsis_rel = $("#regular_gsis_rel").val();
+            var pagibig_premium = $("#regular_pagibig_premium").val();
+            var pagibig_loan = $("#regular_pagibig_loan").val();
+            var pagibig_mp2 = $("#regular_pagibig_mp2").val();
+            var pagibig_calamity = $("#regular_pagibig_calamity").val();
+            var philhealth = $("#regular_philhealth").val();
+            var simc = $("#regular_simc").val();
+            var hwmpc = $("#regular_coop").val();
+            var dbp = $("#regular_dbp").val();
+            var disallowance = $("#regular_disallowance").val();
 
-               insert_payroll(userid,fullname, month, year, salary, pera, working_days, minutes_late, absent_date_list, tax, cfi, gsis_premium, gsis_consoloan, gsis_policyloan, gsis_eml,
-                              gsis_uoli, gsis_edu, gsis_help, gsis_rel, pagibig_premium, pagibig_loan, pagibig_mp2, philhealth, simc, hwmpc, dbp, disallowance)
+            insert_payroll(userid,fullname, month, year, salary, pera, working_days, minutes_late, absent_date_list, tax, cfi, gsis_premium, gsis_consoloan, gsis_policyloan, gsis_eml,
+                            gsis_uoli, gsis_edu, gsis_help, gsis_rel, pagibig_premium, pagibig_loan, pagibig_mp2, pagibig_calamity, philhealth, simc, hwmpc, dbp, disallowance)
+            
+        });
 
-          });
+        $("#edit_cfi,#edit_gsis_consoloan,#edit_gsis_policyloan,#edit_gsis_eml,#edit_gsis_uoli,#edit_gsis_edu,#edit_gsis_help,#edit_rel,#edit_pagibig_loan,#edit_pagibig_mp2,#edit_simc,#edit_coop,#edit_dbp,#edit_disallowance,#edit_pagibig_calamity").click(function () {
 
-          $("#edit_cfi,#edit_gsis_consoloan,#edit_gsis_policyloan,#edit_gsis_eml,#edit_gsis_uoli,#edit_gsis_edu,#edit_gsis_help,#edit_rel,#edit_pagibig_loan,#edit_pagibig_mp2,#edit_simc,#edit_coop,#edit_dbp,#edit_disallowance").click(function () {
+            var type = $(this).val();
 
-               var type = $(this).val();
+            var icon = $("#" + type + "_icon");
 
-               var icon = $("#" + type + "_icon");
+            if (icon.hasClass("fa-pencil-alt")) {
 
-               if (icon.hasClass("fa-pencil-alt")) {
-
-                    //setEnableDeductions(type,false);
-                    $("#regular_" + type + "").attr("readonly", false);
-                    $("#regular_" + type + "_payment").attr("readonly", false);
-                    $("#regular_" + type + "_paid").attr("readonly", false);
+                //setEnableDeductions(type,false);
+                $("#regular_" + type + "").attr("readonly", false);
+                $("#regular_" + type + "_payment").attr("readonly", false);
+                $("#regular_" + type + "_paid").attr("readonly", false);
                     
 
-                    $("#" + type + "_icon").removeClass("fa-pencil-alt");
-                    $("#" + type + "_icon").addClass("far fa-check-square");
-                    return;
+                $("#" + type + "_icon").removeClass("fa-pencil-alt");
+                $("#" + type + "_icon").addClass("far fa-check-square");
+                return;
 
-               }
+            }
 
-               if (icon.hasClass("far fa-check-square") || icon.hasClass("fas fa-redo")) {
+            if (icon.hasClass("far fa-check-square") || icon.hasClass("fas fa-redo")) {
 
-                    var url = "@Url.Action("UpdateRemittance", "Home")";
-                    var amount = $("#regular_" + type + "").val().replace(/,/g, '');
-                    var payment = $("#regular_" + type + "_payment").val().replace(/,/g, '');
-                    var paid = $("#regular_" + type + "_paid").val().replace(/,/g, '');
-                    var emp_id = $("#regular_id").val();
+                var url = "@Url.Action("UpdateRemittance", "Home")";
+                var amount = $("#regular_" + type + "").val().replace(/,/g, '');
+                var payment = $("#regular_" + type + "_payment").val().replace(/,/g, '');
+                var paid = $("#regular_" + type + "_paid").val().replace(/,/g, '');
+                var emp_id = $("#regular_id").val();
 
-                    $("#" + type + "_icon").removeClass("far fa-check-square");
-                    $("#" + type + "_icon").removeClass("fas fa-redo");
-                    $("#" + type + "_icon").addClass("fa fa-spinner fa-spin");
+                $("#" + type + "_icon").removeClass("far fa-check-square");
+                $("#" + type + "_icon").removeClass("fas fa-redo");
+                $("#" + type + "_icon").addClass("fa fa-spinner fa-spin");
 
-                    $.ajax({
-                         url: url,
-                         type: "POST",
-                         data: {
-                              table: type+"_remittance",
-                              ID: 1,
-                              UserID: emp_id,
-                              MaxCount: payment,
-                              Count: paid,
-                              Amount:amount
-                         },
-                         success: function (flag) {
-                              if (flag) {
-                                   $.toast({
-                                        heading: 'Success',
-                                        text: type.toUpperCase()+' updated successfully',
-                                        icon: 'success'
-                                   });
+                $.ajax({
+                        url: url,
+                        type: "POST",
+                        data: {
+                            table: type+"_remittance",
+                            ID: 1,
+                            UserID: emp_id,
+                            MaxCount: payment,
+                            Count: paid,
+                            Amount:amount
+                        },
+                        success: function (flag) {
+                            if (flag) {
+                                $.toast({
+                                    heading: 'Success',
+                                    text: type.toUpperCase()+' updated successfully',
+                                    icon: 'success'
+                                });
 
-                                   $("#regular_" + type + "").attr("readonly", true);
-                                   $("#regular_" + type + "_payment").attr("readonly", true);
-                                   $("#regular_" + type + "_paid").attr("readonly", true);
+                                $("#regular_" + type + "").attr("readonly", true);
+                                $("#regular_" + type + "_payment").attr("readonly", true);
+                                $("#regular_" + type + "_paid").attr("readonly", true);
 
-                                   $("#edit_" + type + "").removeClass("btn-danger");
-                                   $("#edit_" + type + "").addClass("btn-success");
+                                $("#edit_" + type + "").removeClass("btn-danger");
+                                $("#edit_" + type + "").addClass("btn-success");
 
-                                   $("#" + type + "_icon").removeClass("fa fa-spinner fa-spin");
-                                   $("#" + type + "_icon").addClass("fa-pencil-alt");
-                              } else {
-                                   $.toast({
-                                        heading: 'Error',
-                                        text: 'Something went wrong, please try again.',
-                                        icon: 'success'
-                                   });
-                                   $("#edit_" + type + "").removeClass("btn-success");
-                                   $("#edit_" + type + "").addClass("btn-danger");
+                                $("#" + type + "_icon").removeClass("fa fa-spinner fa-spin");
+                                $("#" + type + "_icon").addClass("fa-pencil-alt");
+                            } else {
+                                $.toast({
+                                    heading: 'Error',
+                                    text: 'Something went wrong, please try again.',
+                                    icon: 'success'
+                                });
+                                $("#edit_" + type + "").removeClass("btn-success");
+                                $("#edit_" + type + "").addClass("btn-danger");
 
-                                   $("#" + type + "_icon").removeClass("fa fa-spinner fa-spin");
-                                   $("#" + type + "_icon").addClass("fas fa-redo");
-                              }
-                         }
-                    });
-                    return;
-               }
-          });
+                                $("#" + type + "_icon").removeClass("fa fa-spinner fa-spin");
+                                $("#" + type + "_icon").addClass("fas fa-redo");
+                            }
+                        }
+                });
+                return;
+            }
+        });
 
-          $("#edit_tax").click(function () {
+        $("#edit_tax").click(function () {
 
-               var type = $(this).val();
+            var type = $(this).val();
 
-               var icon = $("#" + type + "_icon");
+            var icon = $("#" + type + "_icon");
 
-               if (icon.hasClass("fa-pencil-alt")) {
+            if (icon.hasClass("fa-pencil-alt")) {
 
-                    $("#regular_" + type + "").attr("readonly", false);
+                $("#regular_" + type + "").attr("readonly", false);
 
-                    $("#" + type + "_icon").removeClass("fa-pencil-alt");
-                    $("#" + type + "_icon").addClass("far fa-check-square");
-                    return;
+                $("#" + type + "_icon").removeClass("fa-pencil-alt");
+                $("#" + type + "_icon").addClass("far fa-check-square");
+                return;
 
-               }
+            }
 
-               if (icon.hasClass("far fa-check-square") || icon.hasClass("fas fa-redo")) {
+            if (icon.hasClass("far fa-check-square") || icon.hasClass("fas fa-redo")) {
 
-                    var url = "@Url.Action("UpdateTax", "Home")";
-                    var amount = $("#regular_" + type + "").val().replace(/,/g, '');
-                    var emp_id = $("#regular_id").val();
+                var url = "@Url.Action("UpdateTax", "Home")";
+                var amount = $("#regular_" + type + "").val().replace(/,/g, '');
+                var emp_id = $("#regular_id").val();
 
-                    $("#" + type + "_icon").removeClass("far fa-check-square");
-                    $("#" + type + "_icon").removeClass("fas fa-redo");
-                    $("#" + type + "_icon").addClass("fa fa-spinner fa-spin");
+                $("#" + type + "_icon").removeClass("far fa-check-square");
+                $("#" + type + "_icon").removeClass("fas fa-redo");
+                $("#" + type + "_icon").addClass("fa fa-spinner fa-spin");
 
-                    $.ajax({
-                         url: url,
-                         type: "POST",
-                         data: {
-                              UserID: emp_id,
-                              Amount:amount
-                         },
-                         success: function (flag) {
-                              if (flag) {
-                                   $.toast({
-                                        heading: 'Success',
-                                        text: type.toUpperCase()+' updated successfully',
-                                        icon: 'success'
-                                   });
+                $.ajax({
+                        url: url,
+                        type: "POST",
+                        data: {
+                            UserID: emp_id,
+                            Amount:amount
+                        },
+                        success: function (flag) {
+                            if (flag) {
+                                $.toast({
+                                    heading: 'Success',
+                                    text: type.toUpperCase()+' updated successfully',
+                                    icon: 'success'
+                                });
 
-                                   $("#regular_" + type + "").attr("readonly", true);
+                                $("#regular_" + type + "").attr("readonly", true);
 
-                                   $("#edit_" + type + "").removeClass("btn-danger");
-                                   $("#edit_" + type + "").addClass("btn-success");
+                                $("#edit_" + type + "").removeClass("btn-danger");
+                                $("#edit_" + type + "").addClass("btn-success");
 
-                                   $("#" + type + "_icon").removeClass("fa fa-spinner fa-spin");
-                                   $("#" + type + "_icon").addClass("fa-pencil-alt");
-                              } else {
-                                   $.toast({
-                                        heading: 'Error',
-                                        text: 'Something went wrong, please try again.',
-                                        icon: 'success'
-                                   });
-                                   $("#edit_" + type + "").removeClass("btn-success");
-                                   $("#edit_" + type + "").addClass("btn-danger");
+                                $("#" + type + "_icon").removeClass("fa fa-spinner fa-spin");
+                                $("#" + type + "_icon").addClass("fa-pencil-alt");
+                            } else {
+                                $.toast({
+                                    heading: 'Error',
+                                    text: 'Something went wrong, please try again.',
+                                    icon: 'success'
+                                });
+                                $("#edit_" + type + "").removeClass("btn-success");
+                                $("#edit_" + type + "").addClass("btn-danger");
 
-                                   $("#" + type + "_icon").removeClass("fa fa-spinner fa-spin");
-                                   $("#" + type + "_icon").addClass("fas fa-redo");
-                              }
-                         }
-                    });
-                    return;
-               }
-          });
+                                $("#" + type + "_icon").removeClass("fa fa-spinner fa-spin");
+                                $("#" + type + "_icon").addClass("fas fa-redo");
+                            }
+                        }
+                });
+                return;
+            }
+        });
 
-          $("#regular_month, #regular_year").change(function () {
-               var choosen_month = $("#regular_month").val();
-               var choosen_year = $("#regular_year").val();
-               if (choosen_month <= 9) choosen_month = "0" + choosen_month;
+        $("#regular_month, #regular_year").change(function () {
+            var choosen_month = $("#regular_month").val();
+            var choosen_year = $("#regular_year").val();
+            if (choosen_month <= 9) choosen_month = "0" + choosen_month;
 
-               if (choosen_month != "00" && choosen_year != "0") {
-                    var id = $("#regular_id").val();
-                    var from = choosen_year + "-" + choosen_month + "-01";
-                    var to = choosen_year + "-" + choosen_month + "-" + daysInMonth(parseInt(choosen_month), choosen_year);
+            if (choosen_month != "00" && choosen_year != "0") {
+                var id = $("#regular_id").val();
+                var from = choosen_year + "-" + choosen_month + "-01";
+                var to = choosen_year + "-" + choosen_month + "-" + daysInMonth(parseInt(choosen_month), choosen_year);
 
-                    $("#regular_date_range").val(choosen_month + "/01/" + choosen_year + "-" + choosen_month + "/" + daysInMonth(parseInt(choosen_month), choosen_year) + "/" + choosen_year);
-                    getLateAndAbsences(id, from, to);
-               }
+                $("#regular_date_range").val(choosen_month + "/01/" + choosen_year + "-" + choosen_month + "/" + daysInMonth(parseInt(choosen_month), choosen_year) + "/" + choosen_year);
+                getLateAndAbsences(id, from, to);
+            }
 
-          });
+        });
 
-          $("#regular_working_days, #regular_minutes_late").change(function () {
-               ComputeDeductions("Permanent");
-          });
+        $("#regular_working_days, #regular_minutes_late").change(function () {
+            ComputeDeductions("Permanent");
+        });
 
-          $("#regular_pera,#regular_tax,#regular_cfi,#regular_gsis_premium,#regular_gsis_consoloan,#regular_gsis_policyloan,#regular_gsis_eml,#regular_gsis_uoli,#regular_gsis_edu,#regular_gsis_help,#regular_rel,#regular_pagibig_premium").change(function () {
-               $(this).val(formatComma(roundOff($(this).val())));
-              ComputeDeductions("Permanent");
-              ComputeTotalNetPay("Permanent");
-          });
+        $("#regular_pera,#regular_tax,#regular_cfi,#regular_gsis_premium,#regular_gsis_consoloan,#regular_gsis_policyloan,#regular_gsis_eml,#regular_gsis_uoli,#regular_gsis_edu,#regular_gsis_help,#regular_rel,#regular_pagibig_premium").change(function () {
+            $(this).val(formatComma(roundOff($(this).val())));
+            ComputeDeductions("Permanent");
+            ComputeTotalNetPay("Permanent");
+        });
 
-          $("#regular_absent_date").datepicker().change(function () {
+        $("#regular_absent_date").datepicker().change(function () {
 
-               var choosen_date = $("#regular_absent_date").val();
+            var choosen_date = $("#regular_absent_date").val();
 
-               var array_date = ($("#regular_absent_date_list").val().length === 0) ? [] : $("#regular_absent_date_list").val().split(',');
+            var array_date = ($("#regular_absent_date_list").val().length === 0) ? [] : $("#regular_absent_date_list").val().split(',');
 
 
-               var item = parseInt(choosen_date.split('/')[0]) + "/" + parseInt(choosen_date.split('/')[1]) + "/" + parseInt(choosen_date.split('/')[2]);
+            var item = parseInt(choosen_date.split('/')[0]) + "/" + parseInt(choosen_date.split('/')[1]) + "/" + parseInt(choosen_date.split('/')[2]);
 
-               var tr_id = $("#regular_date_list").children().length;
+            var tr_id = $("#regular_date_list").children().length;
 
-               var date_item = "<tr class = 'row-data'><td>";
-               date_item += item;
-               date_item += "</td><td><span class = 'fas fa-times remove-date' id='" + tr_id + "' value = '"+tr_id+"' style = 'color:red;cursor:pointer;' ></span></td></tr>";
+            var date_item = "<tr class = 'row-data'><td>";
+            date_item += item;
+            date_item += "</td><td><span class = 'fas fa-times remove-date' id='" + tr_id + "' value = '"+tr_id+"' style = 'color:red;cursor:pointer;' ></span></td></tr>";
 
-               array_date.push(item);
+            array_date.push(item);
 
-               $("#regular_date_list").append(date_item);
-               $("#regular_absent_date_list").val(array_date);
-               $("#regular_absent_date").val("");
+            $("#regular_date_list").append(date_item);
+            $("#regular_absent_date_list").val(array_date);
+            $("#regular_absent_date").val("");
 
-              ComputeDeductions("Permanent");
-              ComputeTotalNetPay("Permanent");
-          });
+            ComputeDeductions("Permanent");
+            ComputeTotalNetPay("Permanent");
+        });
 
-          $(".row-data").on("click", ".remove-date", function () {
-               alert("ASDSDADSADSD");
-          });
-     });
+        $(".row-data").on("click", ".remove-date", function () {
+            alert("ASDSDADSADSD");
+        });
+    });
    
 </script>

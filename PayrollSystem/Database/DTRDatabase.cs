@@ -201,6 +201,92 @@ namespace PayrollSystem.Database
             return false;
         }
 
+        public string GetMinsV2(string userid, string from, string to, string job_status)
+        {
+            List<JOGetLogsModel> model = new List<JOGetLogsModel>();
+
+            string procedure = job_status == "jo" ? "GETLOGS2" : "Gliding_2020";
+            string query = "CALL dohdtr."+ procedure + "('" + userid + "', '" + from + "', '" + to + "')";
+
+            int month = int.Parse(from.Split('-')[1]);
+            int year = int.Parse(from.Split('-')[0]);
+            int working_days = 0;
+            int mins = 0;
+            double days_rendered = 0;
+            string days_absent = "";
+            int no_days = DateTime.DaysInMonth(year, month);
+
+            using (MySqlConnection SqlConnection = new MySqlConnection(connectionString))
+            {
+                SqlConnection.Open();
+                using (MySqlCommand cmd = new MySqlCommand(query, SqlConnection))
+                {
+                    MySqlDataReader dataReader = cmd.ExecuteReader();
+                    while (dataReader.Read())
+                    {
+                        string id = dataReader["userid"].ToString();
+                        string fullname = dataReader["name"].ToString();
+                        string dayname = dataReader["dayname"].ToString();
+                        DateTime datein = DateTime.Parse(dataReader["datein"].ToString());
+                        var time = dataReader["time"].ToString().Split('|');
+                        int late = 0;
+                        int.TryParse(dataReader["late"].ToString(), out late);
+                        int undertime = 0;
+                        int.TryParse(dataReader["undertime"].ToString(), out undertime);
+                        bool absent = (time[0].Split('_')[0] == "empty" && time[1].Split('_')[0] == "empty" && time[2].Split('_')[0] == "empty" && time[3].Split('_')[0] == "empty");
+                        bool halfAm = false; 
+                        bool halfPm = false;
+                        if (!absent)
+                        {
+                            halfAm = (time[0].Split('_')[0] == "empty" && time[1].Split('_')[0] == "empty");
+                            halfPm = (time[2].Split('_')[0] == "empty" && time[3].Split('_')[0] == "empty");
+                        }
+                        model.Add(new JOGetLogsModel
+                        {
+                            UserId = userid,
+                            FullName = fullname,
+                            DateIn = datein,
+                            AMIN = time[0],
+                            AMOUT = time[1],
+                            PMIN = time[2],
+                            PMOUT = time[3],
+                            Late = late,
+                            UnderTime = undertime,
+                            Absent = absent, 
+                            HalfDay = halfAm || halfPm,
+                            //HalfDayPM = halfPm,
+                            DayName = dayname
+                        });
+                    }
+                    dataReader.Close();
+                }
+                SqlConnection.Close();
+            }
+
+            var working = model.Where(x => x.DayName != "Sunday").Where(x => x.DayName != "Saturday").Where(x => !x.AMIN.Contains("HOLIDAY"));
+            mins = working.Sum(x => x.Late) + working.Sum(x => x.UnderTime) + (working.Where(x=>x.HalfDay == true).Count() * 240);
+            var halfdays = (working.Where(x => x.HalfDay == true).Count() * 0.5);
+            days_rendered = working.Where(x => !x.AMIN.Split('_')[0].Equals("empty") && !x.AMOUT.Split('_')[0].Equals("empty") && !x.PMIN.Split('_')[0].Equals("empty") && !x.PMOUT.Split('_')[0].Equals("empty")).Count() + halfdays;
+
+            var first = true;
+            foreach(var item in working.Where(x=>x.Absent == true))
+            {
+                days_absent = days_absent + (first? "" : "*") + item.DateIn.ToString("MM/dd/yyyy");
+                first = false;
+            }
+
+            for (int i = 0; i < no_days; i++)
+            {
+                string format = month + "/" + (i + 1) + "/" + year;
+                if (!ifWeekend(format) && !IsHoliday(format))
+                {
+                    working_days++;
+                }
+            }
+
+            return mins + " " + working_days + " " + days_absent + " " + days_rendered;
+        }
+
         public string GetMins(string id, string from, string to, string am_in, string am_out, string pm_in, string pm_out)
         {
             List<int> days = new List<int>();
@@ -544,9 +630,10 @@ namespace PayrollSystem.Database
 
         public int GetWorkingDays(string from, string to)
         {
-            List<int> days = new List<int>();
-            int month = int.Parse(from.Split('-')[1]);
-            int year = int.Parse(from.Split('-')[0]);
+            //List<int> days = new List<int>();
+            var date = DateTime.Parse(from);
+            int month = date.Month;//int.Parse(from.Split(delimiter)[1]);
+            int year = date.Year;//int.Parse(from.Split(delimiter)[0]);
             int no_days = DateTime.DaysInMonth(year, month);
             int working_days = 0;
               

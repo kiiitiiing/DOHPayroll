@@ -74,9 +74,9 @@ $(document).ready(function () {
         $("#jo_phic_payment").val(phic.split('/')[1]);
         $("#jo_phic_paid").val(phic.split('/')[2]);
 
-        $("#jo_excess").val(formatComma(excess.split('/')[0]));
-        $("#jo_excess_payment").val(excess.split('/')[1]);
-        $("#jo_excess_paid").val(excess.split('/')[2]);
+        $("#jo_pagibig_loan").val(formatComma(excess.split('/')[0]));
+        $("#jo_pagibig_loan_payment").val(excess.split('/')[1]);
+        $("#jo_pagibig_loan_paid").val(excess.split('/')[2]);
 
         var choosen_month = $("#jo_month").val();
         var choosen_year = $("#jo_year").val();

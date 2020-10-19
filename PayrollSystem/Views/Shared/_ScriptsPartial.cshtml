@@ -1,0 +1,134 @@
+﻿<script>
+    $(function () {
+        var modals = $('#all_modals');
+
+        modals.on('click', 'button[data-save="modal"]', function (event) {
+            event.preventDefault();
+            event.stopImmediatePropagation();
+            var content = $($(this).parent()).parent();
+            content.prepend('<div id="overlay_loading" class="overlay d-flex justify-content-center align-items-center"><i class="fas fa-2x fa-sync fa-spin"></i></div>');
+            var form = content.find('form');
+            var contentId = content.attr('id');
+            var actionUrl = form.attr('action');
+            var dataToSend = form.serialize();
+            console.log(contentId);
+            $.ajax({
+                url: actionUrl,
+                type: 'post',
+                async: true,
+                data: dataToSend,
+                success: function (output) {
+                    var newBody = $('.modal-body', output);
+                    var errors = newBody.find('span.text-danger').text();
+                    console.log(errors);
+                    if (errors == '') {
+                        $.when(modals.find('.modal.show').modal('hide')).done(function () {
+                            console.log(contentId);
+                            if (contentId == 'generate_payroll_content') {
+                                sessionStorage.setItem('onReload', 'generate_payroll_content');
+                                //console.log(GetUrl($(output).find('.title_page').html()));
+                                location.href = GetUrl($(output).find('.title_page').html());
+                            }
+                            var modal = $('#' + contentId);
+                            LoadingModal(modal);
+                        });
+                    }
+                    else {
+                        content.find('#overlay_loading').remove();
+                        content.find('.modal-body').replaceWith(newBody);
+                        content.find('.select2').select2({
+                            theme: 'bootstrap4'
+                        });
+                        if (contentId == 'new_sop') {
+                            var disabled = content.find('#notavailable');
+                            if (disabled.is(':checked') == true) {
+                                content.find('#dateOnset').attr('disabled', true);
+                            }
+                        }
+                        else if (contentId == 'add_patient_modal') {
+                            var disabled = content.find('#sameAddress');
+                            if (disabled.is(':checked') == true) {
+                                content.find('#permanent_address').css('display', 'none');
+                            }
+                        }
+                    }
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    alert(xhr.responseText);
+                    alert(thrownError);
+                }
+            })
+        });
+
+    });
+
+    function GetUrl(titles) {
+        switch (titles) {
+            case 'Job Order - ATM':{
+                return '@Url.Action("JobOrder","Home", new { id = 0 })';
+            }
+            case 'Job Order - CASH CARD':{
+                return '@Url.Action("JobOrder","Home", new { id = 1 })';
+            }
+            case 'Job Order - W/O LBP CARD':{
+                return '@Url.Action("JobOrder","Home", new { id = 2 })';
+            }
+            case 'Job Order - UNDER VTF': {
+                return '@Url.Action("JobOrder","Home", new { id = 3 })';
+            }
+            case 'Regular - ATM': {
+                return '@Url.Action("Regular","Home")';
+            }
+        }
+    }
+
+    function LoadingModal(id) {
+        var urls = '@Url.Action("ModalLoading", "Account")';
+        return $.ajax({
+            url: urls,
+            type: 'get',
+            async: true,
+            success: function (output) {
+                $(id).empty();
+                $(id).html(output);
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                alert(xhr.responseText);
+                alert(thrownError);
+            }
+        });
+    }
+
+    function OpenModal(btn) {
+        var url = btn.data('url');
+        var target = btn.data('target');
+        var action = btn.data('action');
+        console.log(url);
+        var content = $(action);
+        $.when($(target).modal('show')).done(function () {
+            $.ajax({
+                url: url,
+                type: 'get',
+                async: true,
+                success: function (data) {
+                    setTimeout(function () {
+                        content.html(data);
+                    }, 500);
+                },
+                timeout: 60000,
+                error: function (xhr, ajaxOptions, thrownError) {
+                    if (xhr.status === 401) {
+                        location.reload();
+                    }
+                    else {
+                        console.log(xhr.status)
+                        $('body').find('#loadings').modal('toggle');
+                        alert(xhr.responseText);
+                        alert(thrownError);
+                    }
+                }
+            });
+        });
+    }
+
+</script>

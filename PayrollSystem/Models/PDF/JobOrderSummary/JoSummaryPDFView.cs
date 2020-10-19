@@ -851,10 +851,10 @@ namespace PayrollSystem.Models
                AddCellToHeader(tableLayout, "HALF MO.");
                AddCellToHeader(tableLayout, "Adjustment");
                AddCellToHeader(tableLayout, "Tardiness");
-               AddCellToHeader(tableLayout, "Net Amount");
+               AddCellToHeader(tableLayout, "Gross Amount");
                AddCellToHeader(tableLayout, "Adjustment");
                AddCellToHeader(tableLayout, "D E D U C T I O N S");
-               AddCellToHeader(tableLayout, "Total Amt.");
+               AddCellToHeader(tableLayout, "Net Amt.");
                AddCellToHeader(tableLayout, "REMARKS");
                AddCellToHeader(tableLayout, "");
                AddCellToHeader(tableLayout, "Firstname");
@@ -923,7 +923,7 @@ namespace PayrollSystem.Models
           {
                switch (cellText)
                {
-                    case "Net Amount":
+                    case "Gross Amount":
                          tableLayout.AddCell(new PdfPCell(new Phrase(cellText, new Font(FontFactory.GetFont("Times New Roman", 8, Font.BOLD))))
                          {
                               BorderWidth = 0.2f,
@@ -973,7 +973,7 @@ namespace PayrollSystem.Models
                     case "GSIS":
                     case "Excess Mobile":
                     case "TIN":
-                    case "Total Amt.":
+                    case "Net Amt.":
                     case "REMARKS":
                     case "":
                          tableLayout.AddCell(new PdfPCell(new Phrase(cellText, new Font(FontFactory.GetFont("Times New Roman", 8, Font.BOLD))))

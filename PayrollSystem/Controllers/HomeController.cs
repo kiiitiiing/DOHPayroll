@@ -12,34 +12,48 @@ using PayrollSystem.Database;
 
 namespace PayrollSystem.Controllers
 {
+    [Authorize(Roles = "admin")]
     public class HomeController : Controller
     {
-        [Authorize]
         public ActionResult Report()
         {
             return View();
         }
 
-        [Authorize(Roles = "admin")]
         public ActionResult JobOrder(int? id)
         {
             switch (id)
             {
                 case 0:
+                    {
                         ViewBag.Action = "Job Order - ATM";
+                        ViewBag.Type = "ATM";
                         break;
+                    }
                 case 1:
+                    {
                         ViewBag.Action = "Job Order - CASH CARD";
+                        ViewBag.Type = "CASH_CARD";
                         break;
+                    }
                 case 2:
+                    {
                         ViewBag.Action = "Job Order - W/O LBP CARD";
+                        ViewBag.Type = "NO_CARD";
                         break;
+                    }
                 case 3:
+                    {
                         ViewBag.Action = "Job Order - UNDER VTF";
+                        ViewBag.Type = "UNDER_VTF";
                         break;
+                    }
                 default:
+                    {
                         ViewBag.Action = "Job Order - ATM";
+                        ViewBag.Type = "ATM";
                         break;
+                    }
 
             }
             return View();
@@ -48,6 +62,15 @@ namespace PayrollSystem.Controllers
         public ActionResult Regular()
         {      
             return View();
+        }
+
+        [HttpGet]
+        public ActionResult GeneratePayroll(string job_status, string type)
+        {
+            var deductions = PayrollDatabase.Instance.GetDeductions(job_status);
+            ViewBag.Status = job_status;
+            ViewBag.Type = type;
+            return PartialView(deductions);
         }
 
         [HttpPost]
@@ -117,6 +140,7 @@ namespace PayrollSystem.Controllers
             string pagibig_premium = Request["pagibig_premium"];
             string pagibig_loan = Request["pagibig_loan"];
             string pagibig_mp2 = Request["pagibig_mp2"];
+            string pagibig_calamity = Request["pagibig_calamity"];
             string philhealth = Request["philhealth"];
             string simc = Request["simc"];
             string hwmpc = Request["hwmpc"];
@@ -127,7 +151,7 @@ namespace PayrollSystem.Controllers
             employee.ID = userid;
 
             RegularPayrollModel payroll = new RegularPayrollModel(userid, employee, month, year, absent_date_list, working_days, salary, pera, minutes_late, tax, cfi, gsis_premium, gsis_consoloan, gsis_policyloan, gsis_eml,
-                gsis_uoli, gsis_edu, gsis_help, gsis_rel, pagibig_premium, pagibig_loan, disallowance, philhealth, simc, hwmpc, dbp, pagibig_mp2);
+                gsis_uoli, gsis_edu, gsis_help, gsis_rel, pagibig_premium, pagibig_loan, disallowance, pagibig_calamity, philhealth, simc, hwmpc, dbp, pagibig_mp2);
             
             return PayrollDatabase.Instance.InsertRegularPayroll(payroll);
         }
@@ -174,9 +198,19 @@ namespace PayrollSystem.Controllers
         }
 
         [HttpPost]
+        public string GetMinsV2(string id, string from, string to, string job_status)
+        {
+            var logs = DTRDatabase.Instance.GetMinsV2(id, from, to, job_status);
+
+
+            return logs;
+        }
+
+        [HttpPost]
         public string GetMins(string id, string from, string to, string am_in, string am_out, string pm_in, string pm_out)
         {
-            return DTRDatabase.Instance.GetMins(id, from, to, am_in, am_out, pm_in, pm_out);
+            var output = DTRDatabase.Instance.GetMins(id, from, to, am_in, am_out, pm_in, pm_out);
+            return output;
         }
         [HttpPost]
         public int GetWorkingDays(string from, string to)
