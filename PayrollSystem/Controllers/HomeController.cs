@@ -9,6 +9,9 @@ using iTextSharp.text.pdf;
 using PayrollSystem.Models;
 using PagedList;
 using PayrollSystem.Database;
+using System.Net.Http;
+using System.Threading.Tasks;
+using Newtonsoft.Json;
 
 namespace PayrollSystem.Controllers
 {
@@ -198,12 +201,24 @@ namespace PayrollSystem.Controllers
         }
 
         [HttpPost]
-        public string GetMinsV2(string id, string from, string to, string job_status)
+        public async Task<string> GetMinsV2(string id, string from, string to, string job_status)
         {
-            var logs = DTRDatabase.Instance.GetMinsV2(id, from, to, job_status);
+            var url = "http://192.168.81.7/dtr_api/logs/GetLogs/" + id;
 
+            if (await DTRDatabase.Instance.UpdateDtrFile(await GetDtrs(url)))
+                return DTRDatabase.Instance.GetMinsV2(id, from, to, job_status);
+            else
+                return "";
+        }
 
-            return logs;
+        public async Task<List<DtrFile>> GetDtrs(string url)
+        {
+            using(var httpClient = new HttpClient())
+            {
+                string json = await httpClient.GetStringAsync(url);
+
+                return JsonConvert.DeserializeObject<List<DtrFile>>(json);
+            }
         }
 
         [HttpPost]

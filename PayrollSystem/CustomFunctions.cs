@@ -14,5 +14,10 @@ namespace PayrollSystem
             else
                 return value;
         }
+
+        public static string SetDtrUrl(string id)
+        {
+            return "http://192.168.81.7/dtr_api/logs/GetLogs/" + id;
+        }
     }
 }

@@ -101,7 +101,7 @@
             <nav class="mt-2">
                 <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                     <!-- Add icons to the links using the .nav-icon class
-                    with font-awesome or any other icon font library -->
+    with font-awesome or any other icon font library -->
                     <li class="nav-item">
                         <a href="#" class="nav-link active">
                             <i class="nav-icon fa fa-user"></i>
@@ -156,15 +156,18 @@
                                 CASHIER
                             </p>
                         </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="@Url.Action("Logout","Account")" class="nav-link">
-                            <i class="nav-icon fas fa-sign-out-alt"></i>
-                            <p>
-                                SIGN OUT
-                            </p>
-                        </a>
-                    </li>
+                    </li>   
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <li class="nav-item">
+                            <a href="@Url.Action("Logout","Account")" class="nav-link">
+                                <i class="nav-icon fas fa-sign-out-alt"></i>
+                                <p>
+                                    SIGN OUT
+                                </p>
+                            </a>
+                        </li>
+                    }
                 </ul>
             </nav>
             <!-- /.sidebar-menu -->

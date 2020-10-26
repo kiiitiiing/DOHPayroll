@@ -5,7 +5,6 @@
     var phic_reg = Model.FirstOrDefault(x => x.Name == "phic_reg");
     var pagibig = Model.FirstOrDefault(x => x.Name == "pagibig_contribution");
     var gsis = Model.FirstOrDefault(x => x.Name == "gsis_life_ret");
-    var tax = Model.FirstOrDefault(x => x.Name == "withholding_tax");
 }
 
 <div class="modal-content" id="generate_payroll_content">
@@ -64,18 +63,6 @@
                     </div>
                     <div class="col-md-6">
                         <input class="form-control" name="gsis" id="gsis" value="@amt" />
-                    </div>
-                </div>
-            }
-            @if (tax != null)
-            {
-                var amt = tax.Amount != 0 ? tax.Amount : 0;
-                <div class="row">
-                    <div class="col-md-6">
-                        <label>Withholding Tax: </label>
-                    </div>
-                    <div class="col-md-6">
-                        <input class="form-control" name="tax" id="tax" value="@amt" />
                     </div>
                 </div>
             }

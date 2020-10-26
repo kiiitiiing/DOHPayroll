@@ -6,6 +6,9 @@ using MySql.Data.MySqlClient;
 using System.Data;
 using PayrollSystem.Models;
 using BCrypt.Net;
+using System.Threading.Tasks;
+using System.Net.Http;
+using Newtonsoft.Json;
 
 namespace PayrollSystem.Database
 {
@@ -133,6 +136,29 @@ namespace PayrollSystem.Database
                 SqlConnection.Close();
             }
             return found;
+        }
+
+        public async Task<bool> UpdateDtrFile(List<DtrFile> dtr)
+        {
+            string query = "INSERT IGNORE INTO dohdtr.dtr_file (userid,datein,time,event,remark,edited,holiday,created_at,updated_at,deleted_at,log_image,latitude,longitude) " +
+                "VALUES \n";
+            var datetimeNow = DateTime.Now.ToString("yyyy-MM-dd HH-mm-ss");
+            foreach(var file in dtr)
+            {
+                query = query + "('" + file.UserId + "',STR_TO_DATE('" + file.Date + "','%Y/%m/%d'),'" + file.Time + "', '" + file.Event_type + "', '#FP', '0', NULL, '" + datetimeNow + "', '" + datetimeNow + "', NULL, NULL, NULL, NULL)";
+            }
+
+            using (MySqlConnection SqlConnection = new MySqlConnection(connectionString))
+            {
+                await SqlConnection.OpenAsync();
+                using (MySqlCommand cmd = new MySqlCommand(query, SqlConnection))
+                {
+                    cmd.ExecuteNonQuery();
+                }
+                SqlConnection.Close();
+            }
+
+            return true;
         }
 
         public bool CheckLeave(string userid, string date, string time)

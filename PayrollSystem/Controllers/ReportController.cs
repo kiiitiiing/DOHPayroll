@@ -35,14 +35,14 @@ namespace PayrollSystem.Controllers
             return View(list.ToPagedList(pageNumber, pageSize));
         }
 
-        public async Task<ActionResult> GenerateRegularPayroll(string status, string type, double phic, double? pagibig, double? gsis, double? tax, string date)
+        public async Task<ActionResult> GenerateRegularPayroll(string status, string type, double phic, double? pagibig, double? gsis, string date)
         {
             bool success = false;
             if(status == "regular")
             {
                 int month = int.Parse(date.Split('-')[0]);
                 int year = int.Parse(date.Split('-')[1]);
-                success = await PayrollDatabase.Instance.InsertAllRegularPayroll(phic, pagibig.Value, gsis.Value, tax.Value, month, year);
+                success = await PayrollDatabase.Instance.InsertAllRegularPayroll(phic, pagibig.Value, gsis.Value, month, year);
                 TempData["Message"] = success ? "Generated Successfully" : "Nothing to generate";
 
                 return RedirectToAction("Regular", "Home");

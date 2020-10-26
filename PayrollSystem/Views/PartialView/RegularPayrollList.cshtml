@@ -130,16 +130,7 @@
         $('.edit-regular-payroll-list').click(function (e) {
             e.preventDefault();
             e.stopImmediatePropagation();
-            console.log($(this).val());
-            /*var emID = $(this).closest('tr').find('td:eq(0)').text().trim();
-            var month = $(this).closest('tr').find('td:eq(4)').text().trim();
-            var year = $(this).closest('tr').find('td:eq(5)').text().trim();
-            var id = $(this).closest('tr').find('td:eq(6)').text().trim();*/
             UpdatePayrollById($(this).val());
-
-            @*var empID = $(this).closest('tr').find('td:eq(0)').text().trim();
-            var firstname = $(this).closest('tr').find('td:eq(1)').text().trim();
-            var lastname = $(this).closest('tr').find('td:eq(3)').text().trim();*@
         })
 
         $(".remove-regular-payroll-list").click(function () {
@@ -177,8 +168,61 @@
                 'id' : id
             },
             success: function (output) {
-                console.log(output);
+                console.log(output.DaysAbsent);
+
+                $('#regular_month').val(output.Month);
+                $("#regular_month").prop('disabled', true);
+                $('#regular_year').val(output.Year);
+                $("#regular_year").prop('disabled', true);
+                var absent_days = output.DaysAbsent;
+
                 $('#regular_pera').val(output.Pera);
+                $('#regular_working_days').val(output.WorkDays);
+                $('#regular_minutes_late').val(output.MinutesLate);
+                $('#regular_tax').val(output.Tax);
+                $('#regular_cfi').val(output.CFI);
+                $('#regular_gsis_premium').val(output.GSIS_Premium);
+                $('#regular_gsis_consoloan').val(output.GSIS_Consoloan);
+                $('#regular_gsis_policyloan').val(output.GSIS_PolicyLoan);
+                $('#regular_gsis_eml').val(output.GSIS_EML);
+                $('#regular_gsis_uoli').val(output.GSIS_UOLI);
+                $('#regular_gsis_edu').val(output.GSIS_EDU);
+                $('#regular_gsis_help').val(output.GSIS_Help);
+                $('#regular_gsis_rel').val(output.GSIS_REL);
+                $('#regular_pagibig_premium').val(output.Pagibig_Premium);
+                $('#regular_pagibig_loan').val(output.Pagibig_Loan);
+                $('#regular_pagibig_mp2').val(output.MP2);
+                $('#regular_pagibig_calamity').val(output.Calamity);
+                $('#regular_philhealth').val(output.PhilHealth);
+                $('#regular_simc').val(output.SIMC);
+                $('#regular_coop').val(output.HWMPC);
+                $('#regular_dbp').val(output.DBP);
+                $('#regular_disallowance').val(output.Disallowances);
+
+                var array_date = [];
+
+                $("#regular_date_list").empty();
+                $("#regular_absent_date_list").val("");
+
+                for (var i = 0; i < absent_days.split(",").length; i++) {
+                    var item = absent_days.split(",")[i];
+                    if (item !== "") {
+                        var date_item = "<tr><td>";
+                        date_item += item;
+                        date_item += "</td><td><span class = 'fas fa-times' style = 'color:red;cursor:pointer;' id='" + i + "' onclick='removeDateItem( " + i + " )'></span></td>";
+
+                        array_date.push(item);
+
+                        $("#regular_date_list").append(date_item);
+                        $("#regular_absent_date_list").val(array_date);
+                        $('#regular_absent_date').val("");
+                    }
+                }
+
+                ComputeDeductions("Permanent");
+                ComputeTotalNetPay("Permanent");
+
+                $('#regular_save').text('Update');
             }
         })
     }
